@@ -20,47 +20,29 @@ export default function BottomTabNavigator() {
   return (
     <BottomTab.Navigator
       initialRouteName="Login"
-      screenOptions={{ tabBarActiveTintColor: Colors[colorScheme].tint }}
+      screenOptions={{
+        tabBarActiveTintColor: Colors[colorScheme].tint,
+        headerShown: false,
+        tabBarIcon: ({ color }) => (
+          <TabBarIcon name="ios-code" color={color} />
+        )
+      }}
     >
       <BottomTab.Screen
         name="Filters"
         component={FiltersNavigator}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="ios-code" color={color} />
-          ),
-        }}
       />
       <BottomTab.Screen
         name="Home"
         component={HomeNavigator}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="ios-code" color={color} />
-          ),
-        }}
       />
       <BottomTab.Screen
       name="Location"
       component={LocationNavigator}
-      options={{
-        headerShown: false,
-        tabBarIcon: ({ color }) => (
-          <TabBarIcon name="ios-code" color={color} />
-        ),
-      }}
     />
     <BottomTab.Screen
         name="Settings"
         component={SettingNavigator}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="ios-code" color={color} />
-          ),
-        }}
       />
       <BottomTab.Screen
           name="Login"
@@ -93,7 +75,7 @@ function HomeNavigator() {
       <HomeStack.Screen
         name="HomeNAV"
         component={Homes}
-        options={{ headerTitle: "Home" }}
+        options={{ headerShown: false }}
       />
     </HomeStack.Navigator>
   );
@@ -107,7 +89,7 @@ function SettingNavigator() {
       <SettingsStack.Screen
         name="SettingsNAV"
         component={Setting}
-        options={{ headerTitle: "Settings" }}
+        options={{ headerShown: false }}
       />
     </SettingsStack.Navigator>
   );
@@ -121,7 +103,7 @@ function FiltersNavigator() {
       <FiltersStack.Screen
         name="FiltersNAV"
         component={Filter}
-        options={{ headerTitle: "Filters" }}
+        options={{ headerShown: false }}
       />
     </FiltersStack.Navigator>
   );
@@ -135,7 +117,7 @@ function LocationNavigator() {
       <LocationStack.Screen
         name="LocationNAV"
         component={Location}
-        options={{ headerTitle: "Location" }}
+        options={{ headerShown: false }}
       />
     </LocationStack.Navigator>
   );
@@ -150,7 +132,7 @@ function LoginNavigator() {
       <LoginStack.Screen
         name="LoginNAV"
         component={Login}
-        options={{ headerTitle: "Login" }}
+        options={{ headerShown: false }}
       />
     </LoginStack.Navigator>
   );
