@@ -44,6 +44,16 @@ export default function BottomTabNavigator() {
         name="Settings"
         component={SettingNavigator}
       />
+      <BottomTab.Screen
+          name="Login"
+          component={LoginNavigator}
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ color }) => (
+              <TabBarIcon name="ios-code" color={color} />
+            ),
+          }}
+        />
     </BottomTab.Navigator>
     
   );
@@ -112,6 +122,9 @@ function LocationNavigator() {
     </LocationStack.Navigator>
   );
 }
+
+
+const LoginStack = createStackNavigator();
 
 function LoginNavigator() {
   return (
