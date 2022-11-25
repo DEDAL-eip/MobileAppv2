@@ -1,9 +1,21 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Button } from "react-native";
 
-import EditScreenInfo from "../components/EditScreenInfo";
 import { Text, View } from "../components/Themed";
+import easyLog from "../API/Login";
+import { useState } from "react";
 
 export default function Login() {
+  const [Connect, setConnect] = useState(false)
+
+  async function CallAPI() {
+    const res = await easyLog()
+    console.log(res)
+    if (res == 200)
+      setConnect(true)
+    else 
+      setConnect(false)
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Login</Text>
@@ -12,7 +24,8 @@ export default function Login() {
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
       />
-      <EditScreenInfo path="/screens/Home.tsx" />
+      <Button title="Ping API" onPress={() => CallAPI()}></Button>
+      <Text>{Connect ? 'Connected' : 'Not Connected'}</Text>
     </View>
   );
 }
