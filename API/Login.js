@@ -1,13 +1,54 @@
 export default async function easyLog() {
     let res
-    try {
-        res = await fetch("http://52.166.128.133/ping").then(res => res.status)
-    }
-    catch {
-        res = 404
-    }
+        res = await fetch("http://52.166.128.133/ping")
+        .then(res => res.status)
+        .catch(error => {
+            console.error(error)
+            return 400
+        })
+    return res
+    
+}
 
-    finally {
-        return res
-    }
+
+export async function signUp (email, password) {
+    console.log(email, password)
+    return await fetch(`http://52.166.128.133/signup`, {
+        method: 'POST',
+        body: JSON.stringify({'email': email, 'password': password}),
+        headers: { 'Content-type': 'application/json',
+        'Accept': '*/*' }    
+    })
+        .then((response) => {
+            console.log("res =>", response.status)
+            return response
+        })
+        .catch((error) => console.error(error))
+}
+
+export async function signUpCode (email, code) {
+    console.log(email, code)
+    return await fetch(`http://52.166.128.133/signup_code`, {
+        method: 'POST',
+        body: JSON.stringify({'email': email, 'code': code}),
+        headers: { 'Content-type': 'application/json',
+        'Accept': '*/*' }    
+    })
+        .then((response) => {
+            console.log("res =>", response.status)
+            return response
+        })
+        .catch((error) => console.error(error))
+}
+
+export async function signIn (email, password) {
+    console.log(email, password)
+    return await fetch(`http://52.166.128.133/signin`, {
+        method: 'POST',
+        body: JSON.stringify({'email': email, 'password': password}),
+        headers: { 'Content-type': 'application/json',
+        'Accept': '*/*' }
+    })
+    .then(response => response.json())
+    .then(response => response)
 }
