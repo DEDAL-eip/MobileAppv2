@@ -10,19 +10,20 @@ import Colors from "../constants/Colors";
 
 export function useThemeColor(colorName) {
   const theme = useColorScheme();
-  return(Colors[theme][colorName])
+  return(Colors.light[colorName])
 }
 
 export function Text(props) {
   const { style, ...otherProps } = props;
-  const color = useThemeColor("text");
+  const color = useThemeColor(otherProps.Type ? otherProps.Type : "Black");
 
   return <DefaultText style={[{ color }, style]} {...otherProps} />;
 }
 
 export function View(props) {
   const { style, ...otherProps } = props;
-  const backgroundColor = useThemeColor("background");
+  const backgroundColor = useThemeColor(otherProps.Type ? otherProps.Type : "White")
+  console.log([{ backgroundColor}, style])
 
   return <DefaultView style={[{ backgroundColor }, style]} {...otherProps} />;
 }

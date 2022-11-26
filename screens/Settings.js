@@ -25,12 +25,14 @@ export default function Setting() {
 
   return (
     <View style={styles.container}>
+      <View style={styles.title}>
       <Text style={styles.title}> Settings</Text>
       <View
         style={styles.separator}
         lightColor={Colors.light.text}
         darkColor={Colors.dark.text}
       />
+      </View>
       <Text>Username : {SafeAreaProvider.Log ? SafeAreaProvider.Log.Username : ""}</Text>
       <Text>Email : {SafeAreaProvider.Log ? SafeAreaProvider.Log.Email : ""}</Text>
       <Text visible={Error}>Bonjour : {Open ? 'oui' : "non"}</Text>
@@ -58,4 +60,7 @@ const styles = StyleSheet.create({
     height: 1,
     width: "80%",
   },
+  Title : {
+    Flex : 1
+  }
 });
