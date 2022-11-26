@@ -11,9 +11,9 @@ export default {
     screens: {
       Root: {
         screens: {
-          Login: {
+          Home: {
             screens: {
-              Login: "Login",
+              Home: "Home",
             },
           },
           Settings: {
@@ -29,11 +29,6 @@ export default {
           Locations: {
             screens: {
               SettingsScreen: "Locations",
-            },
-          },
-          Locations: {
-            screens: {
-              SettingsScreen: "Login",
             },
           },
         },

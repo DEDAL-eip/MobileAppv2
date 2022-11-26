@@ -6,11 +6,10 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { useColorScheme } from "react-native";
 
 import Colors from "../constants/Colors";
-import Homes from "../screens/Home";
+import Home from "../screens/Home";
 import Setting from "../screens/Settings";
 import Filter from "../screens/Filters";
 import Location from "../screens/Locations";
-import Login from "../screens/Login";
 
 const BottomTab = createBottomTabNavigator();
 
@@ -19,7 +18,7 @@ export default function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="Login"
+      initialRouteName="Home"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
         headerShown: false,
@@ -44,16 +43,6 @@ export default function BottomTabNavigator() {
         name="Settings"
         component={SettingNavigator}
       />
-      <BottomTab.Screen
-          name="Login"
-          component={LoginNavigator}
-          options={{
-            headerShown: false,
-            tabBarIcon: ({ color }) => (
-              <TabBarIcon name="ios-code" color={color} />
-            ),
-          }}
-        />
     </BottomTab.Navigator>
     
   );
@@ -74,7 +63,7 @@ function HomeNavigator() {
     <HomeStack.Navigator>
       <HomeStack.Screen
         name="HomeNAV"
-        component={Homes}
+        component={Home}
         options={{ headerShown: false }}
       />
     </HomeStack.Navigator>
@@ -120,20 +109,5 @@ function LocationNavigator() {
         options={{ headerShown: false }}
       />
     </LocationStack.Navigator>
-  );
-}
-
-
-const LoginStack = createStackNavigator();
-
-function LoginNavigator() {
-  return (
-    <LoginStack.Navigator>
-      <LoginStack.Screen
-        name="LoginNAV"
-        component={Login}
-        options={{ headerShown: false }}
-      />
-    </LoginStack.Navigator>
   );
 }

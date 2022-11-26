@@ -19,7 +19,7 @@ export default function Location() {
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
       />
-      <Text>bonjour : {SafeAreaProvider.Log.Email}</Text>
+      <Text>bonjour : {SafeAreaProvider.Log ? SafeAreaProvider.Log.Email : ""}</Text>
       <EditScreenInfo path="/screens/Home.tsx" />
     </View>
   );

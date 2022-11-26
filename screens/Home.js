@@ -1,9 +1,9 @@
-import { StyleSheet } from "react-native";
-
+import { Button, StyleSheet } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import EditScreenInfo from "../components/EditScreenInfo";
 import { Text, View } from "../components/Themed";
 
-export default function Homes() {
+export default function Home() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Home</Text>
@@ -12,7 +12,8 @@ export default function Homes() {
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
       />
-      <EditScreenInfo path="/screens/Home.tsx" />
+      <Text>Welcome To DEDAL</Text>
+      <Button title='Deconnection' onPress={() => SafeAreaProvider.Loged(false)}></Button>
     </View>
   );
 }
