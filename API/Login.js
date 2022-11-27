@@ -12,7 +12,6 @@ export default async function easyLog() {
 
 
 export async function signUp (email, password) {
-    console.log(email, password)
     return await fetch(`http://52.166.128.133/signup`, {
         method: 'POST',
         body: JSON.stringify({'email': email, 'password': password}),
@@ -42,13 +41,16 @@ export async function signUpCode (email, code) {
 }
 
 export async function signIn (email, password) {
-    console.log(email, password)
     return await fetch(`http://52.166.128.133/signin`, {
         method: 'POST',
         body: JSON.stringify({'email': email, 'password': password}),
         headers: { 'Content-type': 'application/json',
         'Accept': '*/*' }
     })
-    .then(response => response.json())
-    .then(response => response)
+    .then(res => {
+        if (res.status == 202)
+            return res.json()
+        else 
+            return {hasError : true, status : res.status}
+    }).then(res => res)
 }

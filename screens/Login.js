@@ -1,59 +1,50 @@
-import { StyleSheet, Button } from "react-native";
-
-import { Text, View } from "../components/Themed";
-import easyLog, { signIn, signUp } from "../API/Login";
+import { TextInput } from "react-native";
+import { GlobalButton } from "../components/Button";
 import { useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-
+import { Text, View } from "../components/Themed";
+import easyLog, { signIn, signUp } from "../API/Login";
+import { hidden } from "../style/Hidden";
+import { global } from "../style/styles";
+import { Title } from "../components/Title";
 export default function Login() {
   const [Connect, setConnect] = useState(false)
-  const [UserInfo, setInfo] = useState({})
+  const [Error, setError] = useState(false)
   async function CallAPI() {
     const res = await easyLog()
     console.log(res)
-    if (res == 200)
+    if (res == 200) {
       setConnect(true)
+    }
     else 
       setConnect(false)
   }
 
-  async function EasySignIn() {
-    const res = await signIn('eliot.martin@hotmail.fr', 'eliot123A&98')
-    setInfo(res)
-    SafeAreaProvider.Log = res
+  async function EasySignIn(email, password) {
+    const res = await signIn(email, password)
+    console.log(res)
+    if (res.hasError == true)
+      setError(true)
+    else {
+      SafeAreaProvider.Loged(true)
+      SafeAreaProvider.Log = res
+    }
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
-      <Button title="Ping API" onPress={() => CallAPI()}></Button>
-      <Button title="SignUp" onPress={() => EasySignIn('eliot.martin@hotmail.fr', 'eliot123A&98')}></Button>
-      <Text>{Connect ? 'Connected' : 'Not Connected'}</Text>
-      <Text>{UserInfo.Email}</Text>
-      <Text>{UserInfo.id}</Text>
-      <Text>{UserInfo.token}</Text>
+    <View style={global.container}>
+      <Title title='DEDAL' pict={require('../assets/logo.png')} subtitle='Le chemin de votre culture'></Title>
+      <View style={global.middleContainer}>
+        <Text style={Error ? "" : hidden.Hidden}>{"Error Login"}</Text>
+        <TextInput placeholder="Email"></TextInput>
+        <TextInput placeholder="Passord"></TextInput>
+        
+        <GlobalButton title=" |TMP| Ping API |TMP|" onPress={() => CallAPI()}></GlobalButton>
+        <GlobalButton title="Sign In" onPress={() => EasySignIn('eliot.martin@hotmail.fr', 'tmpTEST123@')}></GlobalButton>
+        <GlobalButton title="Google" onPress={() => EasySignIn('eliot.martin@hotmail.fr', 'eliot123A&98')}></GlobalButton>
+        <GlobalButton title="Sign Up" onPress={() => EasySignIn('eliot.martin@hotmail.fr', 'eliot123A&98')}></GlobalButton>
+        <Text>{Connect ? 'Connected' : 'Not Connected'}</Text>
+      </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
-  },
-});

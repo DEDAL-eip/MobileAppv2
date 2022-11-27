@@ -1,35 +1,19 @@
-import { StyleSheet } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { GlobalButton } from "../components/Button";
+import { View } from "../components/Themed";
+import { Title } from "../components/Title";
+import { global } from "../style/styles";
 
-import EditScreenInfo from "../components/EditScreenInfo";
-import { Text, View } from "../components/Themed";
-
-export default function Homes() {
+export default function Home() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Home</Text>
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
-      <EditScreenInfo path="/screens/Home.tsx" />
+    <View style={global.container}>
+      <Title title='HOME'></Title>
+      <View style={global.middleContainer}>
+      
+      </View>
+      <View style={global.bottomContainer}>
+        <GlobalButton title='Deconnection' onPress={() => SafeAreaProvider.Loged(false)}></GlobalButton>
+      </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
-  },
-});
