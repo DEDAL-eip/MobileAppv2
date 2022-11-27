@@ -12,7 +12,6 @@ export default async function easyLog() {
 
 
 export async function signUp (email, password) {
-    console.log(email, password)
     return await fetch(`http://52.166.128.133/signup`, {
         method: 'POST',
         body: JSON.stringify({'email': email, 'password': password}),

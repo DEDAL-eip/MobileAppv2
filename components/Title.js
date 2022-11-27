@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
     },
     title: {
       fontSize: 40,
+      textAlign: 'center',
       fontWeight: "bold",
     },
     separator: {

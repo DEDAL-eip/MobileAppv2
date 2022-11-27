@@ -23,7 +23,6 @@ export function Text(props) {
 export function View(props) {
   const { style, ...otherProps } = props;
   const backgroundColor = useThemeColor(otherProps.Type ? otherProps.Type : "White")
-  console.log([{ backgroundColor}, style])
 
   return <DefaultView style={[{ backgroundColor }, style]} {...otherProps} />;
 }

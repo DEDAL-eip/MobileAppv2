@@ -3,64 +3,43 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Text, View } from "../components/Themed";
 import { useState } from "react";
 
-import { changePassword } from "../API/Settings";
-import Colors from "../constants/Colors";
+import { global } from "../style/styles";
+import { SendCode } from "../API/Settings";
 import BasicModal from "../components/modal";
-import { hidden } from "../style/Hidden";
+import { Title } from "../components/Title";
+import { GlobalButton } from "../components/Button";
+import { ModalLoginCode } from "../components/Modal/Login-Code";
 export default function Setting() {
 
-  const [Open, setOpen] = useState(true)
+  const [Open, setOpen] = useState(false)
   const [Error, setError] = useState(false)
-  
+
   const log = ( async () => {
-  const res = await changePassword(SafeAreaProvider.Log.Email)
-  console.log(res.status)
-  if (res.status == 204) {
-      setOpen(true)
-    }
-    else 
-      setError(true)
+    const res = await SendCode(SafeAreaProvider.Log.Email)
+    console.log(res.status)
+    if (res.status == 204) {
+        setOpen(true)
+      }
+      else 
+        setError(true)
   })
 
 
   return (
-    <View style={styles.container}>
-      <View style={styles.title}>
-      <Text style={styles.title}> Settings</Text>
-      <View
-        style={styles.separator}
-        lightColor={Colors.light.text}
-        darkColor={Colors.dark.text}
-      />
+    <View style={global.container}>
+      <Title title='Settings' subtitle={SafeAreaProvider.Log.Username}></Title>
+      <View style={global.middleContainer}>
+        <Text style={global.textCenter}>Email : {SafeAreaProvider.Log.Email}</Text>
+        <Text style={global.textCenter}>Last Connection : {SafeAreaProvider.Log["Last connection"]}</Text>
+        <Text style={global.textCenter}>Acount creation : {SafeAreaProvider.Log["createdAt"]}</Text>
       </View>
-      <Text>Username : {SafeAreaProvider.Log ? SafeAreaProvider.Log.Username : ""}</Text>
-      <Text>Email : {SafeAreaProvider.Log ? SafeAreaProvider.Log.Email : ""}</Text>
-      <Text visible={Error}>Bonjour : {Open ? 'oui' : "non"}</Text>
+      <View style={global.bottomContainer}>
+        <GlobalButton title="Modifier le mot de passe" onPress={() => log()}></GlobalButton>
+        {Error == true ? <Text style={global.textCenter} Type={'ErrorRed'}>Une erreur est subvenue</Text> : null}
 
-      <Button title="Modifier le mot de passe" onPress={() => log()}></Button>
-      <Button title="Open Modal" onPress={() => setOpen(true)}></Button>
-      <Text style={!Error ? "" : hidden.Hidden}>Error on fucntion</Text>
-      <BasicModal Open={Open} setOpen={setOpen}></BasicModal>
+      </View>
+      <BasicModal Open={Open} setOpen={setOpen} Content={ModalLoginCode}>
+      </BasicModal>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
-  },
-  Title : {
-    Flex : 1
-  }
-});

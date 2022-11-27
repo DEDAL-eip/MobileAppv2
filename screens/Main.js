@@ -10,7 +10,6 @@ import { useState } from "react";
 export default function Main() {
     const colorScheme = useColorScheme();
     const [IsLoged, setLoged] = useState(false)
-    const [theme, setTheme] = useState(Appearance.getColorScheme())
     SafeAreaProvider.Loged = setLoged
     if (!IsLoged)
         return (

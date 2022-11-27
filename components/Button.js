@@ -1,31 +1,21 @@
-import { TouchableOpacity, StyleSheet } from "react-native";
+import { Button, StyleSheet } from "react-native";
 import Colors from "../constants/Colors";
-import { Text } from "./Themed";
-import { ButtonS } from "../style/Button";
-export const GlobalButton = (({title, onPress}) => {
+export const GlobalButton = (({title, onPress, disable}) => {
     return(
-        <TouchableOpacity style={ButtonS.Basic} onPress={onPress}>
-            <Text style={styles.text} adjustsFontSizeToFit={true} numberOfLines={1}>{title}</Text>
-        </TouchableOpacity>
+      <Button color={Colors.light.dedalBlue} disabled={disable} title={title} onPress={onPress}></Button>
     )
 })
 
+export const CloseButton = ({Close}) => {
+  return (
+    <Button color={Colors.light.White} title='X' onPress={Close} style={styles.Close}></Button>
+  )
+}
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 24,
-    backgroundColor: "#eaeaea"
-  },
-  title: {
-    marginTop: 16,
-    paddingVertical: 8,
-    borderWidth: 4,
-    borderColor: "#20232a",
-    borderRadius: 6,
-    backgroundColor: "#61dafb",
-    color: "#20232a",
+  close: {
     textAlign: "center",
-    fontSize: 30,
-    fontWeight: "bold"
+    marginLeft: 5,
+    marginRight: 5,
   }
-});
+})
