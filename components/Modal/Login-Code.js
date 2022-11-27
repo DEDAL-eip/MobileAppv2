@@ -24,7 +24,6 @@ export const ModalLoginCode = () => {
     }
 
     useEffect(() => {
-        console.log('here =>', Password )
     }, [Password])
 
     return (

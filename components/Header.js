@@ -1,8 +1,9 @@
 import { View, Text} from "./Themed"
-import { styles } from "../style/Header"
+import { header } from "../style/styles"
+import Colors from "../constants/Colors"
 export const Header = (() => {
     return(
-        <View style={styles.Container}>
+        <View style={header}>
         </View>
     )
 })
