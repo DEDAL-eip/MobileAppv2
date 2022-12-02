@@ -1,4 +1,3 @@
-import { Button, StyleSheet } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Text, View } from "../components/Themed";
 import { useState } from "react";
@@ -9,11 +8,14 @@ import BasicModal from "../components/modal";
 import { Title } from "../components/Title";
 import { GlobalButton } from "../components/Button";
 import { ModalLoginCode } from "../components/Modal/Login-Code";
+import BasicTable from "../components/table";
+
 export default function Setting() {
 
   const [Open, setOpen] = useState(false)
   const [Error, setError] = useState(false)
-
+  const head = ["1", "2"]
+  const value= [[1,2],[2,3]]
   const log = ( async () => {
     const res = await SendCode(SafeAreaProvider.Log.Email)
     console.log(res.status)
@@ -24,11 +26,11 @@ export default function Setting() {
         setError(true)
   })
 
-
   return (
     <View style={global.container}>
       <Title title='Settings' subtitle={SafeAreaProvider.Log.Username}></Title>
       <View style={global.middleContainer}>
+        <BasicTable></BasicTable>
         <Text style={global.textCenter}>Email : {SafeAreaProvider.Log.Email}</Text>
         <Text style={global.textCenter}>Last Connection : {SafeAreaProvider.Log["Last connection"]}</Text>
         <Text style={global.textCenter}>Acount creation : {SafeAreaProvider.Log["createdAt"]}</Text>

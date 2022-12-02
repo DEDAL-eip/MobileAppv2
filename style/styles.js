@@ -12,48 +12,25 @@ export const global = StyleSheet.create({
       flex : 2,
       alignItems: "center",
       marginBottom : '30%',
-    },
-    middleContainer : {
-        flex : 3,
-        alignItems: "center",
-        width : '100%',
-        marginTop : '10%'
-
-    },
-    bottomContainer : {
-        flex : 1,
-        width : '100%',
-
-    },
-    textCenter : {
-      textAlign: 'center',
-    },
-    hidden: {
-      display : 'none',
   },
-})
-
-export const modal = StyleSheet.create({
-  container: {
-    flex: 1,
-    margin : 10,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  titleContainer : {
-      flex : 2,
+  middleContainer : {
+      flex : 3,
       alignItems: "center",
-    },
-    middleContainer : {
-        flex : 4,
-        width : '100%',
-        alignItems: "center",
-    },
-    bottomContainer : {
-        flex : 1,
-        alignItems : 'center',
-        width : '75%',
-    }
+      width : '100%',
+      marginTop : '10%',
+
+  },
+  bottomContainer : {
+      flex : 1,
+      width : '100%',
+      alignItems : "center",
+  },
+  textCenter : {
+    textAlign: 'center',
+  },
+  hidden: {
+    display : 'none',
+  },
 })
 
 export const button = StyleSheet.create({
@@ -83,7 +60,7 @@ export const button = StyleSheet.create({
 
 export const textInput = StyleSheet.create({
   global : {
-    width : '75%',
+    width : '50%',
     height : 30,
     marginTop : 5,
     borderRadius : 5,

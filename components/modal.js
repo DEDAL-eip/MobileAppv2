@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Alert, Modal, StyleSheet, Text, Pressable, View, TextInput } from "react-native";
+import React from "react";
+import { Modal, StyleSheet, View } from "react-native";
 import { CloseButton } from "./Button";
 
 const BasicModal = ({Open, setOpen, Content}) => {
@@ -11,29 +11,27 @@ const BasicModal = ({Open, setOpen, Content}) => {
         visible={Open}
         onRequestClose={() => setOpen(!Open)}
       >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
+          <View style={styles.modal}>
             <CloseButton Close={() => setOpen(false)}></CloseButton>
               <Content></Content>
           </View>
-        </View>
       </Modal>
   );
 };
 
 const styles = StyleSheet.create({
-  centeredView: {
+
+  modal: {
     flex: 1,
-    justifyContent: "center",
     alignItems: "center",
-  },
-  modalView: {
+    justifyContent : "center",
+    backgroundColor: "white",
+    elevation: 5,
     margin: 20,
     marginBottom : 60,
-    backgroundColor: "white",
+    paddingBottom: 20,
     borderRadius: 20,
     paddingTop: 40,
-    alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -41,7 +39,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5
   },
 });
 

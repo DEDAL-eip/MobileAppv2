@@ -1,9 +1,9 @@
-import { TouchableOpacity, StyleSheet } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { Text } from "./Themed";
 import { button } from "../style/styles";
 export const GlobalButton = (({title, onPress, disable}) => {
     return(
-      <TouchableOpacity style={button.container} onPress={() => onPress()}>
+      <TouchableOpacity style={button.container} onPress={() => onPress()} disabled={disable}>
         <Text Type={"White"}>{title}</Text>
       </TouchableOpacity>
       )

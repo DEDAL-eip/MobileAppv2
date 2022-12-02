@@ -6,36 +6,26 @@ export const Title = ({title, pict, subtitle}) => {
     <View style={styles.titleContainer}>
         <Text style={styles.title}>{title}</Text>
         <Separator />
-        <Text >{subtitle}</Text>
+        <Text style={styles.subtitle}>{subtitle}</Text>
         <Image style={styles.image} source={pict} />
     </View>
 )}
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      alignItems: "center",
-      justifyContent: "center",
-    },
     title: {
       fontSize: 40,
       textAlign: 'center',
       fontWeight: "bold",
-    },
-    separator: {
-      marginVertical: 8,
-      borderBottomColor: '#737373',
-      borderBottomWidth: StyleSheet.hairlineWidth,
+      lineBreak: 'normal'
     },
     titleContainer : {
-      flex : 1,
       alignItems: "center",
-      padding : '20%',
+      paddingHorizontal : '15%',
+      paddingBottom : "10%",
+      marginTop : 20
     },
-    middleContainer : {
-      flex : 2,
-      width : '75%',
-  
+    subtitle : {
+      textAlign: 'center',
     },
     image:
     {

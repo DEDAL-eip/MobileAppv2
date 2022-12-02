@@ -18,9 +18,7 @@ export default function App() {
   } else {
     return (
       <SafeAreaProvider>
-        <Header />
         <Main />
-        <StatusBar />
       </SafeAreaProvider>
     );
   }

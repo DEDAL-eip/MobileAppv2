@@ -7,6 +7,7 @@ import easyLog, { signIn, signUp } from "../API/Login";
 import { global, textInput } from "../style/styles";
 import { Title } from "../components/Title";
 import Colors from "../constants/Colors"
+import { Separator } from "../components/Separator";
 
 export default function Login() {
   const [Error, setError] = useState(false)
@@ -41,20 +42,15 @@ export default function Login() {
         <Title title='DEDAL' pict={require('../assets/logo.png')} subtitle='Le chemin de votre culture'></Title>
       </View>
       <View style={global.middleContainer}>
-        <View style={{width: '100%', alignItems: "center", paddingBottom: 40}}>
-          <TextInput autoCapitalize='none' autoComplete='email' style={textInput.global} placeholder="Email" onChangeText={setEmail} value={Email}></TextInput>
-          <TextInput autoCapitalize='none' autoComplete='password' style={textInput.global} placeholder="Passord" onChangeText={setPassword} value={Password}></TextInput>
-        </View>
         <Text Type='ErrorRed'>{Error ? "Error Login" : ""}</Text>
-        
-        <View style={{width: '100%', alignItems: "center",}}>
-          <GlobalButton title="Sign In" onPress={() => EasySignIn(Email, Password)}></GlobalButton>
-          <GlobalButton title="Google" onPress={() => EasySignIn('eliot.martin@hotmail.fr', 'tmpTEST123@')}></GlobalButton>
-          <GlobalButton title="Sign Up" onPress={() => EasySignIn('eliot.martin@hotmail.fr', 'eliot123A&98')}></GlobalButton>
+        <TextInput autoCapitalize='none' autoComplete='email' style={textInput.global} placeholder="Email" onChangeText={setEmail} value={Email}></TextInput>
+        <TextInput autoCapitalize='none' autoComplete='password' style={textInput.global} placeholder="Passord" onChangeText={setPassword} value={Password}></TextInput>
+        <GlobalButton title="Sign In" onPress={() => EasySignIn(Email, Password)}></GlobalButton>
+        <View style={{width: '25%',}}>
+          <Separator />
         </View>
-      </View>
-      <View style={global.bottomContainer}>
-
+          <GlobalButton title="Sign Up" onPress={() => EasySignIn('eliot.martin@hotmail.fr', 'eliot123A&98')}></GlobalButton>
+          <GlobalButton title="Google" onPress={() => EasySignIn('eliot.martin@hotmail.fr', 'tmpTEST123@')}></GlobalButton>
       </View>
     </View>
   );
