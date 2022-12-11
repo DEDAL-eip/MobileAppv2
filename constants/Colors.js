@@ -4,7 +4,7 @@ const tintColorDark = "#fff";
 export default {
   light: {
     dedalBlue : '#294F87',
-    dedalBlue : '#2F5B9E',
+    dedalBlueDisable : '#70819c',
     ValidateGreen : '#03C923',
     ErrorRed : '#FF0000',
     White : '#FFFFFF',

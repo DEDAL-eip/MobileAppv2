@@ -3,9 +3,10 @@ import { Text } from "./Themed";
 import { button } from "../style/styles";
 export const GlobalButton = (({title, onPress, disable}) => {
     return(
-      <TouchableOpacity style={button.container} onPress={() => onPress()} disabled={disable}>
+      <TouchableOpacity style={disable ? button.disable : button.container} onPress={() => onPress()} disabled={disable}>
         <Text Type={"White"}>{title}</Text>
       </TouchableOpacity>
+
       )
 })
 

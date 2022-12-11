@@ -13,6 +13,7 @@ export default function Setting() {
 
   const [Open, setOpen] = useState(false)
   const [Error, setError] = useState(false)
+  
   const log = ( async () => {
     const res = await SendCode(SafeAreaProvider.Log.Email)
     console.log(res.status)
@@ -32,7 +33,7 @@ export default function Setting() {
         <Text style={global.textCenter}>Acount creation : {SafeAreaProvider.Log["createdAt"]}</Text>
       </View>
       <View style={global.bottomContainer}>
-        <GlobalButton title="Modifier le mot de passe" onPress={() => log()}></GlobalButton>
+      <GlobalButton title="Modifier le mot de passe" onPress={() => log()}></GlobalButton>
         {Error == true ? <Text style={global.textCenter} Type={'ErrorRed'}>Une erreur est subvenue</Text> : null}
 
       </View>

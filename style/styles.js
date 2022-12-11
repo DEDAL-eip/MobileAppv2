@@ -55,6 +55,15 @@ export const button = StyleSheet.create({
     borderRadius : 100,
     borderWidth: 2,
     borderColor : Colors.light.black
+  },
+  disable : {
+    backgroundColor : Colors.light.dedalBlueDisable,
+    width : '75%',
+    height : 30,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop : 5,
+    borderRadius : 5
   }
 })
 
@@ -67,6 +76,15 @@ export const textInput = StyleSheet.create({
     borderWidth: 1,
     paddingLeft : 10,
     borderColor : Colors.light.dedalBlue,
+  },
+  Error : {
+    width : '50%',
+    height : 30,
+    marginTop : 5,
+    borderRadius : 5,
+    borderWidth: 1,
+    paddingLeft : 10,
+    borderColor : Colors.light.ErrorRed,
   }
 })
 

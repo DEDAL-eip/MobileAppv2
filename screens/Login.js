@@ -8,6 +8,7 @@ import { global, textInput } from "../style/styles";
 import { Title } from "../components/Title";
 import Colors from "../constants/Colors"
 import { Separator } from "../components/Separator";
+import { TextInputPassword, TextInputGlobal } from "../components/TextInput";
 
 export default function Login() {
   const [Error, setError] = useState(false)
@@ -43,8 +44,8 @@ export default function Login() {
       </View>
       <View style={global.middleContainer}>
         <Text Type='ErrorRed'>{Error ? "Error Login" : ""}</Text>
-        <TextInput autoCapitalize='none' autoComplete='email' style={textInput.global} placeholder="Email" onChangeText={setEmail} value={Email}></TextInput>
-        <TextInput autoCapitalize='none' autoComplete='password' style={textInput.global} placeholder="Passord" onChangeText={setPassword} value={Password}></TextInput>
+        <TextInputGlobal autoCapitalize='none' autoComplete='email' style={textInput.global} placeholder="Email" onChangeText={setEmail} value={Email}></TextInputGlobal>
+        <TextInputPassword autoCapitalize='none' autoComplete='password' style={textInput.global} placeholder="Passord" onChangeText={setPassword} value={Password}></TextInputPassword>
         <GlobalButton title="Sign In" onPress={() => EasySignIn(Email, Password)}></GlobalButton>
         <View style={{width: '25%',}}>
           <Separator />
