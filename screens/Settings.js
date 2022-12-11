@@ -1,4 +1,3 @@
-import { Button, StyleSheet } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Text, View } from "../components/Themed";
 import { useState } from "react";
@@ -9,11 +8,11 @@ import BasicModal from "../components/modal";
 import { Title } from "../components/Title";
 import { GlobalButton } from "../components/Button";
 import { ModalLoginCode } from "../components/Modal/Login-Code";
+
 export default function Setting() {
 
   const [Open, setOpen] = useState(false)
   const [Error, setError] = useState(false)
-
   const log = ( async () => {
     const res = await SendCode(SafeAreaProvider.Log.Email)
     console.log(res.status)
@@ -23,7 +22,6 @@ export default function Setting() {
       else 
         setError(true)
   })
-
 
   return (
     <View style={global.container}>
