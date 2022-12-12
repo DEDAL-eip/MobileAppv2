@@ -1,4 +1,3 @@
-import EditScreenInfo from "../components/EditScreenInfo";
 import { Text, View } from "../components/Themed";
 import { Separator } from "../components/Separator";
 import FilterButton from '../components/FilterButton'
