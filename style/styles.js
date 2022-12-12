@@ -7,23 +7,23 @@ export const global = StyleSheet.create({
     justifyContent: "center",
   },
   titleContainer : {
-      flex : 1,
-      alignItems: "center",
-      padding : '20%',
-    },
-    middleContainer : {
-        flex : 3,
-        width : '75%',
-    },
-    bottomContainer : {
-        flex : 1,
-        width : '75%',
-    },
-    textCenter : {
-      textAlign: 'center',
-    },
-    hidden: {
-      display : 'none',
+    flex : 1,
+    alignItems: "center",
+    padding : '20%',
+  },
+  middleContainer : {
+    flex : 3,
+    width : '75%',
+  },
+  bottomContainer : {
+    flex : 1,
+    width : '75%',
+  },
+  textCenter : {
+    textAlign: 'center',
+  },
+  hidden: {
+    display : 'none',
   },
 })
 
