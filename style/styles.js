@@ -31,6 +31,23 @@ export const global = StyleSheet.create({
   hidden: {
     display : 'none',
   },
+  row: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  title: {
+    fontSize: 40,
+    textAlign: 'center',
+    fontWeight: "bold",
+    lineBreak: 'normal'
+  },
+  titleContainer : {
+    alignItems: "center",
+    paddingHorizontal : '15%',
+    paddingBottom : "10%",
+    marginTop : 50
+  },
 })
 
 export const button = StyleSheet.create({

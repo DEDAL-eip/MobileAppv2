@@ -10,7 +10,6 @@ const styles = StyleSheet.create({
   container : {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingBottom : '10%',
     paddingTop : '10%'
   },
   bar : {
@@ -18,6 +17,5 @@ const styles = StyleSheet.create({
     height: 1,
     backgroundColor: 'black',
     marginTop : "5%",
-    marginBottom : "5%"
   }
 })
