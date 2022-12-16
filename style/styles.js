@@ -1,5 +1,4 @@
-import { borderRadius, borders, height } from "@mui/system"
-import { StyleSheet } from "react-native"
+import { StyleSheet, Dimensions } from "react-native"
 import Colors from "../constants/Colors"
 
 export const global = StyleSheet.create({
@@ -14,7 +13,7 @@ export const global = StyleSheet.create({
       marginBottom : '30%',
   },
   middleContainer : {
-      flex : 3,
+    flex : 3,
       alignItems: "center",
       width : '100%',
       marginTop : '10%',
@@ -47,7 +46,7 @@ export const global = StyleSheet.create({
     paddingHorizontal : '15%',
     paddingBottom : "10%",
     marginTop : 50
-  },
+  }
 })
 
 export const button = StyleSheet.create({
@@ -108,4 +107,9 @@ export const textInput = StyleSheet.create({
 export const header = StyleSheet.create({
   backgroundColor: Colors.light.dedalBlue,
   height: '5%'
+})
+
+export const map =  StyleSheet.create({
+  width: '90%',
+  height: '80%',
 })

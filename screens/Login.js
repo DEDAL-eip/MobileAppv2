@@ -50,8 +50,8 @@ export default function Login() {
         <View style={{width: '25%',}}>
           <Separator />
         </View>
-          <GlobalButton title="Sign Up" onPress={() => EasySignIn('eliot.martin@hotmail.fr', 'eliot123A&98')}></GlobalButton>
-          <GlobalButton title="Google" onPress={() => EasySignIn('eliot.martin@hotmail.fr', 'tmpTEST123@')}></GlobalButton>
+          <GlobalButton title="Sign Up" onPress={() => EasySignIn('eliot.martin@hotmail.fr', 'pasWORD1@')}></GlobalButton>
+          <GlobalButton title="Google" onPress={() => EasySignIn('eliot.martin@hotmail.fr', 'pasWORD1@')}></GlobalButton>
       </View>
     </View>
   );
