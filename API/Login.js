@@ -19,14 +19,12 @@ export async function signUp (email, password) {
         'Accept': '*/*' }    
     })
         .then((response) => {
-            console.log("res =>", response.status)
             return response
         })
         .catch((error) => console.error(error))
 }
 
 export async function signUpCode (email, code) {
-    console.log(email, code)
     return await fetch(`http://52.166.128.133/signup_code`, {
         method: 'POST',
         body: JSON.stringify({'email': email, 'code': code}),
@@ -34,7 +32,6 @@ export async function signUpCode (email, code) {
         'Accept': '*/*' }    
     })
         .then((response) => {
-            console.log("res =>", response.status)
             return response
         })
         .catch((error) => console.error(error))

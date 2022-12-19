@@ -16,7 +16,6 @@ export default function Setting() {
   
   const log = ( async () => {
     const res = await SendCode(SafeAreaProvider.Log.Email)
-    console.log(res.status)
     if (res.status == 204) {
         setOpen(true)
       }

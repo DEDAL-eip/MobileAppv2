@@ -17,7 +17,6 @@ export default function Login() {
 
   async function CallAPI() {
     const res = await easyLog()
-    console.log(res)
     if (res == 200) {
       return true
     }

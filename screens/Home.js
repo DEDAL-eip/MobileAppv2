@@ -19,7 +19,6 @@ export default function Home() {
 
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location)
-      console.log('location => ', location)
       SafeAreaProvider.location = location
     })();
   }, []);

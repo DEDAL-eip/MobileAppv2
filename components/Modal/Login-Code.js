@@ -20,12 +20,10 @@ export const ModalLoginCode = () => {
     const passwordReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/
     
     const Validate = async () => {
-        console.log(Code, Password)
         let res = await changePassword(SafeAreaProvider.Log.Email, Password, Code)
         if (res.status == 202)
             console.log('succes', Password)
         else {
-            console.log(res.status)
             setErrorMsg(true)
         }
     }
