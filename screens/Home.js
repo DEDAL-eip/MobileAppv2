@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { GlobalButton } from "../components/Button";
-import { View } from "../components/Themed";
+import { View } from "react-native";
 import { global, map } from "../style/styles";
 import * as Location from 'expo-location';
 import MapView, { Marker, Polyline } from 'react-native-maps'
 import { getPlace } from "../API/Home";
+
 export default function Home() {
   const [location, setLocation] = useState()
   const [point, setPoint] = useState([])
@@ -47,11 +48,12 @@ export default function Home() {
                 showsPointsOfInterest={false}
                 
             >
-              {point.map(elem => 
-                 elem.coordinates ? <Marker
+              {point.map((elem, index) =>
+                    elem.coordinates ? <Marker
+                    key={index}
                     coordinate={{
-                      latitude: 37.8025259,
-                      longitude: -122.4351431
+                      latitude: elem.coordinates.y,
+                      longitude: elem.coordinates.x
                     }}
                     title={elem.name}
                     description={elem.description}
@@ -70,25 +72,12 @@ export default function Home() {
                 lineDashPattern={[1]}
               /> : null
               }
-               <Polyline
-                coordinates={[
-                  { latitude: 37.8025259, longitude: -122.4351431 },
-                  { latitude: 37.7896386, longitude: -122.421646 },
-                  { latitude: 37.7665248, longitude: -122.4161628 },
-                  { latitude: 37.7734153, longitude: -122.4577787 },
-                  { latitude: 37.7948605, longitude: -122.4596065 },
-                  { latitude: 37.8025259, longitude: -122.4351431 }
-                ]}
-             //specify our coordinates
-                strokeColor={"#000"}
-                strokeWidth={3}
-                lineDashPattern={[1]}
-              />
           </MapView>
-        <GlobalButton title='Deconnection' onPress={() => SafeAreaProvider.Loged(false)}></GlobalButton>
-        <GlobalButton title='Filter1' onPress={() => filter("6838b6d7-e238-43a0-bfe7-8f09d2179454")}></GlobalButton>
-        <GlobalButton title='Filter2' onPress={() => filter("a32e2657-3776-45e8-8fe5-e6ead2aceb8a")}></GlobalButton>
-        <GlobalButton title='Reset' onPress={() => setPoint([])}></GlobalButton>
+        <View style={global.bottomContainer}>
+          <GlobalButton title='Deconnection' onPress={() => SafeAreaProvider.Loged(false)}></GlobalButton>
+          <GlobalButton title='Filter1' onPress={() => filter("6838b6d7-e238-43a0-bfe7-8f09d2179454")}></GlobalButton>
+          <GlobalButton title='Filter2' onPress={() => filter("a32e2657-3776-45e8-8fe5-e6ead2aceb8a")}></GlobalButton>
+        </View>
     </View>
   );
 }

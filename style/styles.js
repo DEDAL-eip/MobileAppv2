@@ -1,28 +1,30 @@
-import { StyleSheet, Dimensions } from "react-native"
+import { StyleSheet } from "react-native"
 import Colors from "../constants/Colors"
 
 export const global = StyleSheet.create({
   container: {
-    flex: 1,
+    backgroundColor : Colors('White'),
+    height : '100%',
+    flex : 1,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent : "center",
   },
   titleContainer : {
-      flex : 2,
-      alignItems: "center",
-      marginBottom : '30%',
+    alignItems: "center",
+    paddingHorizontal : '15%',
   },
   middleContainer : {
     flex : 3,
-      alignItems: "center",
-      width : '100%',
-      marginTop : '10%',
+    alignItems: "center",
+    justifyContent : "center",
+    width : '100%',
 
   },
   bottomContainer : {
-      flex : 1,
-      width : '100%',
-      alignItems : "center",
+    flex : 1,
+    height : "10%",
+    width : '100%',
+    alignItems : "center",
   },
   textCenter : {
     textAlign: 'center',
@@ -35,29 +37,22 @@ export const global = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
-  title: {
-    fontSize: 40,
-    textAlign: 'center',
-    fontWeight: "bold",
-    lineBreak: 'normal'
-  },
-  titleContainer : {
-    alignItems: "center",
-    paddingHorizontal : '15%',
-    paddingBottom : "10%",
-    marginTop : 50
+  basicContainer : {
+    width : '100%',
+    alignItems : "center",
+    justifyItems: "center"
   }
 })
 
 export const button = StyleSheet.create({
   container : {
-    backgroundColor : Colors.light.dedalBlue,
+    backgroundColor : Colors('dedalBlue'),
     width : '75%',
     height : 30,
     alignItems: "center",
     justifyContent: "center",
     marginTop : 5,
-    borderRadius : 5
+    borderRadius : 5,
   },
   close : {
     alignSelf: 'flex-end',
@@ -70,10 +65,10 @@ export const button = StyleSheet.create({
     height : 25,
     borderRadius : 100,
     borderWidth: 2,
-    borderColor : Colors.light.black
+    borderColor : Colors('black')
   },
   disable : {
-    backgroundColor : Colors.light.dedalBlueDisable,
+    backgroundColor : Colors('dedalBlueDisable'),
     width : '75%',
     height : 30,
     alignItems: "center",
@@ -91,7 +86,7 @@ export const textInput = StyleSheet.create({
     borderRadius : 5,
     borderWidth: 1,
     paddingLeft : 10,
-    borderColor : Colors.light.dedalBlue,
+    borderColor : Colors('dedalBlue'),
   },
   Error : {
     width : '50%',
@@ -100,16 +95,58 @@ export const textInput = StyleSheet.create({
     borderRadius : 5,
     borderWidth: 1,
     paddingLeft : 10,
-    borderColor : Colors.light.ErrorRed,
+    borderColor : Colors('ErrorRed'),
   }
 })
 
 export const header = StyleSheet.create({
-  backgroundColor: Colors.light.dedalBlue,
-  height: '5%'
+  backgroundColor: Colors('dedalBlue'),
+  height: 50
 })
 
 export const map =  StyleSheet.create({
   width: '90%',
   height: '80%',
+})
+
+export const titleS = StyleSheet.create({
+  main: {
+    fontSize: 40,
+    fontFamily : "Main",
+    textAlign: 'center',
+    lineBreak: 'normal'
+  },
+  subtitle : {
+    fontSize:30,
+    fontFamily : "Main",
+    textAlign: 'center',
+  },
+
+  image: {
+      alignSelf: 'center',
+      marginTop : '10%',
+      width: 158,
+      height: 158,
+  }
+})
+
+export const color = StyleSheet.create({
+  white : {
+    color : Colors('White')
+  },
+  black : {
+    color : Colors('Black')
+  },
+  dedalBlueDisable : {
+    color : Colors('dedalBlueDisable')
+  },
+  validateGreen : {
+    color : Colors('ValidateGreen')
+  },
+  errorRed : {
+    color : Colors('ErrorRed')
+  },
+  dedalBlueDisable : {
+    color : Colors('dedalBlueDisable')
+  }
 })

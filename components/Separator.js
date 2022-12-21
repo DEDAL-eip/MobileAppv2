@@ -1,4 +1,4 @@
-import { View } from "./Themed";
+import { View } from "react-native";
 import { StyleSheet} from "react-native";
 export const Separator = () => (
     <View style={styles.container}>

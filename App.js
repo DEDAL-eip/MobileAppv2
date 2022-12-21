@@ -1,23 +1,25 @@
 import "react-native-gesture-handler";
 
-import { StatusBar } from "expo-status-bar";
+//import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import { useLoadedAssets } from "./hooks/useLoadedAssets";
-import Navigation from "./navigation";
-import { useColorScheme } from "react-native";
 import Main from "./screens/Main";
-import { useState } from "react";
 import { Header } from "./components/Header";
+import { useFonts } from "expo-font";
 
 export default function App() {
   const isLoadingComplete = useLoadedAssets();
-  const colorScheme = useColorScheme();
+  const [fontsLoaded] = useFonts({
+    'Main': require('./assets/font/static/Raleway-Light.ttf'),
+    'Bold': require('./assets/font/static/Raleway-Black.ttf'),
+  });
   if (!isLoadingComplete) {
     return null;
   } else {
     return (
       <SafeAreaProvider>
+        <Header/>
         <Main />
       </SafeAreaProvider>
     );

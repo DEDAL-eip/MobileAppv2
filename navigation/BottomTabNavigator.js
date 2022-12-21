@@ -20,7 +20,7 @@ export default function BottomTabNavigator() {
     <BottomTab.Navigator
       initialRouteName="Home"
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
+        //tabBarActiveTintColor: Colors[colorScheme].tint,
         headerShown: false,
         tabBarIcon: ({ color }) => (
           <TabBarIcon name="ios-code" color={color} />

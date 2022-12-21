@@ -1,4 +1,4 @@
-import { Text, View } from "../components/Themed";
+import { Text, View } from "react-native";
 import { Separator } from "../components/Separator";
 import LocationButton from '../components/LocationButton'
 import { global } from "../style/styles";

@@ -3,13 +3,13 @@ import { StyleSheet, TouchableOpacity } from "react-native";
 
 import Colors from "../constants/Colors";
 import { MonoText } from "./StyledText";
-import { Text, View } from "./Themed";
+import { Text, View } from "react-native";
 
 export default function EditScreenInfo({ path }) {
   return (
     <View>
       <View style={styles.getStartedContainer}>
-      <Text style={styles.helpLinkText} lightColor={Colors.light.text} darkColor={Colors.light.text}>
+      <Text style={styles.helpLinkText} lightColor={Colors('text')} darkColor={Colors('text')}>
           Open up the code for this screen:
         </Text>
 
@@ -23,8 +23,8 @@ export default function EditScreenInfo({ path }) {
 
         <Text
           style={styles.getStartedText}
-          lightColor={Colors.dark.text}
-          darkColor={Colors.light.text}
+          lightColor={Colors('dark.text')}
+          darkColor={Colors('light.text')}
         >
           Change any of the text, save the file, and your app will automatically
           update.
@@ -33,7 +33,7 @@ export default function EditScreenInfo({ path }) {
 
       <View style={styles.helpContainer}>
         <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
-          <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
+          <Text style={styles.helpLinkText} lightColor={Colors('light.tint')}>
             Tap here if your app doesn't automatically update after making
             changes
           </Text>
