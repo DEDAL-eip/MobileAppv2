@@ -36,7 +36,6 @@ export default function Login() {
   return (
     <View style={global.container}>
       <View style={{width : 10, height: 10, alignSelf: 'flex-end', borderRadius: 100, marginRight: 10, marginTop: 10, backgroundColor : CallAPI() ? Colors.light.ValidateGreen : Colors.light.ErrorRed, }}>
-
       </View>
       <View style={global.titleContainer}>
         <Title title='DEDAL' pict={require('../assets/logo.png')} subtitle='Le chemin de votre culture'></Title>
