@@ -26,7 +26,6 @@ export async function signUp (email, password) {
 }
 
 export async function signUpCode (email, code) {
-    console.log(email, code)
     return await fetch(`http://52.166.128.133/signup_code`, {
         method: 'POST',
         body: JSON.stringify({'email': email, 'code': code}),

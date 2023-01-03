@@ -5,7 +5,7 @@ import { View } from "react-native";
 import { global, map } from "../style/styles";
 import * as Location from 'expo-location';
 import MapView, { Marker, Polyline } from 'react-native-maps'
-import { getPlace } from "../API/Home";
+import { getPlace, getFilter } from "../API/Home";
 
 export default function Home() {
   const [location, setLocation] = useState()
@@ -26,11 +26,16 @@ export default function Home() {
     })();
   }, []);
 
-  const filter = async (place) => {
-    let res = await getPlace(place)
-    setPoint([...point, res])
-    console.log(res)
-  } 
+  const place = async (place) => {
+    let first = await getPlace(place)
+    let second = await getPlace("a32e2657-3776-45e8-8fe5-e6ead2aceb8a")
+    setPoint([...point, first, second])
+  }   
+
+  const filter = async () => {
+    const token = SafeAreaProvider.Log.token
+    let res = await getFilter(token)
+  }
   
   return (
     <View style={global.container}>
@@ -75,8 +80,8 @@ export default function Home() {
           </MapView>
         <View style={global.bottomContainer}>
           <GlobalButton title='Deconnection' onPress={() => SafeAreaProvider.Loged(false)}></GlobalButton>
-          <GlobalButton title='Filter1' onPress={() => filter("6838b6d7-e238-43a0-bfe7-8f09d2179454")}></GlobalButton>
-          <GlobalButton title='Filter2' onPress={() => filter("a32e2657-3776-45e8-8fe5-e6ead2aceb8a")}></GlobalButton>
+          <GlobalButton title='Place' onPress={() => place("6838b6d7-e238-43a0-bfe7-8f09d2179454")}></GlobalButton>
+          <GlobalButton title='Filter' onPress={() => filter()}></GlobalButton>
         </View>
     </View>
   );
