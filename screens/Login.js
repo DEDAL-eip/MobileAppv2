@@ -1,11 +1,10 @@
-import { TextInput } from "react-native";
 import { GlobalButton } from "../components/Button";
 import { useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { Text, View } from "../components/Themed";
+import { Text, View } from "react-native";
 import easyLog, { signIn, signUp } from "../API/Login";
-import { global, textInput } from "../style/styles";
-import { Title } from "../components/Title";
+import { color, global, textInput } from "../style/styles";
+import { HomeTitle } from "../components/Title";
 import Colors from "../constants/Colors"
 import { Separator } from "../components/Separator";
 import { TextInputPassword, TextInputGlobal } from "../components/TextInput";
@@ -35,21 +34,23 @@ export default function Login() {
 
   return (
     <View style={global.container}>
-      <View style={{width : 10, height: 10, alignSelf: 'flex-end', borderRadius: 100, marginRight: 10, marginTop: 10, backgroundColor : CallAPI() ? Colors.light.ValidateGreen : Colors.light.ErrorRed, }}>
+      <View style={{width : 10, height: 10, alignSelf: 'flex-end', borderRadius: 100, marginRight: 10, marginTop: 10, backgroundColor : CallAPI() ? Colors('ValidateGreen') : Colors('ErrorRed'), }}>
       </View>
       <View style={global.titleContainer}>
-        <Title title='DEDAL' pict={require('../assets/logo.png')} subtitle='Le chemin de votre culture'></Title>
+        <HomeTitle title='DEDAL' pict={require('../assets/logo.png')} subtitle='Le chemin de votre culture'/>
       </View>
       <View style={global.middleContainer}>
-        <Text Type='ErrorRed'>{Error ? "Error Login" : ""}</Text>
-        <TextInputGlobal autoCapitalize='none' autoComplete='email' style={textInput.global} placeholder="Email" onChangeText={setEmail} value={Email}></TextInputGlobal>
-        <TextInputPassword autoCapitalize='none' autoComplete='password' style={textInput.global} placeholder="Passord" onChangeText={setPassword} value={Password}></TextInputPassword>
-        <GlobalButton title="Sign In" onPress={() => EasySignIn(Email, Password)}></GlobalButton>
-        <View style={{width: '25%',}}>
-          <Separator />
+        <View style={[global.basicContainer, {paddingBottom:20}]}>
+          <Text style={color.errorRed}>{Error ? "Email ou mot de passe incorrecte" : ""}</Text>
+          <TextInputGlobal autoCapitalize='none' autoComplete='email' style={[textInput.global, {borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue')}]} placeholder="Email" onChangeText={setEmail} value={Email}></TextInputGlobal>
+          <TextInputPassword autoCapitalize='none' autoComplete='password' style={[textInput.global, {borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue')}]} placeholder="Passord" onChangeText={setPassword} value={Password}></TextInputPassword>
         </View>
-          <GlobalButton title="Sign Up" onPress={() => EasySignIn('eliot.martin@hotmail.fr', 'pasWORD1@')}></GlobalButton>
-          <GlobalButton title="Google" onPress={() => EasySignIn('eliot.martin@hotmail.fr', 'pasWORD1@')}></GlobalButton>
+          <GlobalButton title="Sign In" onPress={() => EasySignIn(Email, Password)}></GlobalButton>
+          <View style={{width: '25%',paddingBottom:20, paddingTop:60}}>
+            <Separator />
+          </View>
+            <GlobalButton title="Sign Up" onPress={() => EasySignIn('eliot.martin@hotmail.fr', 'pasWORD1@')}></GlobalButton>
+            <GlobalButton title="Google" onPress={() => EasySignIn('eliot.martin@hotmail.fr', 'pasWORD1@')}></GlobalButton>
       </View>
     </View>
   );

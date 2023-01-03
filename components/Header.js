@@ -1,9 +1,7 @@
-import { View, Text} from "./Themed"
+import { View, Text} from "react-native"
 import { header } from "../style/styles"
-import Colors from "../constants/Colors"
 export const Header = (() => {
     return(
-        <View style={header}>
-        </View>
+        <View style={header}/>
     )
 })

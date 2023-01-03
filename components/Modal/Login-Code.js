@@ -1,9 +1,9 @@
-import { View } from "../Themed"
+import { View } from "react-native"
 import { GlobalButton } from "../Button"
 import { Title } from "../Title"
 import { TextInputGlobal, TextInputPassword } from "../../components/TextInput"
 import { useEffect, useState } from "react"
-import { Text } from "../Themed"
+import { Text } from "react-native"
 import { global, textInput } from "../../style/styles"
 import { SafeAreaProvider } from "react-native-safe-area-context"
 import { changePassword } from "../../API/Settings"
@@ -78,7 +78,7 @@ export const ModalLoginCode = () => {
                     placeholder="Validate Password"
                 />
 
-                {ErrorMsg == true ? <Text style={global.textCenter} Type={'ErrorRed'}>Le code n'est pas valide</Text> : null}
+                {ErrorMsg == true ? <Text style={[global.textCenter, color.ErrorRed]}>Le code n'est pas valide</Text> : null}
           </View>
           <View style={global.bottomContainer}>
                 <GlobalButton

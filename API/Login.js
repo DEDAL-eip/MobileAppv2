@@ -19,6 +19,7 @@ export async function signUp (email, password) {
         'Accept': '*/*' }    
     })
         .then((response) => {
+            console.log("res =>", response.status)
             return response
         })
         .catch((error) => console.error(error))
@@ -32,6 +33,7 @@ export async function signUpCode (email, code) {
         'Accept': '*/*' }    
     })
         .then((response) => {
+            console.log("res =>", response.status)
             return response
         })
         .catch((error) => console.error(error))

@@ -1,13 +1,16 @@
 import { useState, useEffect } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { GlobalButton } from "../components/Button";
-import { Text, View } from "../components/Themed";
-import { Title } from "../components/Title";
+import { View } from "react-native";
 import { global, map } from "../style/styles";
 import * as Location from 'expo-location';
-import MapView, { Marker, Callout } from 'react-native-maps'
+import MapView, { Marker, Polyline } from 'react-native-maps'
+import { getPlace, getFilter } from "../API/Home";
+
 export default function Home() {
   const [location, setLocation] = useState()
+  const [point, setPoint] = useState([])
+  const [target, setTarget] = useState()
   useEffect(() => {
     (async () => {
       
@@ -23,6 +26,17 @@ export default function Home() {
     })();
   }, []);
 
+  const place = async (place) => {
+    let first = await getPlace(place)
+    let second = await getPlace("a32e2657-3776-45e8-8fe5-e6ead2aceb8a")
+    setPoint([...point, first, second])
+  }   
+
+  const filter = async () => {
+    const token = SafeAreaProvider.Log.token
+    let res = await getFilter(token)
+  }
+  
   return (
     <View style={global.container}>
         <MapView style={map}
@@ -39,21 +53,36 @@ export default function Home() {
                 showsPointsOfInterest={false}
                 
             >
-              <Marker
+              {point.map((elem, index) =>
+                    elem.coordinates ? <Marker
+                    key={index}
                     coordinate={{
-                        latitude: 50.63515978723152,
-                        longitude: 3.061918957725544
-                      }}
-                    title="Test"
-                    description="Test Desc"
+                      latitude: elem.coordinates.y,
+                      longitude: elem.coordinates.x
+                    }}
+                    title={elem.name}
+                    description={elem.description}
                     image={require('../assets/pin.png')}
-                
-                >
-
-                <Callout onPress={() => { console.log()}}/>
-                </Marker>
+                    onPress={() => {setTarget(elem)}}
+                  /> : null)}
+              {
+                target ?  <Polyline
+                coordinates={
+                  [{longitude: location.coords.longitude,latitude: location.coords.latitude},
+                  {longitude: target.coordinates.x,latitude: target.coordinates.y
+                  }]
+                } //specify our coordinates
+                strokeColor={"#000"}
+                strokeWidth={3}
+                lineDashPattern={[1]}
+              /> : null
+              }
           </MapView>
-        <GlobalButton title='Deconnection' onPress={() => SafeAreaProvider.Loged(false)}></GlobalButton>
+        <View style={global.bottomContainer}>
+          <GlobalButton title='Deconnection' onPress={() => SafeAreaProvider.Loged(false)}></GlobalButton>
+          <GlobalButton title='Place' onPress={() => place("6838b6d7-e238-43a0-bfe7-8f09d2179454")}></GlobalButton>
+          <GlobalButton title='Filter' onPress={() => filter()}></GlobalButton>
+        </View>
     </View>
   );
 }

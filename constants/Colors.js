@@ -1,7 +1,13 @@
-const tintColorLight = "#2f95dc";
-const tintColorDark = "#fff";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
-export default {
+
+export default ((type) => {
+  let schem = SafeAreaProvider.colorScheme ? SafeAreaProvider.colorScheme : 'light'
+  return(palette[schem][type] ? palette[schem][type]  : palette.undefined)
+})
+
+export const palette = {
+  undefined : '#592E83',
   light: {
     dedalBlue : '#294F87',
     dedalBlueDisable : '#70819c',
@@ -11,10 +17,11 @@ export default {
     Black : '#1D1D1D',
   },
   dark: {
-    text: "#FFFFFF",
-    background: "#0A212A",
-    tint: tintColorDark,
-    tabIconDefault: "#ccc",
-    tabIconSelected: tintColorDark,
+    dedalBlue : '#294F87',
+    dedalBlueDisable : '#70819c',
+    ValidateGreen : '#03C923',
+    ErrorRed : '#FF0000',
+    White : '#FFFFFF',
+    Black : '#1D1D1D',
   },
 };

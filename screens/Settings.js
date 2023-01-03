@@ -1,8 +1,8 @@
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { Text, View } from "../components/Themed";
+import { Text, View } from "react-native";
 import { useState } from "react";
 
-import { global } from "../style/styles";
+import { global, color } from "../style/styles";
 import { SendCode } from "../API/Settings";
 import BasicModal from "../components/modal";
 import { Title } from "../components/Title";
@@ -31,10 +31,9 @@ export default function Setting() {
         <Text style={global.textCenter}>Last Connection : {SafeAreaProvider.Log["Last connection"]}</Text>
         <Text style={global.textCenter}>Acount creation : {SafeAreaProvider.Log["createdAt"]}</Text>
       </View>
-      <View style={global.bottomContainer}>
-      <GlobalButton title="Modifier le mot de passe" onPress={() => log()}></GlobalButton>
-        {Error == true ? <Text style={global.textCenter} Type={'ErrorRed'}>Une erreur est subvenue</Text> : null}
-
+      <View style={[global.bottomContainer]}>
+        <GlobalButton title="Modifier le mot de passe" onPress={() => log()}></GlobalButton>
+        {Error == true ? <Text style={[global.textCenter, color.errorRed]}>Une erreur est subvenue</Text> : null}
       </View>
       <BasicModal Open={Open} setOpen={setOpen} Content={ModalLoginCode}>
       </BasicModal>

@@ -1,41 +1,27 @@
-import { View } from "./Themed";
+import { View } from "react-native";
 import { Separator } from "./Separator";
-import { Image, StyleSheet, Text} from "react-native";
-import { global } from "../style/styles";
+import { Image, Text} from "react-native";
+import { global, titleS } from "../style/styles";
 export const Title = ({title, pict, subtitle}) => {
     return(
     <View style={global.titleContainer}>
-        <Text style={styles.title}>{title}</Text>
+        <Text style={titleS.main}>{title}</Text>
         <Separator />
-        <Text style={styles.subtitle}>{subtitle}</Text>
+        <Text style={titleS.subtitle}>{subtitle}</Text>
         {pict ? 
-        <Image style={styles.image} source={pict} />
+        <Image style={titleS.image} source={pict} />
         : null}
     </View>
-)}
+)}  
 
-const styles = StyleSheet.create({
-    title: {
-      fontSize: 40,
-      textAlign: 'center',
-      fontWeight: "bold",
-      lineBreak: 'normal'
-    },
-    titleContainer : {
-      backgroundColor : 'red',
-      alignItems: "center",
-      paddingHorizontal : '15%',
-      marginTop : 50
-    },
-    subtitle : {
-      textAlign: 'center',
-    },
-    image:
-    {
-        alignSelf: 'center',
-        marginTop : '10%',
-        width: 158,
-        height: 158
-    },
-  });
-  
+export const HomeTitle = ({title, pict, subtitle}) => {
+    return(
+    <View style={[global.titleContainer, {paddingHorizontal : '10%'}]}>
+        <Text style={titleS.main}>{title}</Text>
+        <Separator />
+        <Text style={[titleS.subtitle]}>{subtitle}</Text>
+        {pict ? 
+        <Image style={titleS.image} source={pict} />
+        : null}
+    </View>
+)}  
