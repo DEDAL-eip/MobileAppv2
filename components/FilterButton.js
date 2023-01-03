@@ -4,9 +4,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/Feather'
 
 /**
  * @class
- * It's a custom Text component that loads fonts from the assets folder
  * @param props - {}
- * @returns A function that returns a component.
+ * @returns A function that returns a View clickable with a state, an icon and a text.
  * @category Component
  */
 const FilterButton = (props) => {
