@@ -1,3 +1,4 @@
+import { borderColor } from "@mui/system"
 import { StyleSheet } from "react-native"
 import Colors from "../constants/Colors"
 
@@ -6,8 +7,6 @@ export const global = StyleSheet.create({
     backgroundColor : Colors('White'),
     height : '100%',
     flex : 1,
-    alignItems: "center",
-    justifyContent : "center",
   },
   titleContainer : {
     alignItems: "center",
@@ -107,6 +106,8 @@ export const header = StyleSheet.create({
 export const map =  StyleSheet.create({
   width: '90%',
   height: '80%',
+  marginLeft: '5%',
+  marginTop : '2.5%',
 })
 
 export const titleS = StyleSheet.create({
@@ -154,15 +155,11 @@ export const color = StyleSheet.create({
 export const table = StyleSheet.create({
   row : {
     flexDirection : 'row',
-    width : '80%'
+    width : '80%',
+    alignItems : 'center'
   },
-  left : {
-    flex : 1,
-    gap : 10,
-  },
-  right : {
+  col : {
     flex : 1,
     gap : 10,
   }
-
 })

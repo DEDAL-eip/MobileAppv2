@@ -1,21 +1,21 @@
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Text, View } from "react-native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { global, color, table, textInput } from "../style/styles";
-import { SendCode } from "../API/Settings";
+import { patchParams, SendCode } from "../API/Settings";
 import BasicModal from "../components/modal";
 import { Title } from "../components/Title";
 import { GlobalButton } from "../components/Button";
 import { ModalLoginCode } from "../components/Modal/Login-Code";
 import { TextInputGlobal } from "../components/TextInput";
-import Colors from "../constants/Colors";
+
 export default function Setting() {
 
   const [Open, setOpen] = useState(false)
   const [Error, setError] = useState(false)
   const [edit, setEdit] = useState(false)
-
+  const [userName, setUsername] = useState('')
   const log = ( async () => {
     const res = await SendCode(SafeAreaProvider.Log.Email)
     if (res.status == 204) {
@@ -33,40 +33,51 @@ export default function Setting() {
     return (final)
   }
 
-  const Username = () => {
-    let res = !edit ?
-      <Text>{SafeAreaProvider.Log.Username}</Text> :
-      <TextInputGlobal style={[textInput.global, {backgroundColor: Colors('ErrorRed')}]} placeholder="Email" onChangeText={() => {console.log('here')}} value={'Email'}></TextInputGlobal>
-    return res
+  const modif = async () => {
+    console.log('userName => ', userName)
+    let res = await patchParams(SafeAreaProvider.Log["id"], {'username' : userName})
+    console.log('res => ', res)
   }
 
   return (
     <View style={global.container}>
       <Title title='Settings' ></Title>
       <View style={global.middleContainer}>
-        <View style={table.row}>
-          <View style={table.left}>
+
+      <View style={[table.row, {marginBottom : 10}]}>
+          <View style={table.col}>
             <Text>UserName</Text>
+          </View>
+          <View style={table.col}>
+          {!edit ?
+              <Text>{SafeAreaProvider.Log.Username}</Text> :
+              <TextInputGlobal style={[textInput.global, {width: '100%'}]} placeholder="UserName" onChangeText={setUsername} value={userName}></TextInputGlobal>
+          }
+          </View>
+      </View>
+        <View style={table.row}>
+          <View style={table.col}>
             <Text>Email</Text>
             <Text>Last Connection</Text>
             <Text>Account Creation</Text>
+            <Text>ID</Text>
           </View>
-          <View style={table.right}>
-            {Username()}
+          <View style={table.col}>
             <Text>{SafeAreaProvider.Log.Email}</Text>
             <Text>{buildDate(SafeAreaProvider.Log["Last connection"])}</Text>
             <Text>{buildDate(SafeAreaProvider.Log["createdAt"])}</Text>
+            <Text>{SafeAreaProvider.Log["id"]}</Text>
           </View>
         </View>
       </View>
       <View style={[global.bottomContainer]}>
-        <GlobalButton title="Modifier les Infos" onPress={() => log()}></GlobalButton>
         {
           !edit ?
-          <GlobalButton title="Modifier le mot de passe" onPress={() => setEdit(true)}></GlobalButton> : 
-          <GlobalButton title="Valider" onPress={() => setEdit(false)}></GlobalButton>
+          <GlobalButton title="Modifier les infos" onPress={() => setEdit(true)}></GlobalButton> : 
+          <GlobalButton title="Valider" onPress={() => modif()}></GlobalButton>
         }
         {Error == true ? <Text style={[global.textCenter, color.errorRed]}>Une erreur est subvenue</Text> : null}
+        <GlobalButton title="Modifier le mot de passe" onPress={() => log()}></GlobalButton>
       </View>
       <BasicModal Open={Open} setOpen={setOpen} Content={ModalLoginCode}>
       </BasicModal>
