@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
 import { Separator } from "../components/Separator";
-import LocationButton from '../components/LocationButton'
+import LocationCard from '../components/LocationCard'
 import { global } from "../style/styles";
 
 export default function Location() {
@@ -18,7 +18,7 @@ export default function Location() {
       </View>
       <View style={global.middleContainer}>
         {APIlocations.map((item, index) => {
-          return <LocationButton name={item[0]} description={item[1]} />;
+          return <LocationCard name={item[0]} description={item[1]} />;
         })}
       </View>
     </View>
