@@ -1,6 +1,9 @@
 import { Text, View } from "react-native";
+
 import { Separator } from "../components/Separator";
-import LocationCard from '../components/LocationCard'
+import LocationCard from '../components/LocationCard';
+import { GlobalButton } from "../components/Button";
+
 import { global } from "../style/styles";
 
 export default function Location() {
@@ -17,6 +20,9 @@ export default function Location() {
         <Separator />
       </View>
       <View style={global.middleContainer}>
+        <GlobalButton title='In itinerary' onPress={() => console.log('In itinerary')} />
+        <GlobalButton title='Out itinerary' onPress={() => console.log('Out itinerary')} />
+        <GlobalButton title='Out filters' onPress={() => console.log('Out filters')} />
         {APIlocations.map((item, index) => {
           return <LocationCard name={item[0]} description={item[1]} />;
         })}
