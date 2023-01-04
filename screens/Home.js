@@ -6,6 +6,7 @@ import { Title } from "../components/Title";
 import { global, map } from "../style/styles";
 import * as Location from 'expo-location';
 import MapView, { Marker, Callout } from 'react-native-maps'
+
 export default function Home() {
   const [location, setLocation] = useState()
   useEffect(() => {

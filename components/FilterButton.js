@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import MaterialCommunityIcons from 'react-native-vector-icons/Feather'
+import { SafeAreaProvider } from "react-native-safe-area-context"
 
 /**
  * @class
@@ -10,7 +11,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/Feather'
  */
 const FilterButton = (props) => {
     const [isSelected, setIsSelected] = useState(true)
-
+    
     if (props.text == null)
         return (
             <View style={[styles.card, styles.coming]}>
@@ -21,7 +22,15 @@ const FilterButton = (props) => {
             </View>
         )
     return (
-        <View onStartShouldSetResponder={() => setIsSelected(!isSelected)} style={[styles.card, isSelected ? styles.selected : styles.unselected]}>
+        <View
+            onStartShouldSetResponder={
+                () => (
+                    props.assertToContext(props.text, isSelected),
+                    setIsSelected(!isSelected)
+                )
+            }
+            style={[styles.card, isSelected ? styles.selected : styles.unselected]}
+        >
             <View style={styles.row}>
                 <MaterialCommunityIcons name="user" color={'#FFF'} size={30} />
                 <Text style={styles.text}>{props.text}</Text>
@@ -30,9 +39,6 @@ const FilterButton = (props) => {
     )
 }
 
-const cardColor = '#00B4D8'
-const cardColorSelected = '#7B61FF'
-const cardColorComing = '#C4C4C4'
 const styles = StyleSheet.create({
     card: {
         width: '45%',
@@ -46,13 +52,13 @@ const styles = StyleSheet.create({
         fontSize: 18,
     },
     selected: {
-        backgroundColor: cardColor,
+        backgroundColor: '#00B4D8'
     },
     unselected: {
-        backgroundColor: cardColorSelected,
+        backgroundColor: '#7B61FF',
     },
     coming: {
-        backgroundColor: cardColorComing,
+        backgroundColor: '#C4C4C4'
     },
     row: {
         flex: 1,
