@@ -18,7 +18,7 @@ export default function Location() {
       </View>
       <View style={global.middleContainer}>
         {APIlocations.map((item, index) => {
-          return <LocationCard name={item[0]} description={item[1]} />;
+          return <LocationCard key={index} name={item[0]} description={item[1]} />;
         })}
       </View>
     </View>
