@@ -150,3 +150,19 @@ export const color = StyleSheet.create({
     color : Colors('dedalBlueDisable')
   }
 })
+
+export const table = StyleSheet.create({
+  row : {
+    flexDirection : 'row',
+    width : '80%'
+  },
+  left : {
+    flex : 1,
+    gap : 10,
+  },
+  right : {
+    flex : 1,
+    gap : 10,
+  }
+
+})
