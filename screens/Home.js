@@ -5,7 +5,7 @@ import { View } from "react-native";
 import { global, map } from "../style/styles";
 import * as Location from 'expo-location';
 import MapView, { Marker, Polyline } from 'react-native-maps'
-import { getPlace, getFilter } from "../API/Home";
+import { getPlace, getFilter, getMap } from "../API/Home";
 
 export default function Home() {
   const [location, setLocation] = useState()
@@ -29,12 +29,20 @@ export default function Home() {
   const place = async (place) => {
     let first = await getPlace(place)
     let second = await getPlace("a32e2657-3776-45e8-8fe5-e6ead2aceb8a")
+    console.log(first)
     setPoint([...point, first, second])
   }   
 
   const filter = async () => {
     const token = SafeAreaProvider.Log.token
     let res = await getFilter(token)
+    console.log('res => ', res)
+  }
+
+  const parcours = async () => {
+    SafeAreaProvider.filters = ['7f400994-a5fd-44f6-a8ca-aa173a81b980']
+    let res = await getMap({x: 3.155126, y: 50.711916}, 'test', SafeAreaProvider.filters)
+    console.log('res => ', res)
   }
   
   return (
@@ -82,6 +90,7 @@ export default function Home() {
           <GlobalButton title='Deconnection' onPress={() => SafeAreaProvider.Loged(false)}></GlobalButton>
           <GlobalButton title='Place' onPress={() => place("6838b6d7-e238-43a0-bfe7-8f09d2179454")}></GlobalButton>
           <GlobalButton title='Filter' onPress={() => filter()}></GlobalButton>
+          <GlobalButton title='Parcours' onPress={() => parcours()}></GlobalButton>
         </View>
     </View>
   );
