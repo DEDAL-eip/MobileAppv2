@@ -16,11 +16,6 @@ export async function getFilter (token) {
 }
 
 export async function getMap(pos, name, filters) {
-    console.log(JSON.stringify({
-        id : filters,
-        position : pos,
-        name : name
-    }))
     return await fetch('http://52.166.128.133/path_finding',{
     method : 'POST',
     headers: { 'Content-type': 'application/json',
@@ -31,7 +26,18 @@ export async function getMap(pos, name, filters) {
         name : name
     })
     })
-    .then(res => {console.log('here') 
-    return res.json()})
+    .then(res => res.json())
     .catch(err => ({hasError : true, status : err}))
+}
+
+
+export async function getInfo (id) {
+    return await fetch(`http://52.166.128.133/map/?id=` + id, {
+        method: 'GET',
+        headers: {
+        'Content-type': 'application/json',
+        'Accept': '*/*' }
+        })
+        .then(res => res.text())
+        .catch(err => ({hasError : true, status : err}))
 }
