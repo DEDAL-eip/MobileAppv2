@@ -2,6 +2,7 @@ import { TextInput} from "react-native"
 import { View } from "react-native"
 import { Feather } from '@expo/vector-icons';
 import { useState } from "react";
+
 export const TextInputGlobal = (props => {
     return <TextInput style={props.style} onChangeText={props.onChangeText} value={props.value} placeholder={props.placeholder}></TextInput>
 })
