@@ -74,6 +74,11 @@ export const button = StyleSheet.create({
     justifyContent: "center",
     marginTop : 5,
     borderRadius : 5
+  },
+  logout : {
+    position : 'absolute',
+    top : 10,
+    left : 10
   }
 })
 
@@ -104,10 +109,8 @@ export const header = StyleSheet.create({
 })
 
 export const map =  StyleSheet.create({
-  width: '90%',
-  height: '80%',
-  marginLeft: '5%',
-  marginTop : '2.5%',
+  width: '100%',
+  height: '100%',
 })
 
 export const titleS = StyleSheet.create({

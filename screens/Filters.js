@@ -3,6 +3,7 @@ import { Separator } from "../components/Separator";
 import FilterButton from '../components/FilterButton';
 import getFilters from "../API/Filters";
 import { global } from "../style/styles";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 /**
  * @class
@@ -12,22 +13,29 @@ import { global } from "../style/styles";
  */
 export default function Filter() {
   async function CallAPI() {
-    const res = await getFilters()
+    const res = await getFilters(SafeAreaProvider.Log.token).then(console.log("RES:", res))
     return res
   }
 
-  const APIfilters = CallAPI()
-
+  const APIfilterz = CallAPI()
+  const APIfilters = ['truc', 'troc']
   const filters = []
-
-  // REMOVE WHEN JULIEN FIX API: console.log('APIFILTER: ', APIfilters)
+  const data = []
+  
+  const assertToContext = (filter, push) => {
+    if (push == true)
+      data.push(filter);
+    else
+      data.pop(filter)
+    SafeAreaProvider.filters = data
+  }
 
   let y = 0
   for (let i = 0; i < 5; i++){
     filters.push(
       <View key={i} style={global.row}>
-        <FilterButton text={APIfilters[y]} />
-        <FilterButton text={APIfilters[y + 1]} />
+        <FilterButton assertToContext={assertToContext} text={APIfilters[y]} />
+        <FilterButton assertToContext={assertToContext} text={APIfilters[y + 1]} />
       </View>
     )
     y = y + 2

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Animated, LogBox } from 'react-native'
 import MaterialCommunityIcons from 'react-native-vector-icons/Feather'
 
 /**
@@ -9,30 +9,59 @@ import MaterialCommunityIcons from 'react-native-vector-icons/Feather'
  * @category Component
  */
 const FilterButton = (props) => {
-    const [isSelected, setIsSelected] = useState(true)
+    const [isSelected, setIsSelected] = useState(false)
+    const [animation, setAnimation] = useState(new Animated.Value(0))
 
+    const boxInterpolation = animation.interpolate({
+        inputRange: [0, 1],
+        outputRange:['#00B4D8' , '#7B61FF']
+    })
+    const animatedStyle = {
+        backgroundColor: boxInterpolation
+    }
+
+    const handleAnimation = () => {
+        LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
+        if (isSelected)
+            Animated.timing(animation, {
+                toValue: 0,
+                duration: 200
+            }).start()
+        else
+            Animated.timing(animation,{
+                toValue: 1,
+                duration: 200
+            }).start()
+    }
+    
     if (props.text == null)
         return (
             <View style={[styles.card, styles.coming]}>
                 <View style={styles.row}>
                     <MaterialCommunityIcons name="clock" color={'#FFF'} size={30} />
-                    <Text style={styles.text}>A VENIR</Text>
+                    <Text style={styles.text}>INCOMING</Text>
                 </View>
             </View>
         )
     return (
-        <View onStartShouldSetResponder={() => setIsSelected(!isSelected)} style={[styles.card, isSelected ? styles.selected : styles.unselected]}>
+        <Animated.View
+            onStartShouldSetResponder={
+                () => (
+                    handleAnimation(),
+                    props.assertToContext(props.text, !isSelected),
+                    setIsSelected(!isSelected)
+                )
+            }
+            style={[styles.card, animatedStyle]}
+        >
             <View style={styles.row}>
                 <MaterialCommunityIcons name="user" color={'#FFF'} size={30} />
                 <Text style={styles.text}>{props.text}</Text>
             </View>
-        </View>
+        </Animated.View>
     )
 }
 
-const cardColor = '#00B4D8'
-const cardColorSelected = '#7B61FF'
-const cardColorComing = '#C4C4C4'
 const styles = StyleSheet.create({
     card: {
         width: '45%',
@@ -45,14 +74,8 @@ const styles = StyleSheet.create({
         color: '#FFF',
         fontSize: 18,
     },
-    selected: {
-        backgroundColor: cardColor,
-    },
-    unselected: {
-        backgroundColor: cardColorSelected,
-    },
     coming: {
-        backgroundColor: cardColorComing,
+        backgroundColor: '#C4C4C4'
     },
     row: {
         flex: 1,

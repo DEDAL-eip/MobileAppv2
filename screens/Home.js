@@ -1,16 +1,20 @@
 import { useState, useEffect } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { GlobalButton } from "../components/Button";
-import { View } from "react-native";
-import { global, map } from "../style/styles";
+import { TextInput, View } from "react-native";
+import { button, global, map } from "../style/styles";
 import * as Location from 'expo-location';
 import MapView, { Marker, Polyline } from 'react-native-maps'
-import { getPlace, getFilter } from "../API/Home";
+import { getPlace, getInfo } from "../API/Home";
+import Colors from "../constants/Colors";
+import { Feather } from '@expo/vector-icons';
 
 export default function Home() {
   const [location, setLocation] = useState()
-  const [point, setPoint] = useState([])
+  const [Path, setPath] = useState([])
+  const [Place, setPlace] = useState([])
   const [target, setTarget] = useState()
+
   useEffect(() => {
     (async () => {
       
@@ -23,19 +27,29 @@ export default function Home() {
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location)
       SafeAreaProvider.location = location
+
+      await Parcours()      
     })();
   }, []);
 
-  const place = async (place) => {
-    let first = await getPlace(place)
-    let second = await getPlace("a32e2657-3776-45e8-8fe5-e6ead2aceb8a")
-    setPoint([...point, first, second])
-  }   
+  // const parcours = async () => {
+  //   SafeAreaProvider.filters = ['592ecbc0-e50f-4ea1-a142-d034c20e7470']
+  //   let res = await getMap({"x": 3.060966, "y": 50.631305}, 'test', SafeAreaProvider.filters)
+  // } 
 
-  const filter = async () => {
-    const token = SafeAreaProvider.Log.token
-    let res = await getFilter(token)
+  const Parcours = async () => {
+    let res = await getInfo('test')
+    setPath(JSON.parse(res).LongLat)
+    JSON.parse(res).Buildings.forEach(async (elem) => await getPlaceInfo(elem.id))
   }
+
+  const getPlaceInfo = async (id) => {
+    let res = await getPlace(id)
+    setPlace([...Place, res])
+    return
+  }
+
+
   
   return (
     <View style={global.container}>
@@ -46,42 +60,43 @@ export default function Home() {
                     latitudeDelta: 0.001,
                     longitudeDelta: 0.045,
                 }}
-                //mapType={"standard"}
+                mapType={"standard"}
                 showsMyLocationButton={true}
                 showsUserLocation={true}
                 followsUserLocation={true}
                 showsPointsOfInterest={false}
                 
             >
-              {point.map((elem, index) =>
-                    elem.coordinates ? <Marker
-                    key={index}
-                    coordinate={{
-                      latitude: elem.coordinates.y,
-                      longitude: elem.coordinates.x
-                    }}
-                    title={elem.name}
-                    description={elem.description}
-                    image={require('../assets/pin.png')}
-                    onPress={() => {setTarget(elem)}}
-                  /> : null)}
               {
-                target ?  <Polyline
-                coordinates={
-                  [{longitude: location.coords.longitude,latitude: location.coords.latitude},
-                  {longitude: target.coordinates.x,latitude: target.coordinates.y
-                  }]
-                } //specify our coordinates
-                strokeColor={"#000"}
-                strokeWidth={3}
-                lineDashPattern={[1]}
-              /> : null
+              Path.map((elem, index, array) =>
+                index != array.length-1 ?
+                    <Polyline
+                    key={index}
+                  coordinates={
+                  [{longitude: elem.longitude,latitude: elem.latitude},
+                  {longitude: array[index+1].longitude,latitude: array[index+1].latitude
+                  }]}
+                  strokeColor={Colors('dedalBlue')}
+                  strokeWidth={5}
+                  /> : null)
+              }
+              { 
+              Place.map((elem, index) =>
+                <Marker
+                  key={index}
+                  coordinate={{
+                    latitude: elem.coordinates.x,
+                    longitude: elem.coordinates.y
+                  }}
+                  title={elem.name}
+                  description={elem.description}
+                  image={require('../assets/pin.png')}
+                  />
+              )
               }
           </MapView>
-        <View style={global.bottomContainer}>
-          <GlobalButton title='Deconnection' onPress={() => SafeAreaProvider.Loged(false)}></GlobalButton>
-          <GlobalButton title='Place' onPress={() => place("6838b6d7-e238-43a0-bfe7-8f09d2179454")}></GlobalButton>
-          <GlobalButton title='Filter' onPress={() => filter()}></GlobalButton>
+        <View style={button.logout}>
+            <Feather style={{marginLeft : 10}}name={"log-out"} size={24} onPress={() => SafeAreaProvider.Loged(false)} color="black" />
         </View>
     </View>
   );
