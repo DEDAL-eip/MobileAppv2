@@ -1,3 +1,4 @@
+import { borderColor } from "@mui/system"
 import { StyleSheet } from "react-native"
 import Colors from "../constants/Colors"
 
@@ -6,8 +7,6 @@ export const global = StyleSheet.create({
     backgroundColor : Colors('White'),
     height : '100%',
     flex : 1,
-    alignItems: "center",
-    justifyContent : "center",
   },
   titleContainer : {
     alignItems: "center",
@@ -153,5 +152,17 @@ export const color = StyleSheet.create({
   },
   dedalBlueDisable : {
     color : Colors('dedalBlueDisable')
+  }
+})
+
+export const table = StyleSheet.create({
+  row : {
+    flexDirection : 'row',
+    width : '80%',
+    alignItems : 'center'
+  },
+  col : {
+    flex : 1,
+    gap : 10,
   }
 })

@@ -1,13 +1,12 @@
 import "react-native-gesture-handler";
 
 //import { StatusBar } from "expo-status-bar";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 import { useLoadedAssets } from "./hooks/useLoadedAssets";
 import Main from "./screens/Main";
-import { Header } from "./components/Header";
 import { useFonts } from "expo-font";
-
+import { global } from "./style/styles";
 export default function App() {
   const isLoadingComplete = useLoadedAssets();
   const [fontsLoaded] = useFonts({
@@ -19,8 +18,9 @@ export default function App() {
   } else {
     return (
       <SafeAreaProvider>
-        <Header/>
-        <Main />
+        <SafeAreaView style={global.container}>
+            <Main />
+        </SafeAreaView>
       </SafeAreaProvider>
     );
   }
