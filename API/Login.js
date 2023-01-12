@@ -53,3 +53,19 @@ export async function signIn (email, password) {
             return {hasError : true, status : res.status}
     }).then(res => res)
 }
+
+
+export async function google(code, callback) {
+    let res = await fetch(`https://dedal.auth.eu-west-1.amazoncognito.com/oauth2/token?grant_type=authorization_code&code=${code}&client_id=cse59djt26m2kikuacurl26uj&redirect_uri=${callback}`, {
+        method: 'POST',
+        headers: { 'Content-type': 'application/x-www-form-urlencoded',
+        'Accept': '*/*' }
+    })
+    .then(res => res.json())
+    .catch(err => console.error(err))
+    return await fetch(`http://52.166.128.133/google_code?id_token=${res.id_token}`, {
+        method : 'GET',
+        headers: { 'Content-type': 'application/json',
+        'Accept': '*/*' }   
+    }).then(res => res.json())
+}

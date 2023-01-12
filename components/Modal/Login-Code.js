@@ -21,11 +21,8 @@ export const ModalLoginCode = () => {
     
     const Validate = async () => {
         let res = await changePassword(SafeAreaProvider.Log.Email, Password, Code)
-        if (res.status == 202)
-            console.log('succes', Password)
-        else {
+        if (res.status != 202)
             setErrorMsg(true)
-        }
     }
 
     useEffect(() => {

@@ -34,9 +34,7 @@ export default function Setting() {
   }
 
   const modif = async () => {
-    console.log('userName => ', userName)
     let res = await patchParams(SafeAreaProvider.Log["id"], {'username' : userName})
-    console.log('res => ', res)
   }
 
   return (
