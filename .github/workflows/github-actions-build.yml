@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - dev
+      - build-apk
 jobs:
   build:
     name: Install and build
