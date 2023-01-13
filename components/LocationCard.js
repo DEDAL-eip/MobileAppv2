@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Animated, LogBox } from 'react-native'
 import MaterialCommunityIcons from 'react-native-vector-icons/Feather'
 
 /**
@@ -10,13 +10,45 @@ import MaterialCommunityIcons from 'react-native-vector-icons/Feather'
  * @category Component
  */
 const LocationButton = (props) => {
-    const [isSelected, setIsSelected] = useState(true)
+    const [isSelected, setIsSelected] = useState(false)
+    const [animation, setAnimation] = useState(new Animated.Value(0))
+
+    const boxInterpolation = animation.interpolate({
+        inputRange: [0, 1],
+        outputRange:['#00B4D8' , '#FFF']
+    })
+    const animatedStyle = {
+        backgroundColor: boxInterpolation
+    }
+
+    const handleAnimation = () => {
+        LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
+        if (isSelected)
+            Animated.timing(animation, {
+                toValue: 0,
+                duration: 200
+            }).start()
+        else
+            Animated.timing(animation,{
+                toValue: 1,
+                duration: 200
+            }).start()
+    }
 
     return (
-        <View style={styles.card}>
+        <Animated.View
+            onStartShouldSetResponder={
+                () => (
+                    handleAnimation(),
+                    props.assertToItinerary([props.name, props.description], !isSelected),
+                    setIsSelected(!isSelected)
+                )
+            }
+            style={[styles.card, animatedStyle]}
+        >
             <Text style={styles.title}>{props.name}</Text>
             <Text style={styles.description}>{props.description}</Text>
-        </View>
+        </Animated.View>
     )
 }
 
