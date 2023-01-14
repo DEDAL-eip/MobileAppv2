@@ -21,27 +21,20 @@ const LocationButton = (props) => {
         backgroundColor: boxInterpolation
     }
 
-    const handleAnimation = () => {
-        LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
-        if (isSelected)
-            Animated.timing(animation, {
-                toValue: 0,
-                duration: 200
-            }).start()
-        else
-            Animated.timing(animation,{
-                toValue: 1,
-                duration: 200
-            }).start()
-    }
-
     return (
         <Animated.View
             onStartShouldSetResponder={
                 () => (
-                    handleAnimation(),
-                    props.assertToItinerary([props.name, props.description], !isSelected),
-                    setIsSelected(!isSelected)
+                    LogBox.ignoreLogs(['Animated: `useNativeDriver`']),
+                    Animated.timing(animation, {
+                        toValue: 1,
+                        duration: 200
+                    }).start(),
+                    props.assertToItinerary([props.name, props.description]),
+                    Animated.timing(animation, {
+                        toValue: 0,
+                        duration: 200
+                    }).start()
                 )
             }
             style={[styles.card, animatedStyle]}
