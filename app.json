@@ -1,33 +1,43 @@
 {
   "expo": {
-    "name": "Mobile",
+    "name": "Dedal",
     "slug": "expo-template-tabs",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "icon": "./assets/logo.png",
+    "scheme": "dedal",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
-    "ios": {
-      "supportsTablet": true
-    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "android": {
+      "config" : {
+        "googleMaps" : {
+          "apiKey" : "AIzaSyAsg3i6qbNwEYaTGeq4iyOanXD5vjfN7k4" 
+        }
+      },
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/logo.png",
         "backgroundColor": "#ffffff",
         "softwareKeyboardLayoutMode": "pan"
-      }
+      },
+      "package": "com.dedal.expotemplatetabs"
     },
     "web": {
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/logo.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0c2535de-2006-4cae-b407-a9fc0e91a226"
+      }
     }
   }
 }

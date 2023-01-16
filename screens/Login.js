@@ -2,7 +2,7 @@ import { GlobalButton } from "../components/Button";
 import { useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Text, View } from "react-native";
-import easyLog, { signIn, signUp, google } from "../API/Login";
+import easyLog, { signIn, signUp, google, nextG } from "../API/Login";
 import { color, global, textInput } from "../style/styles";
 import { HomeTitle } from "../components/Title";
 import Colors from "../constants/Colors"
@@ -10,12 +10,15 @@ import { Separator } from "../components/Separator";
 import { TextInputPassword, TextInputGlobal } from "../components/TextInput";
 import * as WebBrowser from 'expo-web-browser'
 import * as Linking from 'expo-linking'
+import { useEffect } from "react";
 
 export default function Login() {
   const [Error, setError] = useState(false)
   const [Email, setEmail] = useState("")
   const [Password, setPassword] = useState("")
-
+  const [first, setfirst] = useState("wait")
+  const [second, setsecond] = useState("wait")
+  const url = Linking.useURL()
 
   async function CallAPI() {
     const res = await easyLog()
@@ -36,28 +39,38 @@ export default function Login() {
   }
 
   const createGoogleAccount = async () => {
-    let callbackUrl  = Linking.createURL('/')
+    let callbackUrl  = Linking.createURL()
+    console.log(callbackUrl)
     await WebBrowser.openBrowserAsync(`https://dedal.auth.eu-west-1.amazoncognito.com/login?client_id=cse59djt26m2kikuacurl26uj&response_type=code&scope=email+openid+profile&redirect_uri=${callbackUrl}`)
 }
 
   const logInGoogleAccount = async (code) => {
-    let callbackUrl  = Linking.createURL('/')
+    let callbackUrl  = Linking.createURL()
     let res = await google(code, callbackUrl)
     if(res.error)
       setError(true)
-    else 
-    SafeAreaProvider.Loged(true)
-    SafeAreaProvider.Log = res
+    else
+      nextGoogle(res)
 }
 
-const url = Linking.useURL();
+  const nextGoogle = async (res) => {
+    let result = await nextG(res)
+    if (result.error)
+      setError(true)
+    else {
+      SafeAreaProvider.Loged(true)
+      SafeAreaProvider.Log = result
+    }
+  }
 
-if (url) {
-  const {queryParams} = Linking.parse(url);
 
-  if (queryParams.code)
-    logInGoogleAccount(queryParams.code)
-}
+useEffect(() => {
+  if (url) {
+    const {queryParams} = Linking.parse(url);
+    if (queryParams.code)
+      logInGoogleAccount(queryParams.code)
+  }
+}, [url])
 
   return (
     <View style={global.container}>

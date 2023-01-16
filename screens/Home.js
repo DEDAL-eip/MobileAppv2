@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { GlobalButton } from "../components/Button";
-import { TextInput, View } from "react-native";
+import { TextInput, View, Text } from "react-native";
 import { button, global, map } from "../style/styles";
 import * as Location from 'expo-location';
-import MapView, { Marker, Polyline } from 'react-native-maps'
+import MapView, { Marker, Polyline, PROVIDER_GOOGLE } from 'react-native-maps'
 import { getPlace, getInfo } from "../API/Home";
 import Colors from "../constants/Colors";
 import { Feather } from '@expo/vector-icons';
@@ -14,11 +14,13 @@ export default function Home() {
   const [Path, setPath] = useState([])
   const [Place, setPlace] = useState([])
   const [target, setTarget] = useState()
+  const [info, setStatus] = useState()
 
   useEffect(() => {
     (async () => {
       
       let { status } = await Location.requestForegroundPermissionsAsync();
+      setStatus(status)
       if (status !== 'granted') {
         console.log('Permission to access location was denied');
         return;
@@ -54,6 +56,7 @@ export default function Home() {
   return (
     <View style={global.container}>
         <MapView style={map}
+                provider={PROVIDER_GOOGLE}
                 region={{
                     latitude: location ? location.coords.latitude : 0, 
                     longitude: location ? location.coords.longitude : 0,
@@ -93,7 +96,7 @@ export default function Home() {
                   image={require('../assets/pin.png')}
                   />
               )
-              }
+              } 
           </MapView>
         <View style={button.logout}>
             <Feather style={{marginLeft : 10}}name={"log-out"} size={24} onPress={() => SafeAreaProvider.Loged(false)} color="black" />

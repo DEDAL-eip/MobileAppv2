@@ -15,7 +15,8 @@ export default function Setting() {
   const [Open, setOpen] = useState(false)
   const [Error, setError] = useState(false)
   const [edit, setEdit] = useState(false)
-  const [userName, setUsername] = useState('')
+  const [userName, setUsername] = useState(SafeAreaProvider.Log.Username)
+
   const log = ( async () => {
     const res = await SendCode(SafeAreaProvider.Log.Email)
     if (res.status == 204) {
@@ -34,8 +35,11 @@ export default function Setting() {
   }
 
   const modif = async () => {
-    let res = await patchParams(SafeAreaProvider.Log["id"], {'username' : userName})
-  }
+    console.log('here')
+    if (userName.length != 0)
+      await patchParams(SafeAreaProvider.Log["id"], {'username' : userName}).then(res => console.log('res => ', res))
+    setEdit(false)
+    }
 
   return (
     <View style={global.container}>
@@ -49,7 +53,7 @@ export default function Setting() {
           <View style={table.col}>
           {!edit ?
               <Text>{SafeAreaProvider.Log.Username}</Text> :
-              <TextInputGlobal style={[textInput.global, {width: '100%'}]} placeholder="UserName" onChangeText={setUsername} value={userName}></TextInputGlobal>
+              <TextInputGlobal style={[userName.length == 0 ? textInput.Error : textInput.global, {width: '100%'}]} placeholder="UserName" onChangeText={setUsername} value={userName}></TextInputGlobal>
           }
           </View>
       </View>
@@ -72,7 +76,7 @@ export default function Setting() {
         {
           !edit ?
           <GlobalButton title="Modifier les infos" onPress={() => setEdit(true)}></GlobalButton> : 
-          <GlobalButton title="Valider" onPress={() => modif()}></GlobalButton>
+          <GlobalButton title={userName.length == 0 ? "Annuler" : "Valider"} onPress={() => modif()}></GlobalButton>
         }
         {Error == true ? <Text style={[global.textCenter, color.errorRed]}>Une erreur est subvenue</Text> : null}
         <GlobalButton title="Modifier le mot de passe" onPress={() => log()}></GlobalButton>
