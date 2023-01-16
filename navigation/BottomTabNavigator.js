@@ -4,12 +4,13 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useColorScheme } from "react-native";
+import { Feather } from '@expo/vector-icons';
 
-import Colors from "../constants/Colors";
 import Home from "../screens/Home";
 import Setting from "../screens/Settings";
 import Filter from "../screens/Filters";
 import Location from "../screens/Locations";
+import Colors from "../constants/Colors";
 
 const BottomTab = createBottomTabNavigator();
 
@@ -19,14 +20,42 @@ export default function BottomTabNavigator() {
   return (
     <BottomTab.Navigator
       initialRouteName="Home"
-      screenOptions={{
-        //tabBarActiveTintColor: Colors[colorScheme].tint,
-        headerShown: false,
-        tabBarIcon: ({ color }) => (
-          <TabBarIcon name="ios-code" color={color} />
-        )
-      }}
-    >
+    //   screenOptions={({ route }) => ({
+    //     //tabBarActiveTintColor: Colors[colorScheme].tint,
+    //     headerShown: false,
+    //     tabBarIcon: ({ color }) => ({
+    //       if (route.name == 'Home')
+    //         return (<TabBarIcon name="map" color={color} />)
+    //       else
+    //         return (<TabBarIcon name="map-pin" color={color} />)
+
+    //     })
+    //   })}
+    screenOptions={({ route }) => ({
+      headerShown: false,
+      tabBarIcon: ({ focused, color, size }) => {
+        let iconName;
+
+        if (route.name === 'Home') {
+          iconName = 'map'
+        } else if (route.name === 'Settings') {
+          iconName = 'settings';
+        } else if (route.name === 'Location') {
+          iconName = 'list';
+        } else if (route.name === 'Filters') {
+          iconName = 'filter';
+        }
+
+        // You can return any component that you like here!
+        return <Ionicons name={iconName} size={size} color={color} />;
+      },
+      tabBarActiveTintColor: Colors('dedalBlue'),
+      tabBarInactiveTintColor: Colors('dedalBlueDisable'),
+      tabBarActiveBackgroundColor: Colors('White'),
+      tabBarInactiveBackgroundColor: Colors('White'),
+    })}
+      >
+
       <BottomTab.Screen
         name="Filters"
         component={FiltersNavigator}
@@ -51,7 +80,8 @@ export default function BottomTabNavigator() {
 // You can explore the built-in icon families and icons on the web at:
 // https://icons.expo.fyi/
 function TabBarIcon(props) {
-  return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
+  //<Feather style={{marginLeft : 10}}name={hide ? "eye" : "eye-off"} size={24} onPress={() => setHide(!hide)} color="black" />
+  return <Feather size={30} style={{ marginBottom: -3 }} {...props} />;
 }
 
 // Each tab has its own navigation stack, you can read more about this pattern here:

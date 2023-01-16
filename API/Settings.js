@@ -23,14 +23,14 @@ export async function changePassword (email, password, code) {
 }
 
 export async function patchParams (id, values) {
-    return await fetch(`http://52.166.128.133/user/?id=` + id, {
+    return await fetch(`http://52.166.128.133/user/${id}/param`, {
         method: 'PATCH',
         body: JSON.stringify(values),
         headers: {
         'Content-type': 'application/json',
         'Accept': '*/*' }
         })
-    .then(res => res.text())
+    .then(res => res.json())
     .catch(err => console.error(err))
 } 
 
