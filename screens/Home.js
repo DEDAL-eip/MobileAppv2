@@ -1,57 +1,60 @@
 import { useState, useEffect } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { GlobalButton } from "../components/Button";
-import { TextInput, View, Text } from "react-native";
+import { View } from "react-native";
 import { button, global, map } from "../style/styles";
 import * as Location from 'expo-location';
 import MapView, { Marker, Polyline, PROVIDER_GOOGLE } from 'react-native-maps'
-import { getPlace, getInfo } from "../API/Home";
+import { getPlace, getInfo, getMap } from "../API/Home";
 import Colors from "../constants/Colors";
 import { Feather } from '@expo/vector-icons';
 
+
+
+/**
+ * @class display Home screen
+ * @export
+ * 
+ * @description Map center on user *
+ * @return {HTML} 
+ */
 export default function Home() {
   const [location, setLocation] = useState()
   const [Path, setPath] = useState([])
   const [Place, setPlace] = useState([])
-  const [target, setTarget] = useState()
-  const [info, setStatus] = useState()
 
   useEffect(() => {
     (async () => {
-      
       let { status } = await Location.requestForegroundPermissionsAsync();
-      setStatus(status)
       if (status !== 'granted') {
         console.log('Permission to access location was denied');
         return;
       }
 
       let location = await Location.getCurrentPositionAsync({});
+      let res = await getInfo('test')
+      let tmp = JSON.parse(res).Buildings
+      let building = await Promise.all(tmp.map(async elem => {
+        return await getPlace(elem.id)
+      }));
+
+
       setLocation(location)
       SafeAreaProvider.location = location
-
-      await Parcours()      
+      setPath(JSON.parse(res).LongLat)
+      setPlace(building)      
     })();
   }, []);
 
-  // const parcours = async () => {
-  //   SafeAreaProvider.filters = ['592ecbc0-e50f-4ea1-a142-d034c20e7470']
-  //   let res = await getMap({"x": 3.060966, "y": 50.631305}, 'test', SafeAreaProvider.filters)
-  // } 
 
-  const Parcours = async () => {
-    let res = await getInfo('test')
-    setPath(JSON.parse(res).LongLat)
-    JSON.parse(res).Buildings.forEach(async (elem) => await getPlaceInfo(elem.id))
-  }
-
-  const getPlaceInfo = async (id) => {
-    let res = await getPlace(id)
-    setPlace([...Place, res])
-    return
-  }
-
-
+  /**
+   * @function 
+   * @description Call the lambda to create parcours 
+   *
+   */
+  const parcours = async () => {
+    SafeAreaProvider.filters = ['592ecbc0-e50f-4ea1-a142-d034c20e7470']
+    let res = await getMap({"y": 3.060966, "x": 50.631305}, 'test', SafeAreaProvider.filters)
+  } 
   
   return (
     <View style={global.container}>
@@ -60,7 +63,7 @@ export default function Home() {
                 region={{
                     latitude: location ? location.coords.latitude : 0, 
                     longitude: location ? location.coords.longitude : 0,
-                    latitudeDelta: 0.001,
+                    latitudeDelta: 0.000,
                     longitudeDelta: 0.045,
                 }}
                 mapType={"standard"}
@@ -68,6 +71,9 @@ export default function Home() {
                 showsUserLocation={true}
                 followsUserLocation={true}
                 showsPointsOfInterest={false}
+                showsCompass={false}
+                toolbarEnabled={false}
+                loadingEnabled={true}
                 
             >
               {
@@ -79,12 +85,13 @@ export default function Home() {
                   [{longitude: elem.longitude,latitude: elem.latitude},
                   {longitude: array[index+1].longitude,latitude: array[index+1].latitude
                   }]}
-                  strokeColor={Colors('dedalBlue')}
+                  strokeColor={Colors('dedalBlueDisable')}
                   strokeWidth={5}
                   /> : null)
               }
-              { 
-              Place.map((elem, index) =>
+              {
+              Place ? Place.map((elem, index) =>
+              elem.coordinates ?
                 <Marker
                   key={index}
                   coordinate={{
@@ -94,13 +101,12 @@ export default function Home() {
                   title={elem.name}
                   description={elem.description}
                   image={require('../assets/pin.png')}
-                  />
-              )
+                  /> : null
+              ) : null
               } 
           </MapView>
-        <View style={button.logout}>
-            <Feather style={{marginLeft : 10}}name={"log-out"} size={24} onPress={() => SafeAreaProvider.Loged(false)} color="black" />
-        </View>
+            <Feather style={button.logout} name={"log-out"} size={24} onPress={() => SafeAreaProvider.Loged(false)} color={Colors('dedalBlue')} />
+            <Feather style={[button.logout, {top : 10, left : 40}]} name={"loader"} size={24} onPress={() => parcours()} color={Colors('dedalBlue')} />
     </View>
   );
 }
