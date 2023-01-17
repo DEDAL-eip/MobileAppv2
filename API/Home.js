@@ -6,10 +6,12 @@
  * @param {string} id
  * @return {TODO} 
  */
-export async function getPlace (id) {
+export async function getPlace (id, token) {
     return await fetch(`http://52.166.128.133/places/?id=` + id, {
     method : 'GET',
-    headers: { 'Content-type': 'application/json',
+    headers: {
+        'Content-type': 'application/json',
+        'x-access-token' : token,
         'Accept': '*/*' }
     })
     .then(res => res.json())
@@ -62,13 +64,16 @@ export async function getMap(pos, name, filters) {
  * @param {string} id
  * @return {TODO} 
  */
-export async function getInfo (id) {
-    return await fetch(`http://52.166.128.133/map/?id=` + id, {
+export async function getInfo (id, token) {
+    console.log(token)
+    return await fetch(`http://52.166.128.133/map/?id=${id}`, {
         method: 'GET',
-        headers: {
         'Content-type': 'application/json',
-        'Accept': '*/*' }
-        })
-        .then(res => res.text())
-        .catch(err => ({hasError : true, status : err}))
+        headers: {
+            'x-access-token' : token,
+            'Accept': '*/*' 
+        }
+    })
+    .then(res => res.text())
+    .catch(err => ({hasError : true, status : err}))
 }

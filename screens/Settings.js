@@ -3,7 +3,7 @@ import { Text, View } from "react-native";
 import { useEffect, useState } from "react";
 
 import { global, color, table, textInput } from "../style/styles";
-import { patchParams, SendCode } from "../API/Settings";
+import { MypatchParams, SendCode } from "../API/Settings";
 import BasicModal from "../components/modal";
 import { Title } from "../components/Title";
 import { GlobalButton } from "../components/Button";
@@ -37,7 +37,7 @@ export default function Setting() {
   const modif = async () => {
     console.log('here')
     if (userName.length != 0)
-      await patchParams(SafeAreaProvider.Log["id"], {'username' : userName}).then(res => console.log('res => ', res))
+      await MypatchParams(SafeAreaProvider.Log["id"], {'username' : userName}, SafeAreaProvider.Log.token).then(res => console.log('res => ', res))
     setEdit(false)
     }
 

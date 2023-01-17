@@ -29,16 +29,21 @@ export default function Home() {
         console.log('Permission to access location was denied');
         return;
       }
-
       let location = await Location.getCurrentPositionAsync({});
-      let res = await getInfo('test')
-      let tmp = JSON.parse(res).Buildings
-      let building = await Promise.all(tmp.map(async elem => {
-        return await getPlace(elem.id)
-      }));
-
-
       setLocation(location)
+
+
+      let res = await getInfo('test',SafeAreaProvider.Log.token)
+      console.log('res => ', res)
+      let tmp = JSON.parse(res)
+      if (tmp.Buildings)
+        var building = await Promise.all(tmp.Buildings.map(async elem => {
+          return await getPlace(elem.id, SafeAreaProvider.Log.token)
+        }));
+      else  
+        return
+      console.log('passed')
+
       SafeAreaProvider.location = location
       setPath(JSON.parse(res).LongLat)
       setPlace(building)      
@@ -105,8 +110,8 @@ export default function Home() {
               ) : null
               } 
           </MapView>
-            <Feather style={button.logout} name={"log-out"} size={24} onPress={() => SafeAreaProvider.Loged(false)} color={Colors('dedalBlue')} />
-            <Feather style={[button.logout, {top : 10, left : 40}]} name={"loader"} size={24} onPress={() => parcours()} color={Colors('dedalBlue')} />
+          <Feather style={button.logout} name={"log-out"} size={24} onPress={() => SafeAreaProvider.Loged(false)} color={Colors('dedalBlue')} />
+          <Feather style={[button.logout, {top : 10, left : 40}]} name={"loader"} size={24} onPress={() => parcours()} color={Colors('dedalBlue')} />
     </View>
   );
 }
