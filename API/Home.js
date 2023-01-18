@@ -65,7 +65,6 @@ export async function getMap(pos, name, filters) {
  * @return {TODO} 
  */
 export async function getInfo (id, token) {
-    console.log(token)
     return await fetch(`http://52.166.128.133/map/?id=${id}`, {
         method: 'GET',
         'Content-type': 'application/json',

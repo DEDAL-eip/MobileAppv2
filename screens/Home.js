@@ -23,42 +23,47 @@ export default function Home() {
   const [Place, setPlace] = useState([])
 
   useEffect(() => {
-    (async () => {
+
+    /**
+     * Hook to ask localisation data to user
+     * set localisation in SafeAreaProvider.location
+     */
+    const askPosition = async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
         console.log('Permission to access location was denied');
         return;
       }
-      let location = await Location.getCurrentPositionAsync({});
+      let location = await Location.getCurrentPositionAsync({})
       setLocation(location)
+      SafeAreaProvider.location =(location)
+    }
+      
 
-
+    /**
+     * Get target map from the API
+     * Extract the path and the building in Path and Place
+     */
+    const askMap = async () => {
       let res = await getInfo('test',SafeAreaProvider.Log.token)
-      console.log('res => ', res)
       let tmp = JSON.parse(res)
-      if (tmp.Buildings)
-        var building = await Promise.all(tmp.Buildings.map(async elem => {
-          return await getPlace(elem.id, SafeAreaProvider.Log.token)
-        }));
-      else  
-        return
-      console.log('passed')
-
-      SafeAreaProvider.location = location
       setPath(JSON.parse(res).LongLat)
-      setPlace(building)      
-    })();
+      setPlace(tmp.Buildings ? await Promise.all(tmp.Buildings.map(async elem => {
+        return await getPlace(elem.id, SafeAreaProvider.Log.token)
+      })) : null)
+    }
+
+    askPosition()
+    askMap()
   }, []);
 
 
   /**
-   * @function 
-   * @description Call the lambda to create parcours 
-   *
+   *  Call the lambda to create the map 
    */
   const parcours = async () => {
     SafeAreaProvider.filters = ['592ecbc0-e50f-4ea1-a142-d034c20e7470']
-    let res = await getMap({"y": 3.060966, "x": 50.631305}, 'test', SafeAreaProvider.filters)
+    await getMap({"y": 3.060966, "x": 50.631305}, 'test', SafeAreaProvider.filters)
   } 
   
   return (
