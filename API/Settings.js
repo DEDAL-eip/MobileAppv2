@@ -22,15 +22,31 @@ export async function changePassword (email, password, code) {
     .then(res => res)
 }
 
-export async function patchParams (id, values) {
-    return await fetch(`http://52.166.128.133/user/${id}/param`, {
+
+export async function MypatchParams (id, values, token) {
+    //let info = await tmp(id, token)
+    console.log('here', values, id)
+    return await fetch(`http://52.166.128.133/update_info/?id=${id}`, {
         method: 'PATCH',
         body: JSON.stringify(values),
         headers: {
         'Content-type': 'application/json',
+        'x-access-token' : token,
         'Accept': '*/*' }
         })
-    .then(res => res.json())
-    .catch(err => console.error(err))
-} 
+        .then(res => res.status)
+        .catch(err => err)
+}
+
+export async function tmp(id, token) {
+    return await fetch(`http://52.166.128.133/user/?id=${id}`, {
+        method :'GET',
+        headers: {
+            'Content-type': 'application/json',
+            'Accept': '*/*',
+            'x-access-token' : token
+        }
+    }).then(res => res.json())
+    .catch(err => err)
+}
 
