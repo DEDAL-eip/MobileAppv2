@@ -1,5 +1,5 @@
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { Text, View } from "react-native";
+import { Text, View, Switch } from "react-native";
 import { useState } from "react";
 
 import { global, color, table, textInput } from "../style/styles";
@@ -9,6 +9,7 @@ import { Title } from "../components/Title";
 import { GlobalButton } from "../components/Button";
 import { ModalLoginCode } from "../components/Modal/Login-Code";
 import { TextInputGlobal } from "../components/TextInput";
+import Colors from "../constants/Colors";
 
 
 /**
@@ -23,8 +24,7 @@ export default function Setting() {
   const [Error, setError] = useState(false)
   const [Edit, setEdit] = useState(false)
   const [Username, setUsername] = useState(SafeAreaProvider.Log.Username)
-
-
+  const [mode, setMode] = useState(SafeAreaProvider.mode=='dark' ? true : false)
   /**
    * Call API to send verification code 
    * And open CHange password modal
@@ -62,31 +62,53 @@ export default function Setting() {
     setEdit(false)
     }
 
+    const updateSwitch = (e) => {
+      setMode(e)
+      console.log('switch => ', e)
+      if (e)
+        SafeAreaProvider.mode =('dark')
+      else 
+        SafeAreaProvider.mode = ('light')
+    }
+
+
   return (
     <View style={global.container}>
       <Title title='Settings' ></Title>
       <View style={global.middleContainer}>
         <View style={[table.row, {marginBottom : 10}]}>
           <View style={table.col}>
-            <Text>UserName</Text>
+            <Text style={color.text}>UserName</Text>
           </View>
           <View style={table.col}>
             {!Edit ?
-              <Text>{SafeAreaProvider.Log.Username}</Text> :
+              <Text style={color.text}>{SafeAreaProvider.Log.Username}</Text> :
               <TextInputGlobal style={[Username.length == 0 ? textInput.Error : textInput.global, {width: '100%'}]} placeholder="UserName" onChangeText={setUsername} value={Username}></TextInputGlobal>
             }
           </View>
         </View>
         <View style={table.row}>
           <View style={table.col}>
-            <Text>Email</Text>
-            <Text>Last Connection</Text>
-            <Text>Account Creation</Text>
+            <Text style={color.text}>Email</Text>
+            <Text style={color.text}>Last Connection</Text>
+            <Text style={color.text}>Account Creation</Text>
           </View>
           <View style={table.col}>
-            <Text>{SafeAreaProvider.Log.Email}</Text>
-            <Text>{buildDate(SafeAreaProvider.Log["Last connection"])}</Text>
-            <Text>{buildDate(SafeAreaProvider.Log["createdAt"])}</Text>
+            <Text style={color.text}>{SafeAreaProvider.Log.Email}</Text>
+            <Text style={color.text}>{buildDate(SafeAreaProvider.Log["Last connection"])}</Text>
+            <Text style={color.text}>{buildDate(SafeAreaProvider.Log["createdAt"])}</Text>
+          </View>
+        </View>
+        <View style={[table.row, {marginTop : 10}]}>
+          <View style={table.col}>
+            <Text style={color.text}>Dark mode</Text>
+          </View>
+          <View style={table.col}>
+            <Switch 
+              value={mode}
+              onValueChange={(e) => updateSwitch(e)}
+              style={{thumbColor : Colors('dedalBlue')}}
+              />
           </View>
         </View>
       </View>

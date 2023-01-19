@@ -23,8 +23,8 @@ export default function EditScreenInfo({ path }) {
 
         <Text
           style={styles.getStartedText}
-          lightColor={Colors('dark.text')}
-          darkColor={Colors('light.text')}
+          lightColor={Colors('Text')}
+          darkColor={Colors('Text')}
         >
           Change any of the text, save the file, and your app will automatically
           update.
@@ -33,7 +33,7 @@ export default function EditScreenInfo({ path }) {
 
       <View style={styles.helpContainer}>
         <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
-          <Text style={styles.helpLinkText} lightColor={Colors('light.tint')}>
+          <Text style={styles.helpLinkText} lightColor={Colors('Text')}>
             Tap here if your app doesn't automatically update after making
             changes
           </Text>

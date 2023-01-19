@@ -1,5 +1,6 @@
 import { View } from "react-native";
 import { StyleSheet} from "react-native";
+import Colors from "../constants/Colors";
 export const Separator = () => (
     <View style={styles.container}>
       <View style={styles.bar} />
@@ -15,7 +16,7 @@ const styles = StyleSheet.create({
   bar : {
     flex: 1,
     height: 1,
-    backgroundColor: 'black',
+    backgroundColor: Colors('Text'),
     marginTop : "5%",
   }
 })

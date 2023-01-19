@@ -21,7 +21,8 @@ export const HomeTitle = ({title, pict, subtitle}) => {
         <Separator />
         <Text style={[titleS.subtitle]}>{subtitle}</Text>
         {pict ? 
-        <Image style={titleS.image} source={pict} />
-        : null}
+            <Image style={titleS.image} source={pict} />
+            : null
+        }
     </View>
 )}  

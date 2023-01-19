@@ -51,8 +51,8 @@ export default function BottomTabNavigator() {
       },
       tabBarActiveTintColor: Colors('dedalBlue'),
       tabBarInactiveTintColor: Colors('dedalBlueDisable'),
-      tabBarActiveBackgroundColor: Colors('White'),
-      tabBarInactiveBackgroundColor: Colors('White'),
+      tabBarActiveBackgroundColor: Colors('Background'),
+      tabBarInactiveBackgroundColor: Colors('Background'),
     })}
       >
 

@@ -4,9 +4,10 @@ import Colors from "../constants/Colors"
 
 export const global = StyleSheet.create({
   container: {
-    backgroundColor : Colors('White'),
+    backgroundColor : Colors('Background'),
     height : '100%',
     flex : 1,
+
   },
   titleContainer : {
     alignItems: "center",
@@ -64,7 +65,7 @@ export const button = StyleSheet.create({
     height : 25,
     borderRadius : 100,
     borderWidth: 2,
-    borderColor : Colors('black')
+    borderColor : Colors('Text')
   },
   disable : {
     backgroundColor : Colors('dedalBlueDisable'),
@@ -73,7 +74,8 @@ export const button = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop : 5,
-    borderRadius : 5
+    borderRadius : 5,
+    color : Colors('Text')
   },
   logout : {
     position : 'absolute',
@@ -91,6 +93,7 @@ export const textInput = StyleSheet.create({
     borderWidth: 1,
     paddingLeft : 10,
     borderColor : Colors('dedalBlue'),
+    color : Colors('Text'),
   },
   Error : {
     width : '50%',
@@ -100,6 +103,7 @@ export const textInput = StyleSheet.create({
     borderWidth: 1,
     paddingLeft : 10,
     borderColor : Colors('ErrorRed'),
+    color : Colors('Text'),
   }
 })
 
@@ -118,12 +122,17 @@ export const titleS = StyleSheet.create({
     fontSize: 40,
     fontFamily : "Main",
     textAlign: 'center',
-    lineBreak: 'normal'
+    lineBreak: 'normal',
+    color : Colors('Text')
+
+
   },
   subtitle : {
     fontSize:30,
     fontFamily : "Main",
     textAlign: 'center',
+    color : Colors('Text')
+
   },
 
   image: {
@@ -135,11 +144,11 @@ export const titleS = StyleSheet.create({
 })
 
 export const color = StyleSheet.create({
+  text : {
+    color : Colors('Text')
+  },
   white : {
     color : Colors('White')
-  },
-  black : {
-    color : Colors('Black')
   },
   dedalBlueDisable : {
     color : Colors('dedalBlueDisable')
@@ -152,6 +161,9 @@ export const color = StyleSheet.create({
   },
   dedalBlueDisable : {
     color : Colors('dedalBlueDisable')
+  },
+  background : {
+    color : Colors('Background')
   }
 })
 

@@ -9,9 +9,9 @@ import { useState } from "react";
 
 export default function Main() {
     const [IsLoged, setLoged] = useState(false)
-    SafeAreaProvider.Loged = setLoged
     const colorScheme = useColorScheme()
-
+    SafeAreaProvider.Loged = setLoged
+    SafeAreaProvider.mode = colorScheme
     if (!IsLoged)
         return (
         <Login/>
