@@ -1,8 +1,9 @@
 import { GlobalButton } from "../components/Button";
 import { useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { Text, View } from "react-native";
-import easyLog, { signIn, signUp, google, nextG } from "../API/Login";
+import { View } from "../constants/Themed";
+import { Text } from "../constants/Themed";
+import easyLog, { signIn, google, nextG } from "../API/Login";
 import { color, global, textInput } from "../style/styles";
 import { HomeTitle } from "../components/Title";
 import Colors from "../constants/Colors"
@@ -16,8 +17,6 @@ export default function Login() {
   const [Error, setError] = useState(false)
   const [Email, setEmail] = useState("")
   const [Password, setPassword] = useState("")
-  const [first, setfirst] = useState("wait")
-  const [second, setsecond] = useState("wait")
   const url = Linking.useURL()
 
   async function CallAPI() {
@@ -83,7 +82,7 @@ useEffect(() => {
         <View style={[global.basicContainer, {paddingBottom:20}]}>
           <Text style={color.errorRed}>{Error ? "Email ou mot de passe incorrecte" : ""}</Text>
           <TextInputGlobal autoCapitalize='none' autoComplete='email' style={[textInput.global, {borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue')}]} placeholder="Email" onChangeText={setEmail} value={Email}></TextInputGlobal>
-          <TextInputPassword autoCapitalize='none' autoComplete='password' style={[textInput.global, {borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue')}]} placeholder="Passord" onChangeText={setPassword} value={Password}></TextInputPassword>
+          <TextInputPassword autoCapitalize='none' autoComplete='password' style={[textInput.global, {borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue')}]} placeholder="Password" onChangeText={setPassword} value={Password}></TextInputPassword>
         </View>
           <GlobalButton title="Sign In" onPress={() => EasySignIn(Email, Password)}></GlobalButton>
           <View style={{width: '25%',paddingBottom:20, paddingTop:60}}>

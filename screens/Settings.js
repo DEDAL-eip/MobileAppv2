@@ -1,5 +1,6 @@
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { Text, View } from "react-native";
+import { Text, View } from "../constants/Themed";
+import { Switch } from "react-native";
 import { useState } from "react";
 
 import { global, color, table, textInput } from "../style/styles";
@@ -23,8 +24,7 @@ export default function Setting() {
   const [Error, setError] = useState(false)
   const [Edit, setEdit] = useState(false)
   const [Username, setUsername] = useState(SafeAreaProvider.Log.Username)
-
-
+  const [mode, setMode] = useState(SafeAreaProvider.mode=='dark' ? true : false)
   /**
    * Call API to send verification code 
    * And open CHange password modal
@@ -62,6 +62,15 @@ export default function Setting() {
     setEdit(false)
     }
 
+    const updateSwitch = (e) => {
+      setMode(e)
+      if (e)
+        SafeAreaProvider.mode =('dark')
+      else 
+        SafeAreaProvider.mode = ('light')
+    }
+
+
   return (
     <View style={global.container}>
       <Title title='Settings' ></Title>
@@ -87,6 +96,17 @@ export default function Setting() {
             <Text>{SafeAreaProvider.Log.Email}</Text>
             <Text>{buildDate(SafeAreaProvider.Log["Last connection"])}</Text>
             <Text>{buildDate(SafeAreaProvider.Log["createdAt"])}</Text>
+          </View>
+        </View>
+        <View style={[table.row, {marginTop : 10}]}>
+          <View style={table.col}>
+            <Text>Dark mode</Text>
+          </View>
+          <View style={[table.col, {paddingRight: 50}]}>
+            <Switch 
+              value={mode}
+              onValueChange={(e) => updateSwitch(e)}
+              />
           </View>
         </View>
       </View>

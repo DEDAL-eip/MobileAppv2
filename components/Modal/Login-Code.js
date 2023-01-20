@@ -3,7 +3,7 @@ import { GlobalButton } from "../Button"
 import { Title } from "../Title"
 import { TextInputGlobal, TextInputPassword } from "../../components/TextInput"
 import { useEffect, useState } from "react"
-import { Text } from "react-native"
+import { Text } from "../../constants/Themed";
 import { global, textInput } from "../../style/styles"
 import { SafeAreaProvider } from "react-native-safe-area-context"
 import { changePassword } from "../../API/Settings"
