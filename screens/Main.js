@@ -12,13 +12,15 @@ export default function Main() {
     const colorScheme = useColorScheme()
     SafeAreaProvider.Loged = setLoged
     SafeAreaProvider.mode = colorScheme
+
+
     if (!IsLoged)
         return (
         <Login/>
         );
     else {
         return (
-        <Navigation colorScheme={colorScheme} />
+        <Navigation/>
         )
     }
   }

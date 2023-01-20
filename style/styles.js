@@ -4,7 +4,6 @@ import Colors from "../constants/Colors"
 
 export const global = StyleSheet.create({
   container: {
-    backgroundColor : Colors('Background'),
     height : '100%',
     flex : 1,
 
@@ -93,7 +92,6 @@ export const textInput = StyleSheet.create({
     borderWidth: 1,
     paddingLeft : 10,
     borderColor : Colors('dedalBlue'),
-    color : Colors('Text'),
   },
   Error : {
     width : '50%',
@@ -103,7 +101,6 @@ export const textInput = StyleSheet.create({
     borderWidth: 1,
     paddingLeft : 10,
     borderColor : Colors('ErrorRed'),
-    color : Colors('Text'),
   }
 })
 
@@ -123,7 +120,6 @@ export const titleS = StyleSheet.create({
     fontFamily : "Main",
     textAlign: 'center',
     lineBreak: 'normal',
-    color : Colors('Text')
 
 
   },
@@ -131,7 +127,6 @@ export const titleS = StyleSheet.create({
     fontSize:30,
     fontFamily : "Main",
     textAlign: 'center',
-    color : Colors('Text')
 
   },
 
@@ -162,9 +157,6 @@ export const color = StyleSheet.create({
   dedalBlueDisable : {
     color : Colors('dedalBlueDisable')
   },
-  background : {
-    color : Colors('Background')
-  }
 })
 
 export const table = StyleSheet.create({

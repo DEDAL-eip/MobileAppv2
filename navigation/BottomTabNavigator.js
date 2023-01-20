@@ -4,7 +4,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useColorScheme } from "react-native";
-import { Feather } from '@expo/vector-icons';
+import { createIconSetFromFontello, Feather } from '@expo/vector-icons';
 
 import Home from "../screens/Home";
 import Setting from "../screens/Settings";
@@ -16,21 +16,9 @@ const BottomTab = createBottomTabNavigator();
 
 export default function BottomTabNavigator() {
   const colorScheme = useColorScheme();
-
   return (
     <BottomTab.Navigator
-      initialRouteName="Home"
-    //   screenOptions={({ route }) => ({
-    //     //tabBarActiveTintColor: Colors[colorScheme].tint,
-    //     headerShown: false,
-    //     tabBarIcon: ({ color }) => ({
-    //       if (route.name == 'Home')
-    //         return (<TabBarIcon name="map" color={color} />)
-    //       else
-    //         return (<TabBarIcon name="map-pin" color={color} />)
-
-    //     })
-    //   })}
+    initialRouteName="Home"
     screenOptions={({ route }) => ({
       headerShown: false,
       tabBarIcon: ({ color, size }) => {
@@ -51,8 +39,8 @@ export default function BottomTabNavigator() {
       },
       tabBarActiveTintColor: Colors('dedalBlue'),
       tabBarInactiveTintColor: Colors('dedalBlueDisable'),
-      tabBarActiveBackgroundColor: Colors('Background'),
-      tabBarInactiveBackgroundColor: Colors('Background'),
+      tabBarActiveBackgroundColor: Colors('Background', colorScheme),
+      tabBarInactiveBackgroundColor: Colors('Background', colorScheme),
     })}
       >
 

@@ -1,8 +1,9 @@
 import { GlobalButton } from "../components/Button";
 import { useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { Text, View } from "react-native";
-import easyLog, { signIn, signUp, google, nextG } from "../API/Login";
+import { View } from "../constants/Themed";
+import { Text } from "../constants/Themed";
+import easyLog, { signIn, google, nextG } from "../API/Login";
 import { color, global, textInput } from "../style/styles";
 import { HomeTitle } from "../components/Title";
 import Colors from "../constants/Colors"
@@ -16,8 +17,6 @@ export default function Login() {
   const [Error, setError] = useState(false)
   const [Email, setEmail] = useState("")
   const [Password, setPassword] = useState("")
-  const [first, setfirst] = useState("wait")
-  const [second, setsecond] = useState("wait")
   const url = Linking.useURL()
 
   async function CallAPI() {

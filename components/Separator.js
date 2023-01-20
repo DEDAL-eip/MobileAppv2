@@ -16,7 +16,6 @@ const styles = StyleSheet.create({
   bar : {
     flex: 1,
     height: 1,
-    backgroundColor: Colors('Text'),
     marginTop : "5%",
   }
 })
