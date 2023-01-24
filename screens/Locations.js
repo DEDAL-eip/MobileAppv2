@@ -63,6 +63,7 @@ export default function Location() {
         <GlobalButton title='In itinerary' disable={Selection === 'In itinerary'} onPress={() => {
           setSelection('In itinerary')
           setLocations(SafeAreaProvider.itinerary)
+          console.log('Debug => ', SafeAreaProvider.itinerary)
         }} />
         <GlobalButton title='Out itinerary' disable={Selection === 'Out itinerary'} onPress={() => {
           setSelection('Out itinerary')

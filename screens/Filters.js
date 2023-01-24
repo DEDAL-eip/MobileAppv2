@@ -4,6 +4,8 @@ import FilterButton from '../components/FilterButton';
 import getFilters from "../API/Filters";
 import { global } from "../style/styles";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { useEffect, useState } from "react";
+import { Title } from "../components/Title";
 
 /**
  * @class
@@ -12,16 +14,32 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
  * @category Screens
  */
 export default function Filter() {
-  async function CallAPI() {
-    const res = await getFilters(SafeAreaProvider.Log.token).then(console.log("RES:", res))
-    return res
-  }
 
-  const APIfilterz = CallAPI()
-  const APIfilters = ['truc', 'troc']
-  const filters = []
+  const [APIfilterz, setFilters] = useState([])
   const data = []
   
+  useEffect(() => {
+    const getFilter = async () => {
+      const res = await getFilters(SafeAreaProvider.Log.token)
+      setFilters(res)
+    }
+    getFilter()
+  },[])
+
+
+  const buildDisplayFilters = () => {
+    return APIfilterz.map((filtre, index, array) => {
+      if (!(index % 2)) {
+      return (
+            <View key={index} style={global.row}>
+              <FilterButton assertToContext={assertToContext} text={array[index].name} />
+              <FilterButton assertToContext={assertToContext} text={array[index+1] ? array[index+1].name : null} />
+            </View>
+          )
+        }
+      })
+  }
+
   const assertToContext = (filter, push) => {
     if (push == true)
       data.push(filter);
@@ -30,25 +48,11 @@ export default function Filter() {
     SafeAreaProvider.filters = data
   }
 
-  let y = 0
-  for (let i = 0; i < 5; i++){
-    filters.push(
-      <View key={i} style={global.row}>
-        <FilterButton assertToContext={assertToContext} text={APIfilters[y]} />
-        <FilterButton assertToContext={assertToContext} text={APIfilters[y + 1]} />
-      </View>
-    )
-    y = y + 2
-  }
-
   return (
     <View style={global.container}>
-      <View style={global.titleContainer}>
-        <Text style={global.title}>{'FILTER'}</Text>
-        <Separator />
-      </View>
+      <Title title={'Filtres'}/>
       <View style={global.middleContainer}>
-        { filters }
+        { buildDisplayFilters() }
       </View>
     </View>
   );
