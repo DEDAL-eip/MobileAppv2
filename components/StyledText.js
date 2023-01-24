@@ -1,6 +1,6 @@
 import { Platform } from "react-native";
 
-import { Text } from "react-native";
+import { Text } from "../constants/Themed";
 
 export function MonoText(props) {
   return (

@@ -12,7 +12,7 @@ export const GlobalButton = (({title, onPress, disable, style}) => {
 export const CloseButton = ({Close}) => {
   return (
     <TouchableOpacity style={button.close} onPress={() => Close()}>
-      <Text style={color.black}>X</Text>
+      <Text style={color.text}>X</Text>
     </TouchableOpacity>
   )
 }

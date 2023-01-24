@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { Text, View } from "../constants/Themed";
 import { Separator } from "../components/Separator";
 import FilterButton from '../components/FilterButton';
 import getFilters from "../API/Filters";

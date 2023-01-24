@@ -9,8 +9,10 @@ import { useState } from "react";
 
 export default function Main() {
     const [IsLoged, setLoged] = useState(false)
-    SafeAreaProvider.Loged = setLoged
     const colorScheme = useColorScheme()
+    SafeAreaProvider.Loged = setLoged
+    SafeAreaProvider.mode = colorScheme
+
 
     if (!IsLoged)
         return (
@@ -18,7 +20,7 @@ export default function Main() {
         );
     else {
         return (
-        <Navigation colorScheme={colorScheme} />
+        <Navigation/>
         )
     }
   }

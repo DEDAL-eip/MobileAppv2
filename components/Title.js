@@ -1,6 +1,6 @@
-import { View } from "react-native";
 import { Separator } from "./Separator";
-import { Image, Text} from "react-native";
+import { Image} from "react-native";
+import { Text, View } from "../constants/Themed";
 import { global, titleS } from "../style/styles";
 export const Title = ({title, pict, subtitle}) => {
     return(
@@ -13,7 +13,6 @@ export const Title = ({title, pict, subtitle}) => {
         : null}
     </View>
 )}  
-
 export const HomeTitle = ({title, pict, subtitle}) => {
     return(
     <View style={[global.titleContainer, {paddingHorizontal : '10%'}]}>
@@ -21,7 +20,8 @@ export const HomeTitle = ({title, pict, subtitle}) => {
         <Separator />
         <Text style={[titleS.subtitle]}>{subtitle}</Text>
         {pict ? 
-        <Image style={titleS.image} source={pict} />
-        : null}
+            <Image style={titleS.image} source={pict} />
+            : null
+        }
     </View>
 )}  
