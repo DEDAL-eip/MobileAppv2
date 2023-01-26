@@ -1,7 +1,6 @@
 import { GlobalButton } from "../components/Button";
 import { useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { Text, View } from "react-native";
 import { View, Text } from "../constants/Themed";
 import easyLog, { signIn, signUp, signUpCode, google, nextG } from "../API/Login";
 import { color, global, textInput } from "../style/styles";
@@ -41,6 +40,7 @@ export default function Login() {
   }
 
   async function createAccount(email, password) {
+    console.log("email: ", email, ", password: ", password)
     const res = await signUp(email, password)
     if (res.hasError == true)
       setError(true)
