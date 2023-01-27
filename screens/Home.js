@@ -47,10 +47,15 @@ export default function Home() {
     const askMap = async () => {
       let res = await getInfo('test',SafeAreaProvider.Log.token)
       let tmp = JSON.parse(res)
-      setPath(JSON.parse(res).LongLat)
-      setPlace(tmp.Buildings ? await Promise.all(tmp.Buildings.map(async elem => {
-        return await getPlace(elem.id, SafeAreaProvider.Log.token)
-      })) : null)
+
+      // NEED TO BE FIX
+      if (JSON.parse(res).LongLat != undefined){
+        setPath(JSON.parse(res).LongLat)
+        setPlace(tmp.Buildings ? await Promise.all(tmp.Buildings.map(async elem => {
+          return await getPlace(elem.id, SafeAreaProvider.Log.token)
+        })) : null)
+      }
+      // NEED TO BE FIX
     }
 
     askPosition()
@@ -66,6 +71,10 @@ export default function Home() {
     await getMap({"y": 3.060966, "x": 50.631305}, 'test', SafeAreaProvider.filters)
   } 
   
+const tutut = (Path) => {
+  console.log("Path: ", Path)
+}
+
   return (
     <View style={global.container}>
         <MapView style={map}
@@ -86,6 +95,9 @@ export default function Home() {
                 loadingEnabled={true}
                 
             >
+              {
+                tutut(Path)
+              }
               {
               Path.map((elem, index, array) =>
                 index != array.length-1 ?

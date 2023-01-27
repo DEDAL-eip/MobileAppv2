@@ -40,7 +40,6 @@ export default function Login() {
   }
 
   async function createAccount(email, password) {
-    console.log("email: ", email, ", password: ", password)
     const res = await signUp(email, password)
     if (res.hasError == true)
       setError(true)
@@ -48,12 +47,13 @@ export default function Login() {
       setStep("VerificationCode")
     }
   }
-
+  
   async function verifyAccount(email, code) {
     const res = await signUpCode(email, code)
     if (res.hasError == true)
-      setError(true)
+    setError(true)
     else {
+      EasySignIn('eliot.martin@hotmail.fr', 'pasWORD1@')
       SafeAreaProvider.Loged(true)
       SafeAreaProvider.Log = res
     }
