@@ -12,6 +12,13 @@ import * as WebBrowser from 'expo-web-browser'
 import * as Linking from 'expo-linking'
 import { useEffect } from "react";
 
+/**
+ * @class display Login screen
+ * @export
+ * 
+ * @description A function that returns a View to sign in or sign up.
+ * @return {HTML} 
+ */
 export default function Login() {
   const [Error, setError] = useState(false)
   const [Step, setStep] = useState("")
@@ -83,7 +90,6 @@ export default function Login() {
       SafeAreaProvider.Log = result
     }
   }
-
 
 useEffect(() => {
   if (url) {

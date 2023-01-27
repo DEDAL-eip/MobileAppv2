@@ -11,9 +11,9 @@ import { GlobalButton } from "../components/Button";
 import { ModalLoginCode } from "../components/Modal/Login-Code";
 import { TextInputGlobal } from "../components/TextInput";
 
-
 /**
- * @class display Home screen
+ * @class display Settings screen
+ * @export
  * 
  * @description Display user settings & edit button
  * @return {HTML} 

@@ -8,8 +8,6 @@ import { getPlace, getInfo, getMap } from "../API/Home";
 import Colors from "../constants/Colors";
 import { Feather } from '@expo/vector-icons';
 
-
-
 /**
  * @class display Home screen
  * @export

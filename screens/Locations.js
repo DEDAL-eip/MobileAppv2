@@ -10,6 +10,13 @@ import { getLocations } from "../API/Locations";
 
 import { global } from "../style/styles";
 
+/**
+ * @class display Locations screen
+ * @export
+ * 
+ * @description A function that returns a View with locations.
+ * @return {HTML} 
+ */
 export default function Location() {
   const [Selection, setSelection] = useState("")
   const [Locations, setLocations] = useState([])
@@ -33,8 +40,11 @@ export default function Location() {
   ]
   const locationsInItinerary = []
 
+  /**
+   * Hook to push or pop filter from Selection to or from itinerary
+   * set locationsInItinerary in SafeAreaProvider.itinerary
+   */
   const assertToItinerary = (location) => {
-    console.log("Selection: ", Selection)
     switch(Selection) {
       case 'Out filters':
         location[0] = "Out filters: " + location[0]

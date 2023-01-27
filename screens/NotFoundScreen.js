@@ -1,5 +1,12 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
+/**
+ * @class display NotFoundScreen screen
+ * @export
+ * 
+ * @description A function that returns a View with a button to go to the Home screen.
+ * @return {HTML} 
+ */
 export default function NotFoundScreen({ navigation }) {
   return (
     <View style={styles.container}>

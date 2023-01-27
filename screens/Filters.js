@@ -8,25 +8,32 @@ import { useEffect, useState } from "react";
 import { Title } from "../components/Title";
 
 /**
- * @class
+ * @class display Filters screen
+ * @export
  * 
- * @returns A function that returns a View with filters.
- * @category Screens
+ * @description A function that returns a View with filters.
+ * @return {HTML} 
  */
 export default function Filter() {
-
   const [APIfilterz, setFilters] = useState([])
   const data = []
   
   useEffect(() => {
+    /**
+     * Hook to get filter data to user
+     * set filters
+     */
     const getFilter = async () => {
       const res = await getFilters(SafeAreaProvider.Log.token)
       setFilters(res)
     }
+
     getFilter()
   },[])
 
-
+  /**
+   * Hook to return repeatedly Views with FilterButton from filters fetch from API
+   */
   const buildDisplayFilters = () => {
     return APIfilterz.map((filtre, index, array) => {
       if (!(index % 2)) {
@@ -40,6 +47,10 @@ export default function Filter() {
       })
   }
 
+  /**
+   * Hook to push filter to data
+   * set data in SafeAreaProvider.filters
+   */
   const assertToContext = (filter, push) => {
     if (push == true)
       data.push(filter);
