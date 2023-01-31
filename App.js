@@ -19,7 +19,7 @@ export default function App() {
     return (
       <SafeAreaProvider>
         <StatusBar />
-            <Main colorScheme />
+        <Main colorScheme />
       </SafeAreaProvider>
     );
   }

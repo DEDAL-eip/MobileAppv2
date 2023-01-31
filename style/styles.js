@@ -6,7 +6,6 @@ export const global = StyleSheet.create({
   container: {
     height : '100%',
     flex : 1,
-
   },
   titleContainer : {
     alignItems: "center",
@@ -168,5 +167,20 @@ export const table = StyleSheet.create({
   col : {
     flex : 1,
     gap : 10,
+  }
+})
+
+export const separator = StyleSheet.create({
+  container : {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingTop : '10%',
+  },
+  bar : {
+    flex: 1,
+    height: 1,
+    marginTop : "5%",
+    backgroundColor : 'white',
+
   }
 })

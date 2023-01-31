@@ -6,11 +6,12 @@ import easyLog, { signIn, signUp, signUpCode, google, nextG } from "../API/Login
 import { color, global, textInput } from "../style/styles";
 import { HomeTitle } from "../components/Title";
 import Colors from "../constants/Colors"
-import { Separator } from "../components/Separator";
+import { Separator } from "../constants/Themed";
 import { TextInputPassword, TextInputGlobal } from "../components/TextInput";
 import * as WebBrowser from 'expo-web-browser'
 import * as Linking from 'expo-linking'
 import { useEffect } from "react";
+import SignUp from "../components/SignUp";
 
 /**
  * @class display Login screen
@@ -21,7 +22,7 @@ import { useEffect } from "react";
  */
 export default function Login() {
   const [Error, setError] = useState(false)
-  const [Step, setStep] = useState("")
+  const [Step, setStep] = useState(0)
   const [Email, setEmail] = useState("")
   const [Password, setPassword] = useState("")
   const [VerificationCode, setVerificationCode] = useState("")
@@ -36,6 +37,7 @@ export default function Login() {
     else 
       return false
   }
+
   async function EasySignIn(email, password) {
     const res = await signIn(email, password)
     if (res.hasError == true)
@@ -81,15 +83,15 @@ export default function Login() {
       nextGoogle(res)
 }
 
-  const nextGoogle = async (res) => {
-    let result = await nextG(res)
-    if (result.error)
-      setError(true)
-    else {
-      SafeAreaProvider.Loged(true)
-      SafeAreaProvider.Log = result
-    }
+const nextGoogle = async (res) => {
+  let result = await nextG(res)
+  if (result.error)
+    setError(true)
+  else {
+    SafeAreaProvider.Loged(true)
+    SafeAreaProvider.Log = result
   }
+}
 
 useEffect(() => {
   if (url) {
@@ -107,15 +109,7 @@ useEffect(() => {
         <HomeTitle title='DEDAL' pict={require('../assets/logo.png')} subtitle='Le chemin de votre culture'/>
       </View>
       <View style={global.middleContainer}>
-        {Step === "VerificationCode" ?
-          <>
-            <View style={[global.basicContainer, {paddingBottom:20}]}>
-              <Text style={Error ? color.errorRed : null}>{Error ? "Wrong verification code." : "A verification code was sent to your email adress."}</Text>
-              <TextInputGlobal autoCapitalize='none' style={[textInput.global, {borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue')}]} placeholder="Verification Code" onChangeText={setVerificationCode} value={VerificationCode}></TextInputGlobal>
-            </View>
-            <GlobalButton title="Verify" onPress={() => verifyAccount(Email, VerificationCode)}></GlobalButton>
-          </>
-        :
+        {Step === 0 ?
           <>
             <View style={[global.basicContainer, {paddingBottom:20}]}>
               <Text style={Error ? color.errorRed : null}>{Error ? "Email ou mot de passe incorrecte" : ""}</Text>
@@ -124,12 +118,13 @@ useEffect(() => {
             </View>
             
             <GlobalButton title="Sign In" onPress={() => EasySignIn(Email, Password)}></GlobalButton>
-            <GlobalButton title="Sign Up" onPress={() => createAccount(Email, Password)} />
+            <GlobalButton title="Sign Up" onPress={() => setStep(1)} />
             <View style={{width: '25%',paddingBottom:20, paddingTop:20}}>
               <Separator />
             </View>
             <GlobalButton title="Google" onPress={() => createGoogleAccount()}></GlobalButton>
           </>
+          : <SignUp oldEmail={Email} oldPassword={Password} setBack={() => setStep(0)}/>
         }
       </View>
     </View>
