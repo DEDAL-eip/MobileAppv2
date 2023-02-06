@@ -18,10 +18,7 @@ export async function signUp (email, password) {
         headers: { 'Content-type': 'application/json',
         'Accept': '*/*' }    
     })
-        .then((response) => {
-            console.log("res =>", response.status)
-            return response
-        })
+        .then(res => res.status)
         .catch((error) => console.error(error))
 }
 
@@ -32,10 +29,7 @@ export async function signUpCode (email, code) {
         headers: { 'Content-type': 'application/json',
         'Accept': '*/*' }    
     })
-        .then((response) => {
-            console.log("res =>", response.status)
-            return response
-        })
+        .then(res => res.status)
         .catch((error) => console.error(error))
 }
 
