@@ -4,7 +4,6 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useLoadedAssets } from "./hooks/useLoadedAssets";
 import Main from "./screens/Main";
 import { useFonts } from "expo-font";
-import { global } from "./style/styles";
 import { StatusBar } from './constants/Themed';
 export default function App() {
   const isLoadingComplete = useLoadedAssets();
@@ -13,14 +12,14 @@ export default function App() {
     'Main': require('./assets/font/static/Raleway-Light.ttf'),
     'Bold': require('./assets/font/static/Raleway-Black.ttf'),
   });
-  if (!isLoadingComplete) 
+  if (!isLoadingComplete)
     return null;
   else {
     return (
-      <SafeAreaProvider>
-        <StatusBar />
-        <Main colorScheme />
-      </SafeAreaProvider>
+        <SafeAreaProvider>
+          <StatusBar />
+          <Main colorScheme />
+        </SafeAreaProvider>
     );
   }
 }

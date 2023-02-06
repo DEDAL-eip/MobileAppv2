@@ -1,4 +1,4 @@
-import { textAlign } from '@mui/system'
+import { height, textAlign } from '@mui/system'
 import React, { useState } from 'react'
 import { View, Text, StyleSheet, Animated, LogBox } from 'react-native'
 import MaterialCommunityIcons from 'react-native-vector-icons/Feather'
@@ -73,7 +73,8 @@ const styles = StyleSheet.create({
         width: '45%',
         borderRadius: 10,
         margin : 10,
-        padding : 5
+        padding : 5,
+        height : 50
     },
     text: {
         color: '#FFF',
