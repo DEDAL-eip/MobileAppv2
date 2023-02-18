@@ -1,6 +1,7 @@
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Text, View } from "../constants/Themed";
 import { Switch } from "react-native";
+import { Picker } from '@react-native-picker/picker';
 import { useState } from "react";
 
 import { global, color, table, textInput } from "../style/styles";
@@ -10,6 +11,7 @@ import { Title } from "../components/Title";
 import { GlobalButton } from "../components/Button";
 import { ModalLoginCode } from "../components/Modal/Login-Code";
 import { TextInputGlobal } from "../components/TextInput";
+import translate from "../components/Translate";
 
 /**
  * @class display Settings screen
@@ -25,6 +27,8 @@ export default function Setting() {
   const [Edit, setEdit] = useState(false)
   const [Username, setUsername] = useState(SafeAreaProvider.Log.Username)
   const [mode, setMode] = useState(SafeAreaProvider.mode=='dark' ? true : false)
+  const [selectedValue, setSelectedValue] = useState("French");
+
   /**
    * Call API to send verification code 
    * And open CHange password modal
@@ -77,7 +81,7 @@ export default function Setting() {
       <View style={global.middleContainer}>
         <View style={[table.row, {marginBottom : 10}]}>
           <View style={table.col}>
-            <Text>UserName</Text>
+            <Text>{translate('Username')}</Text>
           </View>
           <View style={table.col}>
             {!Edit ?
@@ -96,6 +100,24 @@ export default function Setting() {
             <Text>{SafeAreaProvider.Log.Email}</Text>
             <Text>{buildDate(SafeAreaProvider.Log["Last connection"])}</Text>
             <Text>{buildDate(SafeAreaProvider.Log["createdAt"])}</Text>
+          </View>
+        </View>
+        <View style={[table.row, {marginTop : 10}]}>
+          <View style={table.col}>
+            <Text>Language</Text>
+          </View>
+          <View style={[table.col, {paddingRight: 50}]}>
+            <Picker
+              selectedValue={selectedValue}
+              style={{ height: 50, width: 150, backgroundColor: `white`}}
+              onValueChange={(itemValue, itemIndex) => {
+                setSelectedValue(itemValue)
+                SafeAreaProvider.language = (itemValue)
+              }}
+            >
+              <Picker.Item label="French" value="french" />
+              <Picker.Item label="English" value="english" />
+            </Picker>
           </View>
         </View>
         <View style={[table.row, {marginTop : 10}]}>
