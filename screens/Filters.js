@@ -60,7 +60,7 @@ export default function Filter() {
 
   return (
     <View style={global.container}>
-      <Title title={'Filtres'}/>
+      <Title title={'Filters'}/>
       <View style={global.middleContainer}>
         { buildDisplayFilters() }
       </View>

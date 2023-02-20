@@ -135,11 +135,11 @@ export default function Setting() {
       <View style={[global.bottomContainer]}>
         {
           !Edit ?
-          <GlobalButton title="Modifier les infos" onPress={() => setEdit(true)}></GlobalButton> : 
+          <GlobalButton title="Modify informations" onPress={() => setEdit(true)}></GlobalButton> : 
           <GlobalButton title={Username.length == 0 ? "Annuler" : "Valider"} onPress={() => validateChange()}></GlobalButton>
         }
-        {Error == true ? <Text style={[global.textCenter, color.errorRed]}>Une erreur est subvenue</Text> : null}
-        <GlobalButton title="Modifier le mot de passe" onPress={() => SendVerifCode()}></GlobalButton>
+        {Error == true ? <Text style={[global.textCenter, color.errorRed]}>An error occured</Text> : null}
+        <GlobalButton title="Modify password" onPress={() => SendVerifCode()}></GlobalButton>
       </View>
       <BasicModal Open={Open} setOpen={setOpen} Content={ModalLoginCode}/>
     </View>

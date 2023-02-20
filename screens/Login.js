@@ -73,13 +73,13 @@ export default function Login() {
   return (
     <View style={global.container}>
       <View style={global.titleContainer}>
-        <HomeTitle title='DEDAL' pict={require('../assets/logo.png')} subtitle='Le chemin de votre culture' />
+        <HomeTitle title='DEDAL' pict={require('../assets/logo.png')} subtitle='The path to your culture' />
       </View>
       <View style={global.middleContainer}>
         {Step === 0 ?
           <>
             <View style={[global.basicContainer, { paddingBottom: 20 }]}>
-              <Text style={Error ? color.errorRed : null}>{Error ? "Email ou mot de passe incorrecte" : ""}</Text>
+              <Text style={Error ? color.errorRed : null}>{Error ? "Wrong mail or password" : ""}</Text>
               <TextInputGlobal autoCapitalize='none' autoComplete='email' style={[textInput.global, { borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue') }]} placeholder="Email" onChangeText={setEmail} value={Email}></TextInputGlobal>
               <TextInputPassword autoCapitalize='none' autoComplete='password' style={[textInput.global, { borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue') }]} placeholder="Password" onChangeText={setPassword} value={Password}></TextInputPassword>
             </View>

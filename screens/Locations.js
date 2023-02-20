@@ -65,7 +65,7 @@ export default function Location() {
 
   return (
     <View style={global.container}>
-      <Title title='Location'></Title>
+      <Title title='Locations'></Title>
       <View style={global.middleContainer}>
         <GlobalButton title='In itinerary' disable={Selection === 'In itinerary'} onPress={() => {
           setSelection('In itinerary')
