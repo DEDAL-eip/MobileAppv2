@@ -11,12 +11,13 @@ import Colors from '../constants/Colors'
  * @category Component
  */
 const FilterButton = (props) => {
-    const [isSelected, setIsSelected] = useState(false)
+    console.log(props)
+    const [isSelected, setIsSelected] = useState(props.selected.includes(props.id))
     const [animation, setAnimation] = useState(new Animated.Value(0))
 
     const boxInterpolation = animation.interpolate({
         inputRange: [0, 1],
-        outputRange:[Colors('dedalBlueDisable') , Colors('dedalBlue')]
+        outputRange: [Colors('dedalBlueDisable') , Colors('dedalBlueDisable')]
     })
     const animatedStyle = {
         backgroundColor: boxInterpolation
@@ -40,7 +41,7 @@ const FilterButton = (props) => {
             }).start()
     }
     
-    if (props.text == null)
+    if (props.elem == null)
         return (
             <View style={[styles.card, styles.coming]}>
                 <View style={styles.row}>
@@ -54,15 +55,15 @@ const FilterButton = (props) => {
             onStartShouldSetResponder={
                 () => (
                     handleAnimation(),
-                    props.assertToContext(props.text, !isSelected),
+                    props.assertToContext(props.elem.id, !isSelected),
                     setIsSelected(!isSelected)
                 )
             }
-            style={[styles.card, animatedStyle]}
+            style={[styles.card, isSelected ? [Colors('dedalBlueDisable')] : [Colors('dedalBlueDisable')], animatedStyle]}
         >
             <View style={styles.row}>
                 <MaterialCommunityIcons name="user" color={'#FFF'} size={30} />
-                <Text style={styles.text}>{capitalizeFirstLetter(props.text)}</Text>
+                <Text style={styles.text}>{capitalizeFirstLetter(props.elem.name)}</Text>
             </View>
         </Animated.View>
     )
