@@ -3,7 +3,7 @@ import FilterButton from '../components/FilterButton';
 import getFilters, { getInfoUser, setInfoUser } from "../API/Filters";
 import { global, shadow, button } from "../style/styles";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Title } from "../components/Title";
 import { GlobalButton } from "../components/Button";
 import { ScrollView } from "react-native";
@@ -20,6 +20,7 @@ export default function Filter() {
   const [APIfilterz, setFilters] = useState([])
   const [infoUser, setUser] = useState({ budget: null, time: null, filter: [] })
   const [display, setDisplay] = useState(1)
+  const [displayFilter, setDisplayFilters] = useState()
 
   useEffect(() => {
     /**
@@ -41,10 +42,26 @@ export default function Filter() {
   }, [])
 
   /**
+ * Hook to push filter to data
+ * set data in SafeAreaProvider.filters
+ */
+  const assertToContext = (filter, push) => {
+    console.log(filter, push)
+    setUser(old => {
+      let res = { ...old }
+      if (push == true)
+        res.filter.push(filter)
+      else 
+        res.filter.splice(res.filter.indexOf(filter), 1)
+      return res
+    })
+  }
+
+  /**
    * Hook to return repeatedly Views with FilterButton from filters fetch from API
    */
-  const buildDisplayFilters = () => {
-    return (
+  useEffect(() => {
+    setDisplayFilters(
       <ScrollView style={{ marginBottom: 20 }}>
         {APIfilterz.map((filtre, index, array) => {
           if (!(index % 2)) {
@@ -57,25 +74,8 @@ export default function Filter() {
           }
         })}
       </ScrollView>
-    )
-  }
-
-
-  /**
-   * Hook to push filter to data
-   * set data in SafeAreaProvider.filters
-   */
-  const assertToContext = (filter, push) => {
-    console.log(filter, push)
-    setUser(old => {
-      let res = { ...old }
-      if (push == true)
-        res.filter.push(filter)
-      else
-        res.filter.pop(filter)
-      return res
-    })
-  }
+      )
+  },[infoUser])
 
   const buildDisplayBuget = () => {
     return (
@@ -134,17 +134,22 @@ export default function Filter() {
 
   const ManageDisplay = () => {
     const result =
-      display == 1 ? buildDisplayFilters() :
+      display == 1 ? displayFilter :
         display == 2 ? buildDisplayBuget() :
-          display == 3 ? buildDisplayLenght() : buildDisplayFilters()
+          display == 3 ? buildDisplayLenght() : displayFilter
     return (result)
   }
 
   const patchUserInfo = async () => {
-    console.log(infoUser)
-    return
     const res = await setInfoUser(SafeAreaProvider.Log.token, SafeAreaProvider.Log.id, infoUser)
     console.log(res.status)
+  }
+
+
+  const BackToBasic = async () => {
+    console.log(SafeAreaProvider.Log.token)
+    const res = await getInfoUser(SafeAreaProvider.Log.token, SafeAreaProvider.Log.id)
+    setUser(res)
   }
 
   return (
@@ -168,7 +173,7 @@ export default function Filter() {
       </View>
       <View style={[global.bottomContainer, shadow.Top]}>
         <GlobalButton title='Sauvegarder' onPress={() => patchUserInfo()}></GlobalButton>
-        <GlobalButton title='Reinitialiser' onPress={() => setDisplay(3)}></GlobalButton>
+        <GlobalButton title='Reinitialiser' onPress={() => BackToBasic()}></GlobalButton>
       </View>
     </View>
   );

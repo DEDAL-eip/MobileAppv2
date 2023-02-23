@@ -1,5 +1,5 @@
-import { height, textAlign } from '@mui/system'
-import React, { useState } from 'react'
+import { textAlign } from '@mui/system'
+import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, Animated, LogBox } from 'react-native'
 import MaterialCommunityIcons from 'react-native-vector-icons/Feather'
 import Colors from '../constants/Colors'
@@ -11,13 +11,22 @@ import Colors from '../constants/Colors'
  * @category Component
  */
 const FilterButton = (props) => {
-    console.log(props)
-    const [isSelected, setIsSelected] = useState(props.selected.includes(props.id))
-    const [animation, setAnimation] = useState(new Animated.Value(0))
+    console.log(props.selected)
+    const [isSelected, setIsSelected] = useState(props.selected.includes(props.elem ? props.elem.name : 0))
+    const [outPutRange, setRange] = useState([Colors('dedalBlue') , Colors('dedalBlueDisable')]) 
+    const animation = new Animated.Value(0)
+    
+    useEffect(() => {
+        setIsSelected(props.selected.includes(props.elem ? props.elem.name : 0))
+    },[props])
+
+    useEffect(() => {
+        setRange(isSelected ? [Colors('dedalBlue') , Colors('dedalBlueDisable')] : [Colors('dedalBlueDisable') , Colors('dedalBlue')])
+    },[isSelected])
 
     const boxInterpolation = animation.interpolate({
         inputRange: [0, 1],
-        outputRange: [Colors('dedalBlueDisable') , Colors('dedalBlueDisable')]
+        outputRange: outPutRange
     })
     const animatedStyle = {
         backgroundColor: boxInterpolation
@@ -55,11 +64,11 @@ const FilterButton = (props) => {
             onStartShouldSetResponder={
                 () => (
                     handleAnimation(),
-                    props.assertToContext(props.elem.id, !isSelected),
+                    props.assertToContext(props.elem.name, !isSelected),
                     setIsSelected(!isSelected)
                 )
             }
-            style={[styles.card, isSelected ? [Colors('dedalBlueDisable')] : [Colors('dedalBlueDisable')], animatedStyle]}
+            style={[styles.card, animatedStyle]}
         >
             <View style={styles.row}>
                 <MaterialCommunityIcons name="user" color={'#FFF'} size={30} />
@@ -74,8 +83,7 @@ const styles = StyleSheet.create({
         width: '45%',
         borderRadius: 10,
         margin : 10,
-        padding : 5,
-        height : 50
+        padding : 5
     },
     text: {
         color: '#FFF',
