@@ -1,7 +1,3 @@
-import { light } from "@mui/material/styles/createPalette";
-import { SafeAreaProvider } from "react-native-safe-area-context";
-
-
 export default ((type, theme) => {
   if (theme) {
     return(palette[theme][type] ? palette[theme][type]  : palette.undefined)

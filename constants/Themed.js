@@ -46,7 +46,6 @@ export function View(props) {
 
     const { style, ...otherProps } = props;
 
-
     return <DefaultView style={[{ backgroundColor: Colors('Background', theme) }, style]} {...otherProps} />
 }
 

@@ -68,10 +68,6 @@ export default function Home() {
     SafeAreaProvider.filters = ['592ecbc0-e50f-4ea1-a142-d034c20e7470']
     await getMap({"y": 3.060966, "x": 50.631305}, 'test', SafeAreaProvider.filters)
   } 
-  
-const tutut = (Path) => {
-  console.log("Path: ", Path)
-}
 
   return (
     <View style={global.container}>
@@ -93,9 +89,6 @@ const tutut = (Path) => {
                 loadingEnabled={true}
                 
             >
-              {
-                tutut(Path)
-              }
               {
               Path.map((elem, index, array) =>
                 index != array.length-1 ?
