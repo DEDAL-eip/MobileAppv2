@@ -1,4 +1,4 @@
-import { Separator } from "./Separator";
+import { Separator } from "../constants/Themed";
 import { Image} from "react-native";
 import { Text, View } from "../constants/Themed";
 import { global, titleS } from "../style/styles";
