@@ -1,8 +1,6 @@
 // If you are not familiar with React Navigation, check out the "Fundamentals" guide:
 // https://reactnavigation.org/docs/getting-started
 import {
-  DarkTheme,
-  DefaultTheme,
   NavigationContainer,
 } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";

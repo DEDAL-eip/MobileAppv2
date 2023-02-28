@@ -24,7 +24,6 @@ export async function changePassword (email, password, code) {
 
 
 export async function MypatchParams (id, values, token) {
-    //let info = await tmp(id, token)
     console.log('here', values, id)
     return await fetch(`http://52.166.128.133/update_info/?id=${id}`, {
         method: 'PATCH',

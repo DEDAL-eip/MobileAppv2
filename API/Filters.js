@@ -33,7 +33,6 @@ export const getInfoUser = async (token, userId) => {
         .catch(err => ({ hasError: true, status: err }))
 }
 export const setInfoUser = async (token, userId, info) => {
-    console.log('in', token, userId, info)
     return await fetch(`http://52.166.128.133/user/?id=${userId}`, {
         method: 'PATCH',
         body: JSON.stringify({ lastInfo : info }),

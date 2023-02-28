@@ -11,7 +11,6 @@ import Colors from '../constants/Colors'
  * @category Component
  */
 const FilterButton = (props) => {
-    console.log(props.selected)
     const [isSelected, setIsSelected] = useState(props.selected.includes(props.elem ? props.elem.name : 0))
     const [outPutRange, setRange] = useState([Colors('dedalBlue') , Colors('dedalBlueDisable')]) 
     const animation = new Animated.Value(0)
