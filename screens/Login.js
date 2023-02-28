@@ -12,6 +12,18 @@ import * as WebBrowser from 'expo-web-browser'
 import * as Linking from 'expo-linking'
 import { useEffect } from "react";
 import SignUp from "../components/SignUp";
+import * as SecureStore from 'expo-secure-store';
+import Checkbox from 'expo-checkbox';
+
+
+async function save(email, password, check) {
+  await SecureStore.setItemAsync('log', JSON.stringify({ email: email, password: password, check: check }));
+}
+
+async function getValueFor() {
+  let result = await SecureStore.getItemAsync('log');
+  return JSON.parse(result)
+}
 
 /**
  * @class display Login screen
@@ -25,10 +37,13 @@ export default function Login() {
   const [Step, setStep] = useState(0)
   const [Email, setEmail] = useState("")
   const [Password, setPassword] = useState("")
+  const [isChecked, setChecked] = useState(false)
 
   const url = Linking.useURL()
 
   async function EasySignIn(email, password) {
+    if (isChecked)
+      save(Email, Password, isChecked)
     const res = await signIn(email, password)
     if (res.hasError == true)
       setError(true)
@@ -70,6 +85,18 @@ export default function Login() {
     }
   }, [url])
 
+  useEffect(() => {
+    const loadFromStore = async () => {
+      const res = await getValueFor()
+      console.log(res)
+      if (res) {
+        setPassword(res.password)
+        setEmail(res.email)
+      }
+    }
+    loadFromStore()
+  }, [])
+
   return (
     <View style={global.container}>
       <View style={global.titleContainer}>
@@ -82,6 +109,10 @@ export default function Login() {
               <Text style={Error ? color.errorRed : null}>{Error ? "Email ou mot de passe incorrecte" : ""}</Text>
               <TextInputGlobal autoCapitalize='none' autoComplete='email' style={[textInput.global, { borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue') }]} placeholder="Email" onChangeText={setEmail} value={Email}></TextInputGlobal>
               <TextInputPassword autoCapitalize='none' autoComplete='password' style={[textInput.global, { borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue') }]} placeholder="Password" onChangeText={setPassword} value={Password}></TextInputPassword>
+              <View style={{ display: 'flex', flexDirection: 'row', marginTop: 10}}>
+                <Checkbox value={isChecked} onValueChange={() => setChecked(!isChecked)}/>
+                <Text>  Se souvenir de moi</Text>
+              </View>
             </View>
 
             <GlobalButton title="Sign In" onPress={() => EasySignIn(Email, Password)}></GlobalButton>
