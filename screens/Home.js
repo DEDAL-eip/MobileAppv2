@@ -8,6 +8,9 @@ import { getPlace, getInfo, getMap } from "../API/Home";
 import Colors from "../constants/Colors";
 import { Feather } from '@expo/vector-icons';
 
+import '../constants/languages/i18n';
+import { useTranslation } from 'react-i18next';
+
 /**
  * @class display Home screen
  * @export
@@ -19,6 +22,7 @@ export default function Home() {
   const [location, setLocation] = useState()
   const [Path, setPath] = useState([])
   const [Place, setPlace] = useState([])
+  const {t, i18n} = useTranslation();
 
   useEffect(() => {
 

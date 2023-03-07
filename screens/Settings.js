@@ -11,7 +11,9 @@ import { Title } from "../components/Title";
 import { GlobalButton } from "../components/Button";
 import { ModalLoginCode } from "../components/Modal/Login-Code";
 import { TextInputGlobal } from "../components/TextInput";
-import translate from "../components/Translate";
+
+import '../constants/languages/i18n';
+import { useTranslation } from 'react-i18next';
 
 /**
  * @class display Settings screen
@@ -27,7 +29,16 @@ export default function Setting() {
   const [Edit, setEdit] = useState(false)
   const [Username, setUsername] = useState(SafeAreaProvider.Log.Username)
   const [mode, setMode] = useState(SafeAreaProvider.mode=='dark' ? true : false)
-  const [selectedValue, setSelectedValue] = useState("French");
+
+  const {t, i18n} = useTranslation();
+  const [currentLanguage, setLanguage] = useState('en');
+
+  const changeLanguage = value => {
+    i18n
+      .changeLanguage(value)
+      .then(() => setLanguage(value))
+      .catch(err => console.log(err));
+  };
 
   /**
    * Call API to send verification code 
@@ -77,11 +88,11 @@ export default function Setting() {
 
   return (
     <View style={global.container}>
-      <Title title='Settings' ></Title>
+      <Title title={t('settings')} ></Title>
       <View style={global.middleContainer}>
         <View style={[table.row, {marginBottom : 10}]}>
           <View style={table.col}>
-            <Text>{translate('Username')}</Text>
+            <Text>{t('username')}</Text>
           </View>
           <View style={table.col}>
             {!Edit ?
@@ -92,9 +103,9 @@ export default function Setting() {
         </View>
         <View style={table.row}>
           <View style={table.col}>
-            <Text>Email</Text>
-            <Text>Last Connection</Text>
-            <Text>Account Creation</Text>
+            <Text>{t('email')}</Text>
+            <Text>{t('last connection')}</Text>
+            <Text>{t('account creation')}</Text>
           </View>
           <View style={table.col}>
             <Text>{SafeAreaProvider.Log.Email}</Text>
@@ -104,25 +115,27 @@ export default function Setting() {
         </View>
         <View style={[table.row, {marginTop : 10}]}>
           <View style={table.col}>
-            <Text>Language</Text>
+            <Text>{t('language')}</Text>
           </View>
           <View style={[table.col, {paddingRight: 50}]}>
             <Picker
-              selectedValue={selectedValue}
+              selectedValue={currentLanguage}
               style={{ height: 50, width: 150, backgroundColor: `white`}}
               onValueChange={(itemValue, itemIndex) => {
-                setSelectedValue(itemValue)
+                console.log("SafeAreaProvider.language", SafeAreaProvider.language)
+                changeLanguage(itemValue)
                 SafeAreaProvider.language = (itemValue)
+                console.log("SafeAreaProvider.language", SafeAreaProvider.language)
               }}
             >
-              <Picker.Item label="French" value="french" />
-              <Picker.Item label="English" value="english" />
+              <Picker.Item label={t('french')} value="fr" />
+              <Picker.Item label={t('english')} value="en" />
             </Picker>
           </View>
         </View>
         <View style={[table.row, {marginTop : 10}]}>
           <View style={table.col}>
-            <Text>Dark mode</Text>
+            <Text>{t('dark mode')}</Text>
           </View>
           <View style={[table.col, {paddingRight: 50}]}>
             <Switch 
@@ -135,11 +148,11 @@ export default function Setting() {
       <View style={[global.bottomContainer]}>
         {
           !Edit ?
-          <GlobalButton title="Modify informations" onPress={() => setEdit(true)}></GlobalButton> : 
-          <GlobalButton title={Username.length == 0 ? "Annuler" : "Valider"} onPress={() => validateChange()}></GlobalButton>
+          <GlobalButton title={t('modify informations')} onPress={() => setEdit(true)}></GlobalButton> : 
+          <GlobalButton title={Username.length == 0 ? t('cancel') : t('confirm')} onPress={() => validateChange()}></GlobalButton>
         }
         {Error == true ? <Text style={[global.textCenter, color.errorRed]}>An error occured</Text> : null}
-        <GlobalButton title="Modify password" onPress={() => SendVerifCode()}></GlobalButton>
+        <GlobalButton title={t('modify password')} onPress={() => SendVerifCode()}></GlobalButton>
       </View>
       <BasicModal Open={Open} setOpen={setOpen} Content={ModalLoginCode}/>
     </View>

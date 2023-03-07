@@ -10,6 +10,9 @@ import { getLocations } from "../API/Locations";
 
 import { global } from "../style/styles";
 
+import '../constants/languages/i18n';
+import { useTranslation } from 'react-i18next';
+
 /**
  * @class display Locations screen
  * @export
@@ -20,6 +23,7 @@ import { global } from "../style/styles";
 export default function Location() {
   const [Selection, setSelection] = useState("")
   const [Locations, setLocations] = useState([])
+  const {t, i18n} = useTranslation();
 
   const locationsOutItinerary  = [
     ['Le palais des beaux-arts', "Un musée municipal d'art et d'antiquités situé place de la République à Lille, dans la région Hauts-de-France."],
@@ -65,18 +69,18 @@ export default function Location() {
 
   return (
     <View style={global.container}>
-      <Title title='Locations'></Title>
+      <Title title={t('locations')}></Title>
       <View style={global.middleContainer}>
-        <GlobalButton title='In itinerary' disable={Selection === 'In itinerary'} onPress={() => {
+        <GlobalButton title={t('in itinerary')} disable={Selection === 'In itinerary'} onPress={() => {
           setSelection('In itinerary')
           setLocations(SafeAreaProvider.itinerary)
           console.log('Debug => ', SafeAreaProvider.itinerary)
         }} />
-        <GlobalButton title='Out itinerary' disable={Selection === 'Out itinerary'} onPress={() => {
+        <GlobalButton title={t('out itinerary')} disable={Selection === 'Out itinerary'} onPress={() => {
           setSelection('Out itinerary')
           setLocations(locationsOutItinerary)
         }} />
-        <GlobalButton title='Out filters' disable={Selection === 'Out filters'} onPress={() => {
+        <GlobalButton title={t('out filters')} disable={Selection === 'Out filters'} onPress={() => {
           setSelection('Out filters')
           setLocations(locationsOutFilters)
         }} />

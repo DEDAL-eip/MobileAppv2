@@ -9,6 +9,9 @@ import { GlobalButton } from "../components/Button";
 import { ScrollView } from "react-native";
 import Slider from '@react-native-community/slider';
 
+import '../constants/languages/i18n';
+import { useTranslation } from 'react-i18next';
+
 /**
  * @class display Filters screen
  * @export
@@ -21,6 +24,7 @@ export default function Filter() {
   const [infoUser, setUser] = useState({ budget: null, time: null, filter: [] })
   const [display, setDisplay] = useState(1)
   const [displayFilter, setDisplayFilters] = useState()
+  const {t, i18n} = useTranslation();
 
   useEffect(() => {
     /**
@@ -34,7 +38,7 @@ export default function Filter() {
     const getInfo = async () => {
       const res = await getInfoUser(SafeAreaProvider.Log.token, SafeAreaProvider.Log.id)
       setUser(res)
-      console.log(res)
+      console.log("GET INFO", res)
     }
 
     getFilter()
@@ -46,7 +50,7 @@ export default function Filter() {
  * set data in SafeAreaProvider.filters
  */
   const assertToContext = (filter, push) => {
-    console.log(filter, push)
+    console.log("ASSERT TO CONTEXT", filter, push)
     setUser(old => {
       let res = { ...old }
       if (push == true)
@@ -142,7 +146,7 @@ export default function Filter() {
 
   const patchUserInfo = async () => {
     const res = await setInfoUser(SafeAreaProvider.Log.token, SafeAreaProvider.Log.id, infoUser)
-    console.log(res.status)
+    console.log("PATCH USER INFO", res.status)
   }
 
 
@@ -154,7 +158,7 @@ export default function Filter() {
 
   return (
     <View style={global.container}>
-      <Title title={'Filtres'} />
+      <Title title={t('filters')} />
       <View style={global.middleContainer}>
         <View style={[global.header, shadow.Bottom]}>
           <View style={{ width: "33%", display: 'flex', alignItems: 'center' }}>
