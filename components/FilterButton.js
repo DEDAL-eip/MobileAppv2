@@ -1,5 +1,5 @@
 import { textAlign } from '@mui/system'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, Animated, LogBox } from 'react-native'
 import MaterialCommunityIcons from 'react-native-vector-icons/Feather'
 import Colors from '../constants/Colors'
@@ -11,12 +11,22 @@ import Colors from '../constants/Colors'
  * @category Component
  */
 const FilterButton = (props) => {
-    const [isSelected, setIsSelected] = useState(false)
-    const [animation, setAnimation] = useState(new Animated.Value(0))
+    console.log(props.selected)
+    const [isSelected, setIsSelected] = useState(props.selected.includes(props.elem ? props.elem.name : 0))
+    const [outPutRange, setRange] = useState([Colors('dedalBlue') , Colors('dedalBlueDisable')]) 
+    const animation = new Animated.Value(0)
+    
+    useEffect(() => {
+        setIsSelected(props.selected.includes(props.elem ? props.elem.name : 0))
+    },[props])
+
+    useEffect(() => {
+        setRange(isSelected ? [Colors('dedalBlue') , Colors('dedalBlueDisable')] : [Colors('dedalBlueDisable') , Colors('dedalBlue')])
+    },[isSelected])
 
     const boxInterpolation = animation.interpolate({
         inputRange: [0, 1],
-        outputRange:[Colors('dedalBlueDisable') , Colors('dedalBlue')]
+        outputRange: outPutRange
     })
     const animatedStyle = {
         backgroundColor: boxInterpolation
@@ -40,7 +50,7 @@ const FilterButton = (props) => {
             }).start()
     }
     
-    if (props.text == null)
+    if (props.elem == null)
         return (
             <View style={[styles.card, styles.coming]}>
                 <View style={styles.row}>
@@ -54,7 +64,7 @@ const FilterButton = (props) => {
             onStartShouldSetResponder={
                 () => (
                     handleAnimation(),
-                    props.assertToContext(props.text, !isSelected),
+                    props.assertToContext(props.elem.name, !isSelected),
                     setIsSelected(!isSelected)
                 )
             }
@@ -62,7 +72,7 @@ const FilterButton = (props) => {
         >
             <View style={styles.row}>
                 <MaterialCommunityIcons name="user" color={'#FFF'} size={30} />
-                <Text style={styles.text}>{capitalizeFirstLetter(props.text)}</Text>
+                <Text style={styles.text}>{capitalizeFirstLetter(props.elem.name)}</Text>
             </View>
         </Animated.View>
     )

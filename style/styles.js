@@ -1,4 +1,4 @@
-import { borderColor } from "@mui/system"
+import { borderBottom, borderColor } from "@mui/system"
 import { StyleSheet } from "react-native"
 import Colors from "../constants/Colors"
 
@@ -23,6 +23,7 @@ export const global = StyleSheet.create({
     height : "10%",
     width : '100%',
     alignItems : "center",
+    justifyContent : 'center'
   },
   textCenter : {
     textAlign: 'center',
@@ -39,6 +40,14 @@ export const global = StyleSheet.create({
     width : '100%',
     alignItems : "center",
     justifyItems: "center"
+  },
+  header: {
+    display : 'flex',
+    flexDirection : 'row',
+    width : '100%',
+    alignItems : 'center',
+    justifyContent : 'center',
+    paddingBottom : 10,
   }
 })
 
@@ -182,5 +191,16 @@ export const separator = StyleSheet.create({
     marginTop : "5%",
     backgroundColor : 'white',
 
+  }
+})
+
+export const shadow = StyleSheet.create({
+  Bottom : {
+    borderBottomColor : '#fff',
+    borderBottomWidth : 1
+  },
+  Top : {
+    borderTopColor : '#fff',
+    borderTopWidth : 1
   }
 })
