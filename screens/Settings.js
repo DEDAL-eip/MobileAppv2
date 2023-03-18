@@ -8,7 +8,7 @@ import { global, color, table, textInput } from "../style/styles";
 import { MypatchParams, SendCode } from "../API/Settings";
 import BasicModal from "../components/modal";
 import { Title } from "../components/Title";
-import { TextButton } from "../components/Buttons/TextButton";
+import { TextButton } from "../components/buttons/TextButton";
 import { ModalLoginCode } from "../components/Modal/Login-Code";
 import { TextInputGlobal } from "../components/TextInput";
 

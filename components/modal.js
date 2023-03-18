@@ -1,6 +1,6 @@
 import React from "react";
 import { Modal, StyleSheet, View } from "react-native";
-import { CloseButton } from "./Buttons/CloseButton";
+import { CloseButton } from "./buttons/CloseButton";
 
 const BasicModal = ({Open, setOpen, Content}) => {
 

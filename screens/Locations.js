@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 import { Title } from "../components/Title";
 import LocationCard from '../components/LocationCard';
-import { TextButton } from "../components/Buttons/TextButton";
+import { TextButton } from "../components/buttons/TextButton";
 
 import { getLocations } from "../API/Locations";
 

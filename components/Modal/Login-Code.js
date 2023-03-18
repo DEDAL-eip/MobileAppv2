@@ -1,5 +1,5 @@
 import { View } from "react-native"
-import { TextButton } from "../Buttons/TextButton"
+import { TextButton } from "../buttons/TextButton"
 import { Title } from "../Title"
 import { TextInputGlobal, TextInputPassword } from "../../components/TextInput"
 import { useEffect, useState } from "react"

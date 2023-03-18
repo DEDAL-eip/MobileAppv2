@@ -5,7 +5,7 @@ import { global, shadow, button } from "../style/styles";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useCallback, useEffect, useState } from "react";
 import { Title } from "../components/Title";
-import { TextButton } from "../components/Buttons/TextButton";
+import { TextButton } from "../components/buttons/TextButton";
 import { ScrollView } from "react-native";
 import Slider from '@react-native-community/slider';
 

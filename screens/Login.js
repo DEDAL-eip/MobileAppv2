@@ -1,4 +1,4 @@
-import { TextButton } from "../components/Buttons/TextButton";
+import { TextButton } from "../components/buttons/TextButton";
 import { useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { View, Text } from "../constants/Themed";

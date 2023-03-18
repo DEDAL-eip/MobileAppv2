@@ -1,4 +1,4 @@
-import { TextButton } from "../components/Buttons/TextButton";
+import { TextButton } from "../components/buttons/TextButton";
 import { View, Text, Separator } from "../constants/Themed";
 import { TextInputPassword, TextInputGlobal } from "../components/TextInput";
 import { global, textInput, color } from "../style/styles";
