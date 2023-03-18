@@ -22,11 +22,11 @@ export default function Main() {
 
     if (!IsLoged)
         return (
-        <Login/>
+            <Login/>
         );
     else {
         return (
-        <Navigation/>
+            <Navigation/>
         )
     }
   }
