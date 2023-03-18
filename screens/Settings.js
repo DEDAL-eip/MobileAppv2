@@ -8,7 +8,7 @@ import { global, color, table, textInput } from "../style/styles";
 import { MypatchParams, SendCode } from "../API/Settings";
 import BasicModal from "../components/modal";
 import { Title } from "../components/Title";
-import { GlobalButton } from "../components/Button";
+import { TextButton } from "../components/Buttons/TextButton";
 import { ModalLoginCode } from "../components/Modal/Login-Code";
 import { TextInputGlobal } from "../components/TextInput";
 
@@ -148,11 +148,11 @@ export default function Setting() {
       <View style={[global.bottomContainer]}>
         {
           !Edit ?
-          <GlobalButton title={t('modify informations')} onPress={() => setEdit(true)}></GlobalButton> : 
-          <GlobalButton title={Username.length == 0 ? t('cancel') : t('confirm')} onPress={() => validateChange()}></GlobalButton>
+          <TextButton title={t('modify informations')} onPress={() => setEdit(true)}></TextButton> : 
+          <TextButton title={Username.length == 0 ? t('cancel') : t('confirm')} onPress={() => validateChange()}></TextButton>
         }
         {Error == true ? <Text style={[global.textCenter, color.errorRed]}>An error occured</Text> : null}
-        <GlobalButton title={t('modify password')} onPress={() => SendVerifCode()}></GlobalButton>
+        <TextButton title={t('modify password')} onPress={() => SendVerifCode()}></TextButton>
       </View>
       <BasicModal Open={Open} setOpen={setOpen} Content={ModalLoginCode}/>
     </View>

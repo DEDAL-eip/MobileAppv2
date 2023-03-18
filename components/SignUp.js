@@ -1,4 +1,4 @@
-import { GlobalButton } from "../components/Button";
+import { TextButton } from "../components/Buttons/TextButton";
 import { View, Text, Separator } from "../constants/Themed";
 import { TextInputPassword, TextInputGlobal } from "../components/TextInput";
 import { global, textInput, color } from "../style/styles";
@@ -64,11 +64,11 @@ export default SignUp = ({ oldEmail, oldPassword, setBack }) => {
             <View style={global.bottomContainer}>
                 {
                     !state ?
-                        <GlobalButton title="Valider" onPress={() => SendMail()} disable={!(!checkMailError() && !checkPasswordError())}></GlobalButton>
-                        : <GlobalButton title="Valider" onPress={() => SendCode()} disable={code.length < 6}></GlobalButton>
+                        <TextButton title="Valider" onPress={() => SendMail()} disable={!(!checkMailError() && !checkPasswordError())}></TextButton>
+                        : <TextButton title="Valider" onPress={() => SendCode()} disable={code.length < 6}></TextButton>
 
                 }
-                <GlobalButton title="Retour" onPress={() => setBack()}></GlobalButton>
+                <TextButton title="Retour" onPress={() => setBack()}></TextButton>
             </View>
         </>
     )

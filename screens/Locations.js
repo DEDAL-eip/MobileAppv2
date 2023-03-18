@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 import { Title } from "../components/Title";
 import LocationCard from '../components/LocationCard';
-import { GlobalButton } from "../components/Button";
+import { TextButton } from "../components/Buttons/TextButton";
 
 import { getLocations } from "../API/Locations";
 
@@ -71,16 +71,16 @@ export default function Location() {
     <View style={global.container}>
       <Title title={t('locations')}></Title>
       <View style={global.middleContainer}>
-        <GlobalButton title={t('in itinerary')} disable={Selection === 'In itinerary'} onPress={() => {
+        <TextButton title={t('in itinerary')} disable={Selection === 'In itinerary'} onPress={() => {
           setSelection('In itinerary')
           setLocations(SafeAreaProvider.itinerary)
           console.log('Debug => ', SafeAreaProvider.itinerary)
         }} />
-        <GlobalButton title={t('out itinerary')} disable={Selection === 'Out itinerary'} onPress={() => {
+        <TextButton title={t('out itinerary')} disable={Selection === 'Out itinerary'} onPress={() => {
           setSelection('Out itinerary')
           setLocations(locationsOutItinerary)
         }} />
-        <GlobalButton title={t('out filters')} disable={Selection === 'Out filters'} onPress={() => {
+        <TextButton title={t('out filters')} disable={Selection === 'Out filters'} onPress={() => {
           setSelection('Out filters')
           setLocations(locationsOutFilters)
         }} />

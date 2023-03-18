@@ -1,5 +1,5 @@
 import { View } from "react-native"
-import { GlobalButton } from "../Button"
+import { TextButton } from "../Buttons/TextButton"
 import { Title } from "../Title"
 import { TextInputGlobal, TextInputPassword } from "../../components/TextInput"
 import { useEffect, useState } from "react"
@@ -78,12 +78,12 @@ export const ModalLoginCode = () => {
                 {ErrorMsg == true ? <Text style={[global.textCenter, color.ErrorRed]}>Le code n'est pas valide</Text> : null}
           </View>
           <View style={global.bottomContainer}>
-                <GlobalButton
+                <TextButton
                     disable={Disable}
                     title='Validate'
                     onPress={Validate}
                 >
-              </GlobalButton>
+              </TextButton>
           </View>
           </>
     )

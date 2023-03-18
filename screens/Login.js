@@ -1,4 +1,4 @@
-import { GlobalButton } from "../components/Button";
+import { TextButton } from "../components/Buttons/TextButton";
 import { useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { View, Text } from "../constants/Themed";
@@ -84,12 +84,12 @@ export default function Login() {
               <TextInputPassword autoCapitalize='none' autoComplete='password' style={[textInput.global, { borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue') }]} placeholder="Password" onChangeText={setPassword} value={Password}></TextInputPassword>
             </View>
 
-            <GlobalButton title="Sign In" onPress={() => EasySignIn(Email, Password)}></GlobalButton>
-            <GlobalButton title="Sign Up" onPress={() => setStep(1)} />
+            <TextButton title="Sign In" onPress={() => EasySignIn(Email, Password)}></TextButton>
+            <TextButton title="Sign Up" onPress={() => setStep(1)} />
             <View style={{ width: '25%', paddingBottom: 20, paddingTop: 20 }}>
               <Separator />
             </View>
-            <GlobalButton title="Google" onPress={() => createGoogleAccount()}></GlobalButton>
+            <TextButton title="Google" onPress={() => createGoogleAccount()}></TextButton>
           </>
           : <SignUp oldEmail={Email} oldPassword={Password} setBack={() => setStep(0)} />
         }
