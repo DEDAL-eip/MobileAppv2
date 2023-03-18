@@ -54,12 +54,13 @@ export const global = StyleSheet.create({
 export const button = StyleSheet.create({
   container : {
     backgroundColor : Colors('dedalBlue'),
-    width : '75%',
-    height : 30,
+    width : '85%',
+    height : 45,
     alignItems: "center",
     justifyContent: "center",
     marginTop : 5,
-    borderRadius : 5,
+    borderRadius : 25,
+    fontWeight : "bold"
   },
   close : {
     alignSelf: 'flex-end',
@@ -151,7 +152,8 @@ export const color = StyleSheet.create({
     color : Colors('Text')
   },
   white : {
-    color : Colors('White')
+    color : Colors('White'),
+    fontWeight : 'bold'
   },
   dedalBlueDisable : {
     color : Colors('dedalBlueDisable')
