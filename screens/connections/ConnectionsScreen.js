@@ -1,5 +1,5 @@
-import { createStackNavigator } from '@react-navigation/stack';
 import { TextButton } from "../../components/buttons/TextButton";
+import { TextInput } from "../../components/TextInput";
 import { useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { View, Text } from "../../constants/Themed";
@@ -8,11 +8,10 @@ import { color, global, textInput } from "../../style/styles";
 import { HomeTitle } from "../../components/Title";
 import Colors from "../../constants/Colors"
 import { Separator } from "../../constants/Themed";
-import { TextInputPassword, TextInputGlobal } from "../../components/TextInput";
+import { HideTextInput } from "../../components/TextInput";
 import * as WebBrowser from 'expo-web-browser'
 import * as Linking from 'expo-linking'
 import { useEffect } from "react";
-import SignUpScreen from "./SignUpScreen";
 
 /**
  * @class display Login screen
@@ -23,7 +22,6 @@ import SignUpScreen from "./SignUpScreen";
  */
 export function ConnectionsScreen({ navigation }) {
   const [Error, setError] = useState(false)
-  const [Step, setStep] = useState(0)
   const [Email, setEmail] = useState("")
   const [Password, setPassword] = useState("")
 
@@ -79,8 +77,8 @@ export function ConnectionsScreen({ navigation }) {
       <View style={global.middleContainer}>
         <View style={[global.basicContainer, { paddingBottom: 20 }]}>
           <Text style={Error ? color.errorRed : null}>{Error ? "Wrong mail or password" : ""}</Text>
-          <TextInputGlobal autoCapitalize='none' autoComplete='email' style={[textInput.global, { borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue') }]} placeholder="Email" onChangeText={setEmail} value={Email}></TextInputGlobal>
-          <TextInputPassword autoCapitalize='none' autoComplete='password' style={[textInput.global, { borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue') }]} placeholder="Password" onChangeText={setPassword} value={Password}></TextInputPassword>
+          <TextInput autoCapitalize='none' autoComplete='email' style={[textInput.global, { borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue') }]} placeholder="Email" onChangeText={setEmail} value={Email} />
+          <HideTextInput autoCapitalize='none' autoComplete='password' style={[textInput.global, { borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue') }]} placeholder="Password" onChangeText={setPassword} value={Password} />
         </View>
 
         <TextButton title="Sign Up" onPress={() => navigation.navigate('SignUp')} />
