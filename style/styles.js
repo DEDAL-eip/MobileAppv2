@@ -77,12 +77,12 @@ export const button = StyleSheet.create({
   },
   disable : {
     backgroundColor : Colors('dedalBlueDisable'),
-    width : '75%',
-    height : 30,
+    width : '85%',
+    height : 45,
     alignItems: "center",
     justifyContent: "center",
     marginTop : 5,
-    borderRadius : 5,
+    borderRadius : 25,
     color : Colors('Text')
   },
   logout : {
