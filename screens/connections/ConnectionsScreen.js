@@ -1,17 +1,18 @@
-import { TextButton } from "../components/buttons/TextButton";
+import { createStackNavigator } from '@react-navigation/stack';
+import { TextButton } from "../../components/buttons/TextButton";
 import { useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { View, Text } from "../constants/Themed";
-import { signIn, google, nextG } from "../API/Login";
-import { color, global, textInput } from "../style/styles";
-import { HomeTitle } from "../components/Title";
-import Colors from "../constants/Colors"
-import { Separator } from "../constants/Themed";
-import { TextInputPassword, TextInputGlobal } from "../components/TextInput";
+import { View, Text } from "../../constants/Themed";
+import { signIn, google, nextG } from "../../API/Login";
+import { color, global, textInput } from "../../style/styles";
+import { HomeTitle } from "../../components/Title";
+import Colors from "../../constants/Colors"
+import { Separator } from "../../constants/Themed";
+import { TextInputPassword, TextInputGlobal } from "../../components/TextInput";
 import * as WebBrowser from 'expo-web-browser'
 import * as Linking from 'expo-linking'
 import { useEffect } from "react";
-import SignUp from "../components/SignUp";
+import SignUpScreen from "./SignUpScreen";
 
 /**
  * @class display Login screen
@@ -20,7 +21,7 @@ import SignUp from "../components/SignUp";
  * @description A function that returns a View to sign in or sign up.
  * @return {HTML} 
  */
-export default function Login() {
+export function ConnectionsScreen({ navigation }) {
   const [Error, setError] = useState(false)
   const [Step, setStep] = useState(0)
   const [Email, setEmail] = useState("")
@@ -73,26 +74,21 @@ export default function Login() {
   return (
     <View style={global.container}>
       <View style={global.titleContainer}>
-        <HomeTitle title='DEDAL' pict={require('../assets/logo.png')} subtitle='The path to your culture' />
+        <HomeTitle title='DEDAL' pict={require('../../assets/logo.png')} subtitle='The path to your culture' />
       </View>
       <View style={global.middleContainer}>
-        {Step === 0 ?
-          <>
-            <View style={[global.basicContainer, { paddingBottom: 20 }]}>
-              <Text style={Error ? color.errorRed : null}>{Error ? "Wrong mail or password" : ""}</Text>
-              <TextInputGlobal autoCapitalize='none' autoComplete='email' style={[textInput.global, { borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue') }]} placeholder="Email" onChangeText={setEmail} value={Email}></TextInputGlobal>
-              <TextInputPassword autoCapitalize='none' autoComplete='password' style={[textInput.global, { borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue') }]} placeholder="Password" onChangeText={setPassword} value={Password}></TextInputPassword>
-            </View>
+        <View style={[global.basicContainer, { paddingBottom: 20 }]}>
+          <Text style={Error ? color.errorRed : null}>{Error ? "Wrong mail or password" : ""}</Text>
+          <TextInputGlobal autoCapitalize='none' autoComplete='email' style={[textInput.global, { borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue') }]} placeholder="Email" onChangeText={setEmail} value={Email}></TextInputGlobal>
+          <TextInputPassword autoCapitalize='none' autoComplete='password' style={[textInput.global, { borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue') }]} placeholder="Password" onChangeText={setPassword} value={Password}></TextInputPassword>
+        </View>
 
-            <TextButton title="Sign In" onPress={() => EasySignIn(Email, Password)}></TextButton>
-            <TextButton title="Sign Up" onPress={() => setStep(1)} />
-            <View style={{ width: '25%', paddingBottom: 20, paddingTop: 20 }}>
-              <Separator />
-            </View>
-            <TextButton title="Google" onPress={() => createGoogleAccount()}></TextButton>
-          </>
-          : <SignUp oldEmail={Email} oldPassword={Password} setBack={() => setStep(0)} />
-        }
+        <TextButton title="Sign Up" onPress={() => navigation.navigate('SignUp')} />
+        <TextButton title="Google" onPress={() => createGoogleAccount()} />
+        <View style={{ width: '25%', paddingBottom: 20, paddingTop: 20 }}>
+          <Separator />
+        </View>
+        <TextButton title="Log In" onPress={() => EasySignIn(Email, Password)} />
       </View>
     </View>
   );
