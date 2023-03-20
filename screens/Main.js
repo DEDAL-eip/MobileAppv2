@@ -1,7 +1,6 @@
 import "react-native-gesture-handler";
-
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import ConnectionsStackNavigator from "../navigation/ConnectionsStackNavigator"
+import { ConnectionsStackNavigator } from "../navigation/ConnectionsStackNavigator"
 import Navigation from "../navigation";
 import { useColorScheme } from "react-native";
 import { useState } from "react";
@@ -20,7 +19,7 @@ export default function Main() {
     SafeAreaProvider.mode = colorScheme
 
     if (IsLoged)
-        return (<Navigation/>);
+        return (<Navigation />);
 
     return (<ConnectionsStackNavigator />);
 }

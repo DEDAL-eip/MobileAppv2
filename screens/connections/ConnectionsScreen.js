@@ -1,17 +1,15 @@
-import { TextButton } from "../../components/buttons/TextButton";
-import { TextInput } from "../../components/TextInput";
-import { useState } from "react";
-import { SafeAreaProvider } from "react-native-safe-area-context";
-import { View, Text } from "../../constants/Themed";
-import { signIn, google, nextG } from "../../API/Login";
-import { color, global, textInput } from "../../style/styles";
-import { HomeTitle } from "../../components/Title";
-import Colors from "../../constants/Colors"
-import { Separator } from "../../constants/Themed";
-import { HideTextInput } from "../../components/TextInput";
 import * as WebBrowser from 'expo-web-browser'
 import * as Linking from 'expo-linking'
 import { useEffect } from "react";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+
+import { google, nextG } from "../../API/Login";
+
+import { global } from "../../style/styles";
+import { Separator, View } from "../../constants/Themed";
+
+import { HomeTitle } from "../../components/Title";
+import { TextButton } from "../../components/buttons/TextButton";
 
 /**
  * @class display Login screen
@@ -21,21 +19,7 @@ import { useEffect } from "react";
  * @return {HTML} 
  */
 export function ConnectionsScreen({ navigation }) {
-  const [Error, setError] = useState(false)
-  const [Email, setEmail] = useState("")
-  const [Password, setPassword] = useState("")
-
   const url = Linking.useURL()
-
-  async function EasySignIn(email, password) {
-    const res = await signIn(email, password)
-    if (res.hasError == true)
-      setError(true)
-    else {
-      SafeAreaProvider.Loged(true)
-      SafeAreaProvider.Log = res
-    }
-  }
 
   const createGoogleAccount = async () => {
     let callbackUrl = Linking.createURL()
@@ -75,18 +59,12 @@ export function ConnectionsScreen({ navigation }) {
         <HomeTitle title='DEDAL' pict={require('../../assets/logo.png')} subtitle='The path to your culture' />
       </View>
       <View style={global.middleContainer}>
-        <View style={[global.basicContainer, { paddingBottom: 20 }]}>
-          <Text style={Error ? color.errorRed : null}>{Error ? "Wrong mail or password" : ""}</Text>
-          <TextInput autoCapitalize='none' autoComplete='email' style={[textInput.global, { borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue') }]} placeholder="Email" onChangeText={setEmail} value={Email} />
-          <HideTextInput autoCapitalize='none' autoComplete='password' style={[textInput.global, { borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue') }]} placeholder="Password" onChangeText={setPassword} value={Password} />
-        </View>
-
         <TextButton title="Sign Up" onPress={() => navigation.navigate('SignUp')} />
         <TextButton title="Google" onPress={() => createGoogleAccount()} />
         <View style={{ width: '25%', paddingBottom: 20, paddingTop: 20 }}>
           <Separator />
         </View>
-        <TextButton title="Log In" onPress={() => EasySignIn(Email, Password)} />
+        <TextButton title="Log In" onPress={() => navigation.navigate('LogIn')} />
       </View>
     </View>
   );
