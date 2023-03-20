@@ -9,7 +9,6 @@ export const global = StyleSheet.create({
   },
   titleContainer : {
     alignItems: "center",
-    paddingHorizontal : '15%',
   },
   middleContainer : {
     flex : 3,
@@ -124,9 +123,10 @@ export const map =  StyleSheet.create({
   height: '100%',
 })
 
-export const titleS = StyleSheet.create({
+export const titles = StyleSheet.create({
   main: {
-    fontSize: 40,
+    fontSize: 48,
+    fontWeight: 'bold',
     fontFamily : "Main",
     textAlign: 'center',
     lineBreak: 'normal',
@@ -134,17 +134,16 @@ export const titleS = StyleSheet.create({
 
   },
   subtitle : {
-    fontSize:30,
+    fontSize: 24,
+    fontWeight: 'bold',
     fontFamily : "Main",
     textAlign: 'center',
-
   },
 
   image: {
       alignSelf: 'center',
-      marginTop : '10%',
-      width: 158,
-      height: 158,
+      width: 287,
+      height: 287,
   }
 })
 

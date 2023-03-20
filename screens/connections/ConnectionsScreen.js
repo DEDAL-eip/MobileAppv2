@@ -1,14 +1,14 @@
 import * as WebBrowser from 'expo-web-browser'
 import * as Linking from 'expo-linking'
 import { useEffect } from "react";
+import { Image } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import { google, nextG } from "../../API/Login";
 
-import { global } from "../../style/styles";
-import { Separator, View } from "../../constants/Themed";
+import { global, titles } from "../../style/styles";
+import { Separator, Text, View } from "../../constants/Themed";
 
-import { HomeTitle } from "../../components/Title";
 import { TextButton } from "../../components/buttons/TextButton";
 
 /**
@@ -56,7 +56,9 @@ export function ConnectionsScreen({ navigation }) {
   return (
     <View style={global.container}>
       <View style={global.titleContainer}>
-        <HomeTitle title='DEDAL' pict={require('../../assets/logo.png')} subtitle='The path to your culture' />
+        <Image style={titles.image} source={require('../../assets/logo.png')} />
+        <Text style={titles.main}>{'DEDAL'}</Text>
+        <Text style={titles.subtitle}>{'The path to your culture.'}</Text>
       </View>
       <View style={global.middleContainer}>
         <TextButton title="Sign Up" onPress={() => navigation.navigate('SignUp')} />

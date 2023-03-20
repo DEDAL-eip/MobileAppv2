@@ -3,8 +3,7 @@ import FilterButton from '../components/FilterButton';
 import getFilters, { getInfoUser, setInfoUser } from "../API/Filters";
 import { global, shadow, button } from "../style/styles";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { useCallback, useEffect, useState } from "react";
-import { Title } from "../components/Title";
+import { useEffect, useState } from "react";
 import { TextButton } from "../components/buttons/TextButton";
 import { ScrollView } from "react-native";
 import Slider from '@react-native-community/slider';
@@ -158,7 +157,6 @@ export default function Filter() {
 
   return (
     <View style={global.container}>
-      <Title title={t('filters')} />
       <View style={global.middleContainer}>
         <View style={[global.header, shadow.Bottom]}>
           <View style={{ width: "33%", display: 'flex', alignItems: 'center' }}>

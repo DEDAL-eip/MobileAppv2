@@ -1,8 +1,7 @@
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { ScrollView, Text, View } from "react-native";
-import { useState, useEffect } from "react";
+import { ScrollView, View } from "react-native";
+import { useState } from "react";
 
-import { Title } from "../components/Title";
 import LocationCard from '../components/LocationCard';
 import { TextButton } from "../components/buttons/TextButton";
 
@@ -69,7 +68,6 @@ export default function Location() {
 
   return (
     <View style={global.container}>
-      <Title title={t('locations')}></Title>
       <View style={global.middleContainer}>
         <TextButton title={t('in itinerary')} disable={Selection === 'In itinerary'} onPress={() => {
           setSelection('In itinerary')

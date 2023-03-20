@@ -1,6 +1,5 @@
 import { View } from "react-native"
 import { TextButton } from "../buttons/TextButton"
-import { Title } from "../Title"
 import { TextInputGlobal, TextInputPassword } from "../../components/TextInput"
 import { useEffect, useState } from "react"
 import { Text } from "../../constants/Themed";
@@ -49,9 +48,8 @@ export const ModalLoginCode = () => {
     return (
         <>
             <View style={global.titleContainer}>
-                <Title 
-                    title={'Changement de mot de passe'}
-                    subtitle={'Un code a était envoye sur votre adresse mail  : \n' + SafeAreaProvider.Log.Email}/>
+                <Text>{'Changement de mot de passe'}</Text> 
+                <Text>{'Un code a était envoye sur votre adresse mail  : \n' + SafeAreaProvider.Log.Email}</Text>
             </View>
         
             <View style={global.middleContainer}>

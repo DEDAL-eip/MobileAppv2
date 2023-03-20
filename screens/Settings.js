@@ -7,7 +7,6 @@ import { useState } from "react";
 import { global, color, table, textInput } from "../style/styles";
 import { MypatchParams, SendCode } from "../API/Settings";
 import BasicModal from "../components/modal";
-import { Title } from "../components/Title";
 import { TextButton } from "../components/buttons/TextButton";
 import { ModalLoginCode } from "../components/Modal/Login-Code";
 import { TextInputGlobal } from "../components/TextInput";
@@ -85,10 +84,8 @@ export default function Setting() {
         SafeAreaProvider.mode = ('light')
     }
 
-
   return (
     <View style={global.container}>
-      <Title title={t('settings')} ></Title>
       <View style={global.middleContainer}>
         <View style={[table.row, {marginBottom : 10}]}>
           <View style={table.col}>

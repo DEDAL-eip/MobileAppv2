@@ -75,55 +75,61 @@ export default function Home() {
 
   return (
     <View style={global.container}>
-        <MapView style={map}
-                provider={PROVIDER_GOOGLE}
-                region={{
-                    latitude: location ? location.coords.latitude : 0, 
-                    longitude: location ? location.coords.longitude : 0,
-                    latitudeDelta: 0.000,
-                    longitudeDelta: 0.045,
-                }}
-                mapType={"standard"}
-                showsMyLocationButton={true}
-                showsUserLocation={true}
-                followsUserLocation={true}
-                showsPointsOfInterest={false}
-                showsCompass={false}
-                toolbarEnabled={false}
-                loadingEnabled={true}
-                
-            >
-              {
-              Path.map((elem, index, array) =>
-                index != array.length-1 ?
-                    <Polyline
-                    key={index}
-                  coordinates={
-                  [{longitude: elem.longitude,latitude: elem.latitude},
-                  {longitude: array[index+1].longitude,latitude: array[index+1].latitude
-                  }]}
-                  strokeColor={Colors('dedalBlueDisable')}
-                  strokeWidth={5}
-                  /> : null)
-              }
-              {
-              Place ? Place.map((elem, index) =>
-              elem.coordinates ?
-                <Marker
-                  key={index}
-                  coordinate={{
-                    latitude: elem.coordinates.x,
-                    longitude: elem.coordinates.y
-                  }}
-                  title={elem.name}
-                  description={elem.description}
-                  image={require('../assets/pin.png')}
-                  /> : null
-              ) : null
-              } 
-          </MapView>
-          <Feather style={button.logout} name={"log-out"} size={24} onPress={() => SafeAreaProvider.Loged(false)} color={Colors('dedalBlue')} />
-          <Feather style={[button.logout, {top : 10, left : 40}]} name={"loader"} size={24} onPress={() => parcours()} color={Colors('dedalBlue')} />
+      {/* NEED TO BE FIX
+      <MapView
+        style={map}
+        provider={PROVIDER_GOOGLE}
+        region={{
+          latitude: location ? location.coords.latitude : 0, 
+          longitude: location ? location.coords.longitude : 0,
+          latitudeDelta: 0.000,
+          longitudeDelta: 0.045,
+        }}
+        mapType={"standard"}
+        showsMyLocationButton={true}
+        showsUserLocation={true}
+        followsUserLocation={true}
+        showsPointsOfInterest={false}
+        showsCompass={false}
+        toolbarEnabled={false}
+        loadingEnabled={true}        
+      >
+      {
+        Path.map((elem, index, array) =>
+          index != array.length-1 ?
+            <Polyline
+              key={index}
+              coordinates={
+                [{longitude: elem.longitude,latitude: elem.latitude},
+                {longitude: array[index+1].longitude,latitude: array[index+1].latitude
+                }]}
+              strokeColor={Colors('dedalBlueDisable')}
+              strokeWidth={5}
+            />: 
+          null
+        )
+      }
+      {
+        Place ? Place.map((elem, index) =>
+          elem.coordinates ?
+            <Marker
+              key={index}
+              coordinate={{
+                latitude: elem.coordinates.x,
+                longitude: elem.coordinates.y
+              }}
+              title={elem.name}
+              description={elem.description}
+              image={require('../assets/pin.png')}
+            />:
+            null
+        ) 
+        : null
+      } 
+      </MapView>
+      NEED TO BE FIX */}
+      <Feather style={button.logout} name={"log-out"} size={24} onPress={() => SafeAreaProvider.Loged(false)} color={Colors('dedalBlue')} />
+      <Feather style={[button.logout, {top : 10, left : 40}]} name={"loader"} size={24} onPress={() => parcours()} color={Colors('dedalBlue')} />
     </View>
   );
 }
