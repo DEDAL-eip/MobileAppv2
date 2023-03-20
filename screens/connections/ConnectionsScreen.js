@@ -63,9 +63,7 @@ export function ConnectionsScreen({ navigation }) {
       <View style={global.middleContainer}>
         <TextButton title="Sign Up" onPress={() => navigation.navigate('SignUp')} />
         <TextButton title="Google" onPress={() => createGoogleAccount()} />
-        <View style={{ width: '25%', paddingBottom: 20, paddingTop: 20 }}>
-          <Separator />
-        </View>
+        <View style={{ paddingBottom: 20, paddingTop: 20 }} />
         <TextButton title="Log In" onPress={() => navigation.navigate('LogIn')} />
       </View>
     </View>

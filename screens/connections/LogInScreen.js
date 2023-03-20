@@ -3,7 +3,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import { signIn } from "../../API/Login";
 
-import { View, Text } from "../../constants/Themed";
+import { View, Text, Feather } from "../../constants/Themed";
 import { global, textInput, color } from "../../style/styles";
 import Colors from "../../constants/Colors";
 
@@ -34,15 +34,14 @@ export function LogInScreen({ navigation }) {
 
     return (
         <View style={global.container}>
-            <View style={[global.basicContainer, { paddingBottom: 20 }]}>
+            <Feather style={{margin: 10}} name={'arrow-left'} size={24} onPress={navigation.goBack}/>
+            <View style={global.basicContainer}>
                 <Text style={Error ? color.errorRed : null}>{Error ? "Wrong mail or password" : ""}</Text>
-                <TextInput autoCapitalize='none' autoComplete='email' style={[textInput.global, { borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue') }]} placeholder="Email" onChangeText={setEmail} value={Email} />
-                <HideTextInput autoCapitalize='none' autoComplete='password' style={[textInput.global, { borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue') }]} placeholder="Password" onChangeText={setPassword} value={Password} />
+                <TextInput autoCapitalize='none' autoComplete='email' style={[textInput.global, { borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue') }]} title={'What\'s your email?'} onChangeText={setEmail} value={Email} />
+                <HideTextInput autoCapitalize='none' autoComplete='password' style={[textInput.global, { borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue') }]} title={'What\'s your password?'} onChangeText={setPassword} value={Password} />
             </View>
-
-            <View style={global.bottomContainer}>
+            <View style={global.basicContainer}>
                 <TextButton title="Log In" onPress={() => EasySignIn(Email, Password)} />
-                <TextButton title="Retour" onPress={navigation.goBack} />
             </View>
         </View>
     )

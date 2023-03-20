@@ -3,7 +3,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import { signUp, signUpCode, signIn } from "../../API/Login";
 
-import { View, Text } from "../../constants/Themed";
+import { View, Text, Feather } from "../../constants/Themed";
 import { global, textInput } from "../../style/styles";
 import Colors from "../../constants/Colors";
 
@@ -50,9 +50,10 @@ export function SignUpScreen({ navigation }) {
 
     return (
         <View style={global.container}>
-            <View style={global.middleContainer}>
-                <TextInput autoCapitalize='none' style={[textInput.global, { borderColor: Colors(checkMailError() ? 'ErrorRed' : 'dedalBlue') }]} placeholder='Email' onChangeText={setEmail} value={email} />
-                <HideTextInput autoCapitalize='none' style={[textInput.global, { borderColor: Colors(checkPasswordError() ? 'ErrorRed' : 'dedalBlue') }]} placeholder="password" onChangeText={setPassword} value={password} />
+            <Feather style={{margin: 10}} name={'arrow-left'} size={24} onPress={navigation.goBack}/>
+            <View style={[global.basicContainer, { marginBottom: 20 }]}>
+                <TextInput autoCapitalize='none' style={[textInput.global, { borderColor: Colors(checkMailError() ? 'ErrorRed' : 'dedalBlue') }]} title={'What\'s your email?'} onChangeText={setEmail} value={email} />
+                <HideTextInput autoCapitalize='none' style={[textInput.global, { borderColor: Colors(checkPasswordError() ? 'ErrorRed' : 'dedalBlue') }]} title={'What\'s your password?'} onChangeText={setPassword} value={password} />
                 {!state ?
                     <View style={{ paddingTop: 20 }}>
                         <Text>Votre mot de passe doit contenir au moins : </Text>
@@ -69,13 +70,12 @@ export function SignUpScreen({ navigation }) {
                 }
 
             </View>
-            <View style={global.bottomContainer}>
+            <View style={global.basicContainer}>
                 {!state ?
                     <TextButton title="Valider" onPress={() => SendMail()} disable={!(!checkMailError() && !checkPasswordError())} />
                     :
                     <TextButton title="Valider" onPress={() => SendCode()} disable={code.length < 6} />
                 }
-                <TextButton title="Retour" onPress={navigation.goBack}></TextButton>
             </View>
         </View>
     )
