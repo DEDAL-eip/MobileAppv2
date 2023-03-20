@@ -1,9 +1,6 @@
 import { useState } from "react";
-import {
-    useColorScheme,
-    TextInput as DefaultTextInput,
-    View
-} from "react-native";
+import { useColorScheme, TextInput as DefaultTextInput, View } from "react-native";
+
 import { Feather } from '../constants/Themed'
 import Colors from "../constants/Colors";
 
@@ -20,7 +17,6 @@ export function TextInput(props) {
         />
     )
 }
-
 
 export function HideTextInput(props) {
     const [hide, setHide] = useState(true)
