@@ -18,7 +18,6 @@ import { useIsFocused } from "@react-navigation/native";
  * @return {HTML} 
  */
 export default function Home() {
-  console.log('here')
   const [location, setLocation] = useState()
   const [Path, setPath] = useState([])
   const [Place, setPlace] = useState([])

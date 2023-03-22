@@ -14,6 +14,10 @@ import { useEffect } from "react";
 import SignUp from "../components/SignUp";
 import * as SecureStore from 'expo-secure-store';
 import Checkbox from 'expo-checkbox';
+import { TouchableOpacity } from "react-native-gesture-handler";
+import BasicModal from "../components/modal";
+import { ModalLoginCode } from "../components/Modal/Login-Code";
+import { AskEmailModal } from "../components/Modal/AskEmail";
 
 
 async function save(email, password, check) {
@@ -38,6 +42,7 @@ export default function Login() {
   const [Email, setEmail] = useState("")
   const [Password, setPassword] = useState("")
   const [isChecked, setChecked] = useState(false)
+  const [isOpen, setOpen] = useState(false)
 
   const url = Linking.useURL()
 
@@ -88,7 +93,6 @@ export default function Login() {
   useEffect(() => {
     const loadFromStore = async () => {
       const res = await getValueFor()
-      console.log(res)
       if (res) {
         setPassword(res.password)
         setEmail(res.email)
@@ -121,9 +125,11 @@ export default function Login() {
               <Separator />
             </View>
             <GlobalButton title="Google" onPress={() => createGoogleAccount()}></GlobalButton>
+              <Text style={{marginTop: 15, fontSize: 14}} onPress={() => setOpen(true)} >Mot de passe oublié</Text>
           </>
           : <SignUp oldEmail={Email} oldPassword={Password} setBack={() => setStep(0)} />
         }
+      <BasicModal Open={isOpen} setOpen={setOpen} Content={AskEmailModal}/>
       </View>
     </View>
   );

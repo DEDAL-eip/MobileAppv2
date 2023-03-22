@@ -9,7 +9,7 @@ export const global = StyleSheet.create({
   },
   titleContainer : {
     alignItems: "center",
-    paddingHorizontal : '15%',
+    paddingHorizontal : '10%',
   },
   middleContainer : {
     flex : 3,
@@ -48,6 +48,8 @@ export const global = StyleSheet.create({
     alignItems : 'center',
     justifyContent : 'center',
     paddingBottom : 10,
+  },
+  modal : {
   }
 })
 
@@ -132,7 +134,7 @@ export const titleS = StyleSheet.create({
 
   },
   subtitle : {
-    fontSize:30,
+    fontSize:20,
     fontFamily : "Main",
     textAlign: 'center',
 
