@@ -18,13 +18,15 @@ export async function changePassword (email, password, code) {
         'Content-type': 'application/json',
         'Accept': '*/*' }
         })
-    .catch(err => err)
-    .then(res => res)
+        .then(res => {
+        console.log(res)
+        return res.json()
+        })
+        .catch(err => err)
 }
 
 
 export async function MypatchParams (id, values, token) {
-    console.log('here', values, id)
     return await fetch(`http://52.166.128.133/update_info/?id=${id}`, {
         method: 'PATCH',
         body: JSON.stringify(values),

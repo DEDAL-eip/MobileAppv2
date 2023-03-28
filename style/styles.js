@@ -206,3 +206,24 @@ export const shadow = StyleSheet.create({
     borderTopWidth : 1
   }
 })
+
+export const modal = StyleSheet.create({
+  modal: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    elevation: 5,
+    margin: 5,
+    marginBottom: 20,
+    paddingBottom: 20,
+    borderRadius: 20,
+    paddingTop: 40,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+  },
+})

@@ -1,7 +1,8 @@
 import React from "react";
-import { Modal, StyleSheet, View } from "react-native";
+import { View } from "../constants/Themed";
 import { CloseButton } from "./Button";
-
+import { modal } from "../style/styles";
+import { Modal } from "../constants/Themed";
 const BasicModal = ({ Open, setOpen, Content }) => {
 
   return (
@@ -11,7 +12,7 @@ const BasicModal = ({ Open, setOpen, Content }) => {
       visible={Open}
       onRequestClose={() => setOpen(!Open)}
     >
-      <View style={styles.modal}>
+      <View style={modal.modal}>
         <CloseButton Close={() => setOpen(false)}></CloseButton>
         <Content></Content>
       </View>
@@ -19,27 +20,6 @@ const BasicModal = ({ Open, setOpen, Content }) => {
   );
 };
 
-const styles = StyleSheet.create({
 
-  modal: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#FFFFFF",
-    elevation: 5,
-    margin: 5,
-    marginBottom: 20,
-    paddingBottom: 20,
-    borderRadius: 20,
-    paddingTop: 40,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-  },
-});
 
 export default BasicModal;

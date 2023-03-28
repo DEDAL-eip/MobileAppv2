@@ -20,7 +20,6 @@ export default async function getFilters(token) {
 }
 
 export const getInfoUser = async (token, userId) => {
-    console.log(token, userId)
     return await fetch('http://52.166.128.133/user/?id=' + userId, {
         method: 'GET',
         'Content-type': 'application/json',

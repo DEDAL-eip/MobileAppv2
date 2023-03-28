@@ -24,6 +24,10 @@ async function save(email, password, check) {
   await SecureStore.setItemAsync('log', JSON.stringify({ email: email, password: password, check: check }));
 }
 
+async function remove() {
+  await SecureStore.deleteItemAsync('log')
+}
+
 async function getValueFor() {
   let result = await SecureStore.getItemAsync('log');
   return JSON.parse(result)
@@ -49,6 +53,8 @@ export default function Login() {
   async function EasySignIn(email, password) {
     if (isChecked)
       save(Email, Password, isChecked)
+    else 
+      remove()
     const res = await signIn(email, password)
     if (res.hasError == true)
       setError(true)
@@ -96,6 +102,7 @@ export default function Login() {
       if (res) {
         setPassword(res.password)
         setEmail(res.email)
+        setChecked(true)
       }
     }
     loadFromStore()
