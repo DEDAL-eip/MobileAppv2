@@ -2,7 +2,8 @@ import {
     Text as DefaultText,
     useColorScheme,
     View as DefaultView,
-    TextInput as DefaultTextInput
+    TextInput as DefaultTextInput,
+    Modal as DefaultModal
 } from "react-native";
 import { StatusBar as DefaultStatusBar } from 'react-native';
 import { Feather as DefaultFeather } from '@expo/vector-icons';
@@ -12,7 +13,7 @@ import { separator } from "../style/styles";
 
 export function StatusBar(props) {
     const theme = useColorScheme();
-    const content = theme == 'dark' ? 'light-content' : 'dark-content'
+    const content = theme == 'dark' ? 'light' : 'dark'
     return <DefaultStatusBar barStyle={content} backgroundColor={Colors('Background', theme)} />;
 
 }
@@ -57,3 +58,11 @@ export const Separator = () => {
         </View>
     )
 };
+
+export const Modal = (props) => {
+    const theme = useColorScheme();
+    const { style, ...otherProps } = props;
+    console.log(Colors('Background', theme), props)
+
+    return <DefaultModal style={[{ backgroundColor: Colors('Background', theme) }, style]} {...otherProps}/>
+}

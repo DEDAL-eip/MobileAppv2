@@ -9,7 +9,7 @@ export const global = StyleSheet.create({
   },
   titleContainer : {
     alignItems: "center",
-    paddingHorizontal : '15%',
+    paddingHorizontal : '10%',
   },
   middleContainer : {
     flex : 3,
@@ -48,6 +48,8 @@ export const global = StyleSheet.create({
     alignItems : 'center',
     justifyContent : 'center',
     paddingBottom : 10,
+  },
+  modal : {
   }
 })
 
@@ -134,7 +136,7 @@ export const titleS = StyleSheet.create({
 
   },
   subtitle : {
-    fontSize:30,
+    fontSize:20,
     fontFamily : "Main",
     textAlign: 'center',
 
@@ -206,4 +208,25 @@ export const shadow = StyleSheet.create({
     borderTopColor : '#fff',
     borderTopWidth : 1
   }
+})
+
+export const modal = StyleSheet.create({
+  modal: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    elevation: 5,
+    margin: 5,
+    marginBottom: 20,
+    paddingBottom: 20,
+    borderRadius: 20,
+    paddingTop: 40,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+  },
 })

@@ -4,7 +4,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useColorScheme } from "react-native";
-import { createIconSetFromFontello, Feather } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 
 import Home from "../screens/Home";
 import Setting from "../screens/Settings";

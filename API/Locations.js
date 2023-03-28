@@ -1,6 +1,4 @@
 /**
- * @class
- * 
  * @returns A function that returns the locations fetched by the API.
  * @category API
  */
