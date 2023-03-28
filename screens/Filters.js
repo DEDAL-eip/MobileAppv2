@@ -25,6 +25,8 @@ export default function Filter({ navigation }) {
   const [infoUser, setUser] = useState({ budget: null, time: null, filter: [] })
   const [display, setDisplay] = useState(1)
   const [displayFilter, setDisplayFilters] = useState()
+  const IsFocused = useIsFocused()
+
   const {t, i18n} = useTranslation();
 
   useEffect(() => {
@@ -160,10 +162,10 @@ export default function Filter({ navigation }) {
       <View style={global.middleContainer}>
         <View style={[global.header, shadow.Bottom]}>
           <View style={{ width: "33%", display: 'flex', alignItems: 'center' }}>
-            <TextButton style={button.disable} title="Categories" onPress={() => setDisplay(1)}></TextButton>
+            <TextButton style={button.disable} title="Categories" onPress={() => setDisplay(2)}></TextButton>
           </View>
           <View style={{ width: "33%", display: 'flex', alignItems: 'center' }}>
-            <TextButton title="Buget" onPress={() => setDisplay(2)}></TextButton>
+            <TextButton title="Buget" onPress={() => setDisplay(1)}></TextButton>
           </View>
           <View style={{ width: "33%", display: 'flex', alignItems: 'center' }}>
             <TextButton title="Durée" onPress={() => setDisplay(3)}></TextButton>

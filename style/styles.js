@@ -106,11 +106,12 @@ export const textInput = StyleSheet.create({
     borderColor : Colors('dedalBlue'),
   },
   Error : {
-    width : '50%',
-    height : 30,
+    width : '90%',
+    height : 50,
     marginTop : 5,
-    borderRadius : 5,
-    borderWidth: 1,
+    borderRadius : 25,
+    borderWidth: 2,
+    marginTop : 5,
     paddingLeft : 10,
     borderColor : Colors('ErrorRed'),
   }

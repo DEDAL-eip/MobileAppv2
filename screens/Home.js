@@ -24,6 +24,7 @@ export default function Home() {
   const [location, setLocation] = useState()
   const [Path, setPath] = useState([])
   const [Place, setPlace] = useState([])
+  const IsFocused = useIsFocused()
   const {t, i18n} = useTranslation();
 
   useEffect(() => {
@@ -66,7 +67,6 @@ export default function Home() {
       const res = await getInfoUser(SafeAreaProvider.Log.token, SafeAreaProvider.Log.id)
       if (res.map)
         askMap()
-      console.log(res)
     }
 
     askPosition()
@@ -121,7 +121,6 @@ export default function Home() {
         }
         {
           Place ? Place.map((elem, index) => {
-            console.log(elem.name)
             return (
               elem.coordinates ?
                 <Marker

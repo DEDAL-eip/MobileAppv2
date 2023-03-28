@@ -1,7 +1,7 @@
 import { View } from "react-native"
 import { GlobalButton } from "../Button"
 import { Title } from "../Title"
-import { TextInputGlobal, TextInputPassword } from "../../components/TextInput"
+import { HideTextInput, TextInput, TextInputPassword } from "../../components/TextInput"
 import { useEffect, useState } from "react"
 import { Text } from "../../constants/Themed";
 import { global, textInput } from "../../style/styles"
@@ -80,27 +80,27 @@ export const AskEmailModal = () => {
             <View style={global.middleContainer}>
                 {
                     step == 0 ?
-                        <TextInputGlobal
+                        <TextInput
                             style={textInput.global}
                             onChangeText={setEmail}
                             value={email}
                             placeholder="Email"
                         /> :
                         <>
-                            <TextInputGlobal
+                            <TextInput
                                 style={Code.length != 6 ? textInput.Error : textInput.global}
                                 onChangeText={setCode}
                                 value={Code}
                                 placeholder="Code"
                                 keyboardType="numeric"
                             />
-                            <TextInputPassword
+                            <HideTextInput
                                 style={Error ? textInput.Error : textInput.global}
                                 onChangeText={setPassword}
                                 value={Password}
                                 placeholder="Password"
                             />
-                            <TextInputPassword
+                            <HideTextInput
                                 style={ErrorPas ? textInput.Error : textInput.global}
                                 onChangeText={setValidatePassword}
                                 value={ValidatePassword}
@@ -120,6 +120,7 @@ export const AskEmailModal = () => {
                 >
                 </GlobalButton>
             </View>
+
         </>
     )
 }
