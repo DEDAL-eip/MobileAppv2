@@ -5,10 +5,13 @@ import { global, shadow, button } from "../style/styles";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useCallback, useEffect, useState } from "react";
 import { Title } from "../components/Title";
-import { GlobalButton } from "../components/Button";
+import { TextButton } from "../components/buttons/TextButton";
 import { ScrollView } from "react-native";
 import Slider from '@react-native-community/slider';
 import { useIsFocused } from "@react-navigation/native";
+
+import '../constants/languages/i18n';
+import { useTranslation } from 'react-i18next';
 
 /**
  * @class display Filters screen
@@ -22,7 +25,7 @@ export default function Filter({ navigation }) {
   const [infoUser, setUser] = useState({ budget: null, time: null, filter: [] })
   const [display, setDisplay] = useState(1)
   const [displayFilter, setDisplayFilters] = useState()
-  const IsFocused = useIsFocused()
+  const {t, i18n} = useTranslation();
 
   useEffect(() => {
     /**
@@ -153,17 +156,17 @@ export default function Filter({ navigation }) {
 
   return (
     <View style={global.container}>
-      <Title title={'Filtres'} />
+      <Title title={t('filters')} />
       <View style={global.middleContainer}>
         <View style={[global.header, shadow.Bottom]}>
           <View style={{ width: "33%", display: 'flex', alignItems: 'center' }}>
-            <GlobalButton style={button.disable} title="Buget" onPress={() => setDisplay(1)}></GlobalButton>
+            <TextButton style={button.disable} title="Categories" onPress={() => setDisplay(1)}></TextButton>
           </View>
           <View style={{ width: "33%", display: 'flex', alignItems: 'center' }}>
-            <GlobalButton title="Categories" onPress={() => setDisplay(2)}></GlobalButton>
+            <TextButton title="Buget" onPress={() => setDisplay(2)}></TextButton>
           </View>
           <View style={{ width: "33%", display: 'flex', alignItems: 'center' }}>
-            <GlobalButton title="Durée" onPress={() => setDisplay(3)}></GlobalButton>
+            <TextButton title="Durée" onPress={() => setDisplay(3)}></TextButton>
           </View>
         </View>
         <View style={{ height: '100%', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
@@ -171,8 +174,8 @@ export default function Filter({ navigation }) {
         </View>
       </View>
       <View style={[global.bottomContainer, shadow.Top]}>
-        <GlobalButton title='Sauvegarder' onPress={() => patchUserInfo()}></GlobalButton>
-        <GlobalButton title='Reinitialiser' onPress={() => BackToBasic()}></GlobalButton>
+        <TextButton title='Sauvegarder' onPress={() => patchUserInfo()}></TextButton>
+        <TextButton title='Reinitialiser' onPress={() => BackToBasic()}></TextButton>
       </View>
     </View>
   );

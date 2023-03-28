@@ -10,6 +10,9 @@ import { Feather } from '@expo/vector-icons';
 import { getInfoUser } from "../API/Filters";
 import { useIsFocused } from "@react-navigation/native";
 
+import '../constants/languages/i18n';
+import { useTranslation } from 'react-i18next';
+
 /**
  * @class display Home screen
  * @export
@@ -21,7 +24,7 @@ export default function Home() {
   const [location, setLocation] = useState()
   const [Path, setPath] = useState([])
   const [Place, setPlace] = useState([])
-  const IsFocused = useIsFocused()
+  const {t, i18n} = useTranslation();
 
   useEffect(() => {
 

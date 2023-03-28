@@ -18,10 +18,10 @@ export const HomeTitle = ({title, pict, subtitle}) => {
     <View style={[global.titleContainer, {paddingHorizontal : '10%'}]}>
         <Text style={titleS.main}>{title}</Text>
         <Separator />
-        <Text style={[titleS.subtitle]}>{subtitle}</Text>
         {pict ? 
             <Image style={titleS.image} source={pict} />
             : null
         }
+        <Text style={[titleS.subtitle]}>{subtitle}</Text>
     </View>
 )}  

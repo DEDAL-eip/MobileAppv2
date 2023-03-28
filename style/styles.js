@@ -56,12 +56,13 @@ export const global = StyleSheet.create({
 export const button = StyleSheet.create({
   container : {
     backgroundColor : Colors('dedalBlue'),
-    width : '75%',
-    height : 30,
+    width : '85%',
+    height : 45,
     alignItems: "center",
     justifyContent: "center",
     marginTop : 5,
-    borderRadius : 5,
+    borderRadius : 25,
+    fontWeight : "bold"
   },
   close : {
     alignSelf: 'flex-end',
@@ -78,12 +79,12 @@ export const button = StyleSheet.create({
   },
   disable : {
     backgroundColor : Colors('dedalBlueDisable'),
-    width : '75%',
-    height : 30,
+    width : '85%',
+    height : 45,
     alignItems: "center",
     justifyContent: "center",
     marginTop : 5,
-    borderRadius : 5,
+    borderRadius : 25,
     color : Colors('Text')
   },
   logout : {
@@ -95,11 +96,12 @@ export const button = StyleSheet.create({
 
 export const textInput = StyleSheet.create({
   global : {
-    width : '50%',
-    height : 30,
+    width : '90%',
+    height : 50,
     marginTop : 5,
-    borderRadius : 5,
-    borderWidth: 1,
+    borderRadius : 25,
+    borderWidth: 2,
+    marginTop : 5,
     paddingLeft : 10,
     borderColor : Colors('dedalBlue'),
   },
@@ -153,7 +155,8 @@ export const color = StyleSheet.create({
     color : Colors('Text')
   },
   white : {
-    color : Colors('White')
+    color : Colors('White'),
+    fontWeight : 'bold'
   },
   dedalBlueDisable : {
     color : Colors('dedalBlueDisable')

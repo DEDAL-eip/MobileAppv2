@@ -1,0 +1,31 @@
+{
+    "translation": {
+        "the path to your culture": "Le chemin de votre culture",
+        "filters": "Filtres",
+        "home": "Principal",
+        "locations": "Lieux",
+        "email": "Adresse email",
+        "password": "Mot de passe",
+        "sign in": "Se connecter",
+        "sign up": "S'inscrire",
+        "wrong mail or password": "Email ou mot de passe incorrecte",
+        "in itinerary": "Dans l'itinéraire",
+        "out itinerary": "Hors l'itinéraire",
+        "out filters": "Hors filtres",
+        "this screen doesn't exist.": "Cet écran n'existe pas.",
+        "go to home screen!": "Allez à la page d'accueil!",
+        "settings": "Options",
+        "username": "Nom utilisateur",
+        "last connection": "Dernière connexion",
+        "account creation": "Création du compte",
+        "language": "Langage",
+        "french": "Français",
+        "english": "English",
+        "dark mode": "Mode nuit",
+        "modify informations": "Modifier les informations",
+        "modify password": "Modifier le mot de passe",
+        "cancel": "Annuler",
+        "confirm": "Valider",
+        "an error occured": "Une erreur est subvenue"
+    }
+}

@@ -19,7 +19,6 @@ export function StatusBar(props) {
 }
 
 export function TextInput(props) {
-
     const theme = useColorScheme();
     const { style, ...otherProps } = props;
 

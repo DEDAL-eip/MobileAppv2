@@ -1,9 +1,8 @@
 import "react-native-gesture-handler";
-
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { ConnectionsStackNavigator } from "../navigation/ConnectionsStackNavigator"
 import Navigation from "../navigation";
 import { useColorScheme } from "react-native";
-import Login from "../screens/Login";
 import { useState } from "react";
 
 /**
@@ -19,15 +18,9 @@ export default function Main() {
     SafeAreaProvider.Loged = setLoged
     SafeAreaProvider.mode = colorScheme
 
+    if (IsLoged)
+        return (<Navigation />);
 
-    if (!IsLoged)
-        return (
-        <Login/>
-        );
-    else {
-        return (
-        <Navigation/>
-        )
-    }
-  }
+    return (<ConnectionsStackNavigator />);
+}
 

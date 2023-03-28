@@ -1,0 +1,31 @@
+{
+    "translation": {
+        "the path to your culture": "The path to your culture",
+        "filters": "Filters",
+        "home": "Home",
+        "locations": "Locations",
+        "email": "Email",
+        "password": "Password",
+        "sign in": "Sign In",
+        "sign up": "Sign Up",
+        "wrong mail or password": "Wrong mail or password",
+        "in itinerary": "In itinerary",
+        "out itinerary": "Out itinerary",
+        "out filters": "Out filters",
+        "this screen doesn't exist.": "This screen doesn't exist.",
+        "go to home screen!": "Go to home screen!",
+        "settings": "Settings",
+        "username": "Username",
+        "last connection": "Last connection",
+        "account creation": "Account creation",
+        "language": "Language",
+        "french": "French",
+        "english": "English",
+        "dark mode": "Dark mode",
+        "modify informations": "Modify informations",
+        "modify password": "Modify password",
+        "cancel": "Cancel",
+        "confirm": "Confirm",
+        "an error occured": "An error occured"
+    }
+}
