@@ -13,7 +13,7 @@ const BasicModal = ({ Open, setOpen, Content }) => {
     >
       <View style={modal.modal}>
         <CloseButton Close={() => setOpen(false)}></CloseButton>
-        <Content></Content>
+        <Content Close={() => setOpen(false)}></Content>
       </View>
     </Modal>
   );
