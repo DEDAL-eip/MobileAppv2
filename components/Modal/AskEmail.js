@@ -1,14 +1,14 @@
 import { View } from "react-native"
 import { GlobalButton } from "../Button"
 import { Title } from "../Title"
-import { TextInputGlobal, TextInputPassword } from "../../components/TextInput"
+import { HideTextInput, TextInput, TextInputPassword } from "../../components/TextInput"
 import { useEffect, useState } from "react"
 import { Text } from "../../constants/Themed";
 import { global, textInput } from "../../style/styles"
 import { SafeAreaProvider } from "react-native-safe-area-context"
 import { changePassword, SendCode } from "../../API/Settings"
 
-export const AskEmailModal = () => {
+export const AskEmailModal = (Close) => {
     const [Error, setError] = useState(false)
     const [ErrorMsg, setErrorMsg] = useState(false)
     const [ErrorPas, setErrorPas] = useState(false)
@@ -24,7 +24,9 @@ export const AskEmailModal = () => {
 
     const Validate = async () => {
         if (step == 0) {
+            console.log('here', email)
             const res = await SendCode(email)
+            console.log(res)
             if (res.status == 204) {
                 setStep(1)
                 setDisable(true)
@@ -32,10 +34,10 @@ export const AskEmailModal = () => {
         }
         if (step == 1) {
             let res = await changePassword(email, Password, Code)
-            console.log(res)
-            if (res.status != 202)
-                setErrorMsg(true)
-
+            console.log('res => ', res)
+            // if (res.status != 202)
+            //     setErrorMsg(true)
+            Close()
         }
     }
 
@@ -80,27 +82,27 @@ export const AskEmailModal = () => {
             <View style={global.middleContainer}>
                 {
                     step == 0 ?
-                        <TextInputGlobal
+                        <TextInput
                             style={textInput.global}
                             onChangeText={setEmail}
                             value={email}
                             placeholder="Email"
                         /> :
                         <>
-                            <TextInputGlobal
+                            <TextInput
                                 style={Code.length != 6 ? textInput.Error : textInput.global}
                                 onChangeText={setCode}
                                 value={Code}
                                 placeholder="Code"
                                 keyboardType="numeric"
                             />
-                            <TextInputPassword
+                            <HideTextInput
                                 style={Error ? textInput.Error : textInput.global}
                                 onChangeText={setPassword}
                                 value={Password}
                                 placeholder="Password"
                             />
-                            <TextInputPassword
+                            <HideTextInput
                                 style={ErrorPas ? textInput.Error : textInput.global}
                                 onChangeText={setValidatePassword}
                                 value={ValidatePassword}
@@ -120,6 +122,7 @@ export const AskEmailModal = () => {
                 >
                 </GlobalButton>
             </View>
+
         </>
     )
 }

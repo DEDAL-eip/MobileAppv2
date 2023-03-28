@@ -62,7 +62,6 @@ export const Separator = () => {
 export const Modal = (props) => {
     const theme = useColorScheme();
     const { style, ...otherProps } = props;
-    console.log(Colors('Background', theme), props)
 
     return <DefaultModal style={[{ backgroundColor: Colors('Background', theme) }, style]} {...otherProps}/>
 }
