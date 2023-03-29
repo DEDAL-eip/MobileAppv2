@@ -8,7 +8,7 @@ import { global, textInput } from "../../style/styles"
 import { SafeAreaProvider } from "react-native-safe-area-context"
 import { changePassword, SendCode } from "../../API/Settings"
 
-export const AskEmailModal = (Close) => {
+export const AskEmailModal = ({ Close }) => {
     const [Error, setError] = useState(false)
     const [ErrorMsg, setErrorMsg] = useState(false)
     const [ErrorPas, setErrorPas] = useState(false)
@@ -24,9 +24,7 @@ export const AskEmailModal = (Close) => {
 
     const Validate = async () => {
         if (step == 0) {
-            console.log('here', email)
             const res = await SendCode(email)
-            console.log(res)
             if (res.status == 204) {
                 setStep(1)
                 setDisable(true)
@@ -34,10 +32,10 @@ export const AskEmailModal = (Close) => {
         }
         if (step == 1) {
             let res = await changePassword(email, Password, Code)
-            console.log('res => ', res)
-            // if (res.status != 202)
-            //     setErrorMsg(true)
-            Close()
+            if (res.status != 204)
+                setErrorMsg(true)
+            else
+                Close()
         }
     }
 

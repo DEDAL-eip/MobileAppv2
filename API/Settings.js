@@ -20,10 +20,7 @@ export async function changePassword(email, password, code) {
             'Accept': '*/*'
         }
     })
-        .then(res => {
-            console.log('res in ', res, res.status)
-            return res
-        })
+        .then(res => res)
         .catch(err => err)
 }
 
