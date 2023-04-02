@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { TextButton } from "../components/buttons/TextButton";
 import { ScrollView } from "react-native";
 import Slider from '@react-native-community/slider';
+import { useIsFocused } from "@react-navigation/native";
 
 import '../constants/languages/i18n';
 import { useTranslation } from 'react-i18next';
@@ -18,11 +19,13 @@ import { useTranslation } from 'react-i18next';
  * @description A function that returns a View with filters.
  * @return {HTML} 
  */
-export default function Filter() {
+export default function Filter({ navigation }) {
   const [APIfilterz, setFilters] = useState([])
   const [infoUser, setUser] = useState({ budget: null, time: null, filter: [] })
   const [display, setDisplay] = useState(1)
   const [displayFilter, setDisplayFilters] = useState()
+  const IsFocused = useIsFocused()
+
   const {t, i18n} = useTranslation();
 
   useEffect(() => {
@@ -37,24 +40,22 @@ export default function Filter() {
     const getInfo = async () => {
       const res = await getInfoUser(SafeAreaProvider.Log.token, SafeAreaProvider.Log.id)
       setUser(res)
-      console.log("GET INFO", res)
     }
 
     getFilter()
     getInfo()
-  }, [])
+  }, [IsFocused])
 
   /**
  * Hook to push filter to data
  * set data in SafeAreaProvider.filters
  */
   const assertToContext = (filter, push) => {
-    console.log("ASSERT TO CONTEXT", filter, push)
     setUser(old => {
       let res = { ...old }
       if (push == true)
         res.filter.push(filter)
-      else 
+      else
         res.filter.splice(res.filter.indexOf(filter), 1)
       return res
     })
@@ -77,8 +78,8 @@ export default function Filter() {
           }
         })}
       </ScrollView>
-      )
-  },[infoUser])
+    )
+  }, [infoUser])
 
   const buildDisplayBuget = () => {
     return (
@@ -137,22 +138,21 @@ export default function Filter() {
 
   const ManageDisplay = () => {
     const result =
-      display == 1 ? displayFilter :
-        display == 2 ? buildDisplayBuget() :
+      display == 1 ? buildDisplayBuget() :
+        display == 2 ? displayFilter :
           display == 3 ? buildDisplayLenght() : displayFilter
     return (result)
   }
 
   const patchUserInfo = async () => {
     const res = await setInfoUser(SafeAreaProvider.Log.token, SafeAreaProvider.Log.id, infoUser)
-    console.log("PATCH USER INFO", res.status)
+    navigation.navigate('Home')
   }
 
 
   const BackToBasic = async () => {
-    console.log(SafeAreaProvider.Log.token)
-    const res = await getInfoUser(SafeAreaProvider.Log.token, SafeAreaProvider.Log.id)
-    setUser(res)
+    const res = await setInfoUser(SafeAreaProvider.Log.token, SafeAreaProvider.Log.id, { budget: null, time: null, filter: [] })
+    setUser({ budget: null, time: null, filter: [] })
   }
 
   return (
@@ -160,10 +160,10 @@ export default function Filter() {
       <View style={global.middleContainer}>
         <View style={[global.header, shadow.Bottom]}>
           <View style={{ width: "33%", display: 'flex', alignItems: 'center' }}>
-            <TextButton style={button.disable} title="Categories" onPress={() => setDisplay(1)}></TextButton>
+            <TextButton style={button.disable} title="Categories" onPress={() => setDisplay(2)}></TextButton>
           </View>
           <View style={{ width: "33%", display: 'flex', alignItems: 'center' }}>
-            <TextButton title="Buget" onPress={() => setDisplay(2)}></TextButton>
+            <TextButton title="Buget" onPress={() => setDisplay(1)}></TextButton>
           </View>
           <View style={{ width: "33%", display: 'flex', alignItems: 'center' }}>
             <TextButton title="Durée" onPress={() => setDisplay(3)}></TextButton>

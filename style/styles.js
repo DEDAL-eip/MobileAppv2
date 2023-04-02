@@ -47,6 +47,8 @@ export const global = StyleSheet.create({
     alignItems : 'center',
     justifyContent : 'center',
     paddingBottom : 10,
+  },
+  modal : {
   }
 })
 
@@ -103,11 +105,12 @@ export const textInput = StyleSheet.create({
     borderColor : Colors('dedalBlue'),
   },
   Error : {
-    width : '50%',
-    height : 30,
+    width : '90%',
+    height : 50,
     marginTop : 5,
-    borderRadius : 5,
-    borderWidth: 1,
+    borderRadius : 25,
+    borderWidth: 2,
+    marginTop : 5,
     paddingLeft : 10,
     borderColor : Colors('ErrorRed'),
   }
@@ -205,4 +208,25 @@ export const shadow = StyleSheet.create({
     borderTopColor : '#fff',
     borderTopWidth : 1
   }
+})
+
+export const modal = StyleSheet.create({
+  modal: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    elevation: 5,
+    margin: 5,
+    marginBottom: 20,
+    paddingBottom: 20,
+    borderRadius: 20,
+    paddingTop: 40,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+  },
 })
