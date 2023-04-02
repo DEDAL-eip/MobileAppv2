@@ -6,7 +6,7 @@
         "locations": "Locations",
         "email": "Email",
         "password": "Password",
-        "sign in": "Sign In",
+        "log in": "Log In",
         "sign up": "Sign Up",
         "wrong mail or password": "Wrong mail or password",
         "in itinerary": "In itinerary",
@@ -32,6 +32,8 @@
         "a number and a special character": "A number and a special character",
         "a verification code was sent to your email address": "A verification code was sent to your email address",
         "what's your email": "What's your email",
-        "what's your password": "What's your password"
+        "what's your password": "What's your password",
+        "remember me": "Remember me",
+        "forgot your password": "Forgot your password"
     }
 }

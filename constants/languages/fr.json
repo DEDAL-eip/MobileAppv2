@@ -6,7 +6,7 @@
         "locations": "Lieux",
         "email": "Adresse email",
         "password": "Mot de passe",
-        "sign in": "Se connecter",
+        "log in": "Se connecter",
         "sign up": "S'inscrire",
         "wrong mail or password": "Email ou mot de passe incorrecte",
         "in itinerary": "Dans l'itinéraire",
@@ -32,6 +32,8 @@
         "a number and a special character": "Un nombre et un caractère spécial",
         "a verification code was sent to your email address": "Un code de verification vous à était envoyé sur voter adresse mail",
         "what's your email": "Quel est ton email",
-        "what's your password": "Quel est ton mot de passe"
+        "what's your password": "Quel est ton mot de passe",
+        "remember me": "Se souvenir de moi",
+        "forgot your password": "Mot de passe oublié"
     }
 }
