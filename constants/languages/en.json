@@ -34,6 +34,11 @@
         "what's your email": "What's your email",
         "what's your password": "What's your password",
         "remember me": "Remember me",
-        "forgot your password": "Forgot your password"
+        "forgot your password": "Forgot your password",
+        "categories": "Categories",
+        "save": "Save",
+        "reset": "Reset",
+        "duration": "Duration",
+        "budget": "Budget"
     }
 }

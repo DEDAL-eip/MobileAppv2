@@ -34,6 +34,11 @@
         "what's your email": "Quel est ton email",
         "what's your password": "Quel est ton mot de passe",
         "remember me": "Se souvenir de moi",
-        "forgot your password": "Mot de passe oublié"
+        "forgot your password": "Mot de passe oublié",
+        "categories": "Catégories",
+        "save": "Sauvegarder",
+        "reset": "Réinitialiser",
+        "duration": "Durée",
+        "budget": "Budget"
     }
 }

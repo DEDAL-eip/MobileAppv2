@@ -118,7 +118,7 @@ export default function Filter({ navigation }) {
     return (
       <View style={{ width: '90%', display: 'flex', alignItems: 'center', marginTop: 10 }} >
         <View style={{ paddingBottom: '30%', display: 'flex', alignItems: 'center' }}>
-          <Text>La durée de votre voyage est de : </Text>
+          <Text>{'La durée de votre voyage est de:'}</Text>
           <Text>{infoUser.time || 0} heure{(infoUser.time || 0) > 1 ? 's' : ''}</Text>
           <Separator />
         </View>
@@ -160,13 +160,13 @@ export default function Filter({ navigation }) {
       <View style={global.middleContainer}>
         <View style={[global.header, shadow.Bottom]}>
           <View style={{ width: "33%", display: 'flex', alignItems: 'center' }}>
-            <TextButton style={button.disable} title="Categories" onPress={() => setDisplay(2)}></TextButton>
+            <TextButton style={button.disable} title={t("Categories")} onPress={() => setDisplay(2)} />
           </View>
           <View style={{ width: "33%", display: 'flex', alignItems: 'center' }}>
-            <TextButton title="Buget" onPress={() => setDisplay(1)}></TextButton>
+            <TextButton title={t('budget')} onPress={() => setDisplay(1)} />
           </View>
           <View style={{ width: "33%", display: 'flex', alignItems: 'center' }}>
-            <TextButton title="Durée" onPress={() => setDisplay(3)}></TextButton>
+            <TextButton title={t('duration')} onPress={() => setDisplay(3)} />
           </View>
         </View>
         <View style={{ height: '100%', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
@@ -174,8 +174,8 @@ export default function Filter({ navigation }) {
         </View>
       </View>
       <View style={[global.bottomContainer, shadow.Top]}>
-        <TextButton title='Sauvegarder' onPress={() => patchUserInfo()}></TextButton>
-        <TextButton title='Reinitialiser' onPress={() => BackToBasic()}></TextButton>
+        <TextButton title={t('save')} onPress={() => patchUserInfo()} />
+        <TextButton title={t('reset')} onPress={() => BackToBasic()} />
       </View>
     </View>
   );
