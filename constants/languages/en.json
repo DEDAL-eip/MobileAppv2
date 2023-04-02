@@ -26,6 +26,12 @@
         "modify password": "Modify password",
         "cancel": "Cancel",
         "confirm": "Confirm",
-        "an error occured": "An error occured"
+        "an error occured": "An error occured",
+        "your password must contain at least": "Your password must contain at least",
+        "an upper and a lower case character": "An upper and a lower case character",
+        "a number and a special character": "A number and a special character",
+        "a verification code was sent to your email address": "A verification code was sent to your email address",
+        "what's your email": "What's your email",
+        "what's your password": "What's your password"
     }
 }

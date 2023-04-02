@@ -26,6 +26,12 @@
         "modify password": "Modifier le mot de passe",
         "cancel": "Annuler",
         "confirm": "Valider",
-        "an error occured": "Une erreur est subvenue"
+        "an error occured": "Une erreur est subvenue",
+        "your password must contain at least": "Votre mot de passe doit contenir au moins",
+        "an upper and a lower case character": "Une majuscule et une minuscule",
+        "a number and a special character": "Un nombre et un caractère spécial",
+        "a verification code was sent to your email address": "Un code de verification vous à était envoyé sur voter adresse mail",
+        "what's your email": "Quel est ton email",
+        "what's your password": "Quel est ton mot de passe"
     }
 }
