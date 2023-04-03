@@ -11,7 +11,8 @@ export const TextInput = (({
     value,
     placeholder,
     style,
-    autoComplete
+    autoComplete,
+    secureTextEntry
 }) => {
     const theme = useColorScheme();
 
@@ -27,6 +28,7 @@ export const TextInput = (({
                 onChangeText={onChangeText}
                 value={value}
                 placeholder={placeholder}
+                secureTextEntry={secureTextEntry}
             />
         </View>
     )
