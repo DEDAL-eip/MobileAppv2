@@ -1,7 +1,5 @@
-// Learn more about createBottomTabNavigator:
-// https://reactnavigation.org/docs/bottom-tab-navigator
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createStackNavigator } from "@react-navigation/stack";
 import { useColorScheme } from "react-native";
 import { Feather } from '@expo/vector-icons';
@@ -12,70 +10,61 @@ import Filter from "../screens/Filters";
 import Location from "../screens/Locations";
 import Colors from "../constants/Colors";
 
-const BottomTab = createBottomTabNavigator();
+const BottomTab = createMaterialBottomTabNavigator();
 
 export default function BottomTabNavigator() {
   const colorScheme = useColorScheme();
   return (
     <BottomTab.Navigator
-    initialRouteName="Home"
-    screenOptions={({ route }) => ({
-      headerShown: false,
-      tabBarIcon: ({ color, size }) => {
-        let iconName;
+      initialRouteName="Home"
 
-        if (route.name === 'Home') {
-          iconName = 'map'
-        } else if (route.name === 'Settings') {
-          iconName = 'settings';
-        } else if (route.name === 'Location') {
-          iconName = 'list';
-        } else if (route.name === 'Filters') {
-          iconName = 'filter';
-        }
-
-        // You can return any component that you like here!
-        return <Ionicons name={iconName} size={size} color={color} />;
-      },
-      tabBarActiveTintColor: Colors('dedalBlue'),
-      tabBarInactiveTintColor: Colors('dedalBlueDisable'),
-      tabBarActiveBackgroundColor: Colors('Background', colorScheme),
-      tabBarInactiveBackgroundColor: Colors('Background', colorScheme),
-    })}
-      >
-
+      activeColor={Colors('dedalBlue')}
+      inactiveColor={Colors('dedalBlueDisable')}
+      barStyle={{
+        backgroundColor: Colors('Background', colorScheme)
+      }}
+    >
       <BottomTab.Screen
         name="Filters"
         component={FiltersNavigator}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Feather name='filter' color={color} size={26} />
+          )
+        }}
       />
       <BottomTab.Screen
         name="Home"
         component={HomeNavigator}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Feather name='map' color={color} size={26} />
+          )
+        }}
       />
       <BottomTab.Screen
-      name="Location"
-      component={LocationNavigator}
-    />
-    <BottomTab.Screen
+        name="Location"
+        component={LocationNavigator}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Feather name='list' color={color} size={26} />
+          )
+        }}
+      />
+      <BottomTab.Screen
         name="Settings"
         component={SettingNavigator}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Feather name='settings' color={color} size={26} />
+          )
+        }}
       />
     </BottomTab.Navigator>
-    
   );
 }
 
-// You can explore the built-in icon families and icons on the web at:
-// https://icons.expo.fyi/
-function TabBarIcon(props) {
-  //<Feather style={{marginLeft : 10}}name={hide ? "eye" : "eye-off"} size={24} onPress={() => setHide(!hide)} color="black" />
-  return <Feather size={30} style={{ marginBottom: -3 }} {...props} />;
-}
-
-// Each tab has its own navigation stack, you can read more about this pattern here:
-// https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
 const HomeStack = createStackNavigator();
-
 function HomeNavigator() {
   return (
     <HomeStack.Navigator>
@@ -89,7 +78,6 @@ function HomeNavigator() {
 }
 
 const SettingsStack = createStackNavigator();
-
 function SettingNavigator() {
   return (
     <SettingsStack.Navigator>
@@ -103,7 +91,6 @@ function SettingNavigator() {
 }
 
 const FiltersStack = createStackNavigator();
-
 function FiltersNavigator() {
   return (
     <FiltersStack.Navigator>
@@ -117,7 +104,6 @@ function FiltersNavigator() {
 }
 
 const LocationStack = createStackNavigator();
-
 function LocationNavigator() {
   return (
     <LocationStack.Navigator>
