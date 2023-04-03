@@ -23,9 +23,9 @@ export function MyPicker(props) {
                 }}
                 style={{ height: 50, color: Colors('Text', theme) }}
             >
-                {props.items.map((item) => {
+                {props.items.map((item, i) => {
                     return (
-                        <DefaultPicker.Item label={item[0]} value={item[1]} />
+                        <DefaultPicker.Item key={i} label={item[0]} value={item[1]} />
                     )
                 })}
             </DefaultPicker>

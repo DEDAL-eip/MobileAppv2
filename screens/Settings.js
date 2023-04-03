@@ -13,6 +13,7 @@ import { MyPicker } from "../components/Picker";
 
 import '../constants/languages/i18n';
 import { useTranslation } from 'react-i18next';
+import Colors from "../constants/Colors";
 
 /**
  * @class display Settings screen
@@ -129,7 +130,9 @@ export default function Setting() {
             <Text>{t('dark mode')}</Text>
           </View>
           <View style={[table.col, {paddingRight: 50}]}>
-            <Switch 
+            <Switch
+              trackColor={{ true: Colors('dedalBlue'), false:Colors('dedalBlueDisable') }}
+              thumbColor={Colors('dedalBlue')}
               value={mode}
               onValueChange={(e) => updateSwitch(e)}
               />
