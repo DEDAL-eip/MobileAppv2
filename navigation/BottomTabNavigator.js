@@ -11,23 +11,19 @@ import Location from "../screens/Locations";
 import Colors from "../constants/Colors";
 
 const BottomTab = createMaterialBottomTabNavigator();
-const Stack = createStackNavigator();
 
 export default function BottomTabNavigator() {
   const colorScheme = useColorScheme();
   return (
     <BottomTab.Navigator
-    initialRouteName="Home"
-    labeled={false}
+      initialRouteName="Home"
 
-    activeColor={Colors('dedalBlue')}
-    inactiveColor={Colors('dedalBlueDisable')}
-
-    barStyle={{
-      backgroundColor: Colors('Background', colorScheme)
-    }}
+      activeColor={Colors('dedalBlue')}
+      inactiveColor={Colors('dedalBlueDisable')}
+      barStyle={{
+        backgroundColor: Colors('Background', colorScheme)
+      }}
     >
-
       <BottomTab.Screen
         name="Filters"
         component={FiltersNavigator}
@@ -65,31 +61,23 @@ export default function BottomTabNavigator() {
         }}
       />
     </BottomTab.Navigator>
-    
   );
 }
 
-// You can explore the built-in icon families and icons on the web at:
-// https://icons.expo.fyi/
-function TabBarIcon(props) {
-  //<Feather style={{marginLeft : 10}}name={hide ? "eye" : "eye-off"} size={24} onPress={() => setHide(!hide)} color="black" />
-  return <Feather size={100} style={{ marginBottom: -3 }} {...props} />;
-}
-
+const HomeStack = createStackNavigator();
 function HomeNavigator() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen
+    <HomeStack.Navigator>
+      <HomeStack.Screen
         name="HomeNAV"
         component={Home}
         options={{ headerShown: false }}
       />
-    </Stack.Navigator>
+    </HomeStack.Navigator>
   );
 }
 
 const SettingsStack = createStackNavigator();
-
 function SettingNavigator() {
   return (
     <SettingsStack.Navigator>
@@ -103,7 +91,6 @@ function SettingNavigator() {
 }
 
 const FiltersStack = createStackNavigator();
-
 function FiltersNavigator() {
   return (
     <FiltersStack.Navigator>
@@ -117,7 +104,6 @@ function FiltersNavigator() {
 }
 
 const LocationStack = createStackNavigator();
-
 function LocationNavigator() {
   return (
     <LocationStack.Navigator>
