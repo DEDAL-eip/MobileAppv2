@@ -10,6 +10,9 @@ import Colors from "../../constants/Colors";
 import { TextButton } from "../../components/buttons/TextButton";
 import { HideTextInput, TextInput } from "../../components/TextInput";
 
+import '../../constants/languages/i18n';
+import { useTranslation } from 'react-i18next';
+
 /**
  * @class display Login screen
  * @export
@@ -23,6 +26,7 @@ export function SignUpScreen({ navigation }) {
     const [code, setCode] = useState("")
     const [state, setState] = useState(0)
     const [error, setError] = useState(false)
+    const {t, i18n} = useTranslation();
 
     const checkMailError = () => !email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)
     const checkPasswordError = () => !password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/)
@@ -52,19 +56,19 @@ export function SignUpScreen({ navigation }) {
         <View style={global.container}>
             <Feather style={{margin: 10}} name={'arrow-left'} size={24} onPress={navigation.goBack}/>
             <View style={[global.basicContainer, { marginBottom: 20 }]}>
-                <TextInput autoCapitalize='none' style={[textInput.global, { borderColor: Colors(checkMailError() ? 'ErrorRed' : 'dedalBlue') }]} title={'What\'s your email?'} onChangeText={setEmail} value={email} />
-                <HideTextInput autoCapitalize='none' style={[textInput.global, { borderColor: Colors(checkPasswordError() ? 'ErrorRed' : 'dedalBlue') }]} title={'What\'s your password?'} onChangeText={setPassword} value={password} />
+                <TextInput autoCapitalize='none' style={[textInput.global, { borderColor: Colors(checkMailError() ? 'ErrorRed' : 'dedalBlue') }]} title={t('what\'s your email') + '?'} onChangeText={setEmail} value={email} />
+                <HideTextInput autoCapitalize='none' style={[textInput.global, { borderColor: Colors(checkPasswordError() ? 'ErrorRed' : 'dedalBlue') }]} title={t('what\'s your password') + '?'} onChangeText={setPassword} value={password} />
                 {!state ?
                     <View style={{ paddingTop: 20 }}>
-                        <Text>Votre mot de passe doit contenir au moins : </Text>
-                        <Text>  - Une majuscule & une minuscule</Text>
-                        <Text>  - Un nombre & un caractère spécial</Text>
+                        <Text>{t('your password must contain at least') + ':'}</Text>
+                        <Text>{"    - " + t('an upper and a lower case character')}</Text>
+                        <Text>{"    - " + t('a number and a special character')}</Text>
                     </View>
                     :
                     <>
                         <TextInput autoCapitalize='none' style={textInput.global} placeholder="Code" onChangeText={setCode} value={code} />
                         <View style={{ paddingTop: 20 }}>
-                            <Text>{error ? "une erreur est subvenu veillez réésailler" : "Un code de verification vous à était envoyé sur voter adresse mail."}</Text>
+                            <Text>{error ? t('an error occured') : t('a verification code was sent to your email address')}</Text>
                         </View>
                     </>
                 }
@@ -72,9 +76,9 @@ export function SignUpScreen({ navigation }) {
             </View>
             <View style={global.basicContainer}>
                 {!state ?
-                    <TextButton title="Valider" onPress={() => SendMail()} disable={!(!checkMailError() && !checkPasswordError())} />
+                    <TextButton title={t('confirm')} onPress={() => SendMail()} disable={!(!checkMailError() && !checkPasswordError())} />
                     :
-                    <TextButton title="Valider" onPress={() => SendCode()} disable={code.length < 6} />
+                    <TextButton title={t('confirm')} onPress={() => SendCode()} disable={code.length < 6} />
                 }
             </View>
         </View>

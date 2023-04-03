@@ -11,6 +11,9 @@ import { Separator, Text, View } from "../../constants/Themed";
 
 import { TextButton } from "../../components/buttons/TextButton";
 
+import '../../constants/languages/i18n';
+import { useTranslation } from 'react-i18next';
+
 /**
  * @class display Login screen
  * @export
@@ -20,6 +23,7 @@ import { TextButton } from "../../components/buttons/TextButton";
  */
 export function ConnectionsScreen({ navigation }) {
   const url = Linking.useURL()
+  const {t, i18n} = useTranslation();
 
   const createGoogleAccount = async () => {
     let callbackUrl = Linking.createURL()
@@ -58,13 +62,13 @@ export function ConnectionsScreen({ navigation }) {
       <View style={global.titleContainer}>
         <Image style={titles.image} source={require('../../assets/logo.png')} />
         <Text style={titles.main}>{'DEDAL'}</Text>
-        <Text style={titles.subtitle}>{'The path to your culture.'}</Text>
+        <Text style={titles.subtitle}>{t('the path to your culture') + '.'}</Text>
       </View>
       <View style={global.middleContainer}>
-        <TextButton title="Sign Up" onPress={() => navigation.navigate('SignUp')} />
-        <TextButton title="Google" onPress={() => createGoogleAccount()} />
+        <TextButton title={t('sign up')} onPress={() => navigation.navigate('SignUp')} />
+        <TextButton title={'Google'} onPress={() => createGoogleAccount()} />
         <View style={{ paddingBottom: 20, paddingTop: 20 }} />
-        <TextButton title="Log In" onPress={() => navigation.navigate('LogIn')} />
+        <TextButton title={t('log in')} onPress={() => navigation.navigate('LogIn')} />
       </View>
     </View>
   );

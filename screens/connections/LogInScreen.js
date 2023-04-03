@@ -14,6 +14,9 @@ import { HideTextInput, TextInput } from "../../components/TextInput";
 import { AskEmailModal } from "../../components/Modal/AskEmail";
 import BasicModal from "../../components/modal";
 
+import '../../constants/languages/i18n';
+import { useTranslation } from 'react-i18next';
+
 
 async function save(email, password, check) {
   await SecureStore.setItemAsync('log', JSON.stringify({ email: email, password: password, check: check }));
@@ -42,6 +45,7 @@ export function LogInScreen({ navigation }) {
   const [Password, setPassword] = useState("")
   const [isChecked, setChecked] = useState(false)
   const [isOpen, setOpen] = useState(false)
+  const {t, i18n} = useTranslation();
 
   async function EasySignIn(email, password) {
     if (isChecked)
@@ -72,18 +76,18 @@ export function LogInScreen({ navigation }) {
     <View style={global.container}>
       <Feather style={{margin: 10}} name={'arrow-left'} size={24} onPress={navigation.goBack}/>
       <View style={global.basicContainer}>
-        <Text style={Error ? color.errorRed : null}>{Error ? "Wrong mail or password" : ""}</Text>
-        <TextInput autoCapitalize='none' autoComplete='email' style={[textInput.global, { borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue') }]} title={'What\'s your email?'} onChangeText={setEmail} value={Email} />
-        <HideTextInput autoCapitalize='none' autoComplete='password' style={[textInput.global, { borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue') }]} title={'What\'s your password?'} onChangeText={setPassword} value={Password} />
+        <Text style={Error ? color.errorRed : null}>{Error ? t('wrong mail or password') : ""}</Text>
+        <TextInput autoCapitalize='none' autoComplete='email' style={[textInput.global, { borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue') }]} title={t('what\'s your email') + '?'} onChangeText={setEmail} value={Email} />
+        <HideTextInput autoCapitalize='none' autoComplete='password' style={[textInput.global, { borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue') }]} title={t('what\'s your password') + '?'} onChangeText={setPassword} value={Password} />
       </View>
       <View style={{ display: 'flex', flexDirection: 'row', marginLeft: 25, marginTop: 10 }}>
         <Checkbox value={isChecked} onValueChange={() => setChecked(!isChecked)} />
-        <Text>  Se souvenir de moi</Text>
+        <Text>{'  ' + t('remember me')}</Text>
       </View>
 
       <View style={global.bottomContainer}>
-        <TextButton title="Log In" onPress={() => EasySignIn(Email, Password)} />
-        <Text style={{ marginTop: 15, fontSize: 14 }} onPress={() => setOpen(true)} >Mot de passe oublié?</Text>
+        <TextButton title={t('log in')} onPress={() => EasySignIn(Email, Password)} />
+        <Text style={{ marginTop: 15, fontSize: 14 }} onPress={() => setOpen(true)} >{t('forgot your password') + "?"}</Text>
       </View>
       <BasicModal Open={isOpen} setOpen={setOpen} Content={AskEmailModal} />
     </View>
