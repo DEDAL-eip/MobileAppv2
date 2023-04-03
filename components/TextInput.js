@@ -4,30 +4,51 @@ import { useColorScheme, Text, TextInput as DefaultTextInput, View } from "react
 import { Feather } from '../constants/Themed'
 import Colors from "../constants/Colors";
 
-export function TextInput(props) {
+export const TextInput = (({
+    title,
+    editable = true,
+    onChangeText,
+    value,
+    placeholder,
+    style,
+    autoComplete,
+    secureTextEntry
+}) => {
     const theme = useColorScheme();
-    const { style, ...otherProps } = props;
 
     return (
         <View style={{width : '100%', marginLeft: '10%', margin: 10}}>
-            <Text style={[{ color: Colors('Text', theme), fontWeight: 'bold'}]}>{props.title}</Text>
+            <Text style={[{ color: Colors('Text', theme), fontWeight: 'bold'}]}>{title}</Text>             
             <DefaultTextInput
-                style={[{ color: Colors('Text', theme) }, style]}
+                autoComplete={autoComplete}
+                style={[{ color: Colors('Text', theme), backgroundColor: editable ? 'transparent' : Colors('dedalBlueDisable') }, style]}
                 placeholderTextColor={Colors('Text', theme)}
                 selectionColor={Colors('Text', theme)}
-                {...otherProps}
+                editable={editable}
+                onChangeText={onChangeText}
+                value={value}
+                placeholder={placeholder}
+                secureTextEntry={secureTextEntry}
             />
         </View>
     )
-}
+})
 
-export function HideTextInput(props) {
+export const HideTextInput = (({
+    title,
+    editable = true,
+    onChangeText,
+    value,
+    placeholder,
+    style,
+    autoComplete
+}) => {
     const [hide, setHide] = useState(true)
 
     return (
         <View style={{width : '100%', marginLeft: '-10%', display : 'flex', flexDirection: 'row', alignItems: 'center' }}>
-            <TextInput style={props.style} onChangeText={props.onChangeText} value={props.value} secureTextEntry={hide} placeholder={props.placeholder} title={props.title}></TextInput>
+            <TextInput autoComplete={autoComplete} style={style} editable={editable} onChangeText={onChangeText} value={value} secureTextEntry={hide} placeholder={placeholder} title={title} />
             <Feather style={{marginLeft : -85, marginTop: 25}} name={hide ? "eye" : "eye-off"} size={24} onPress={() => setHide(!hide)}/>
         </View>
     )
-}
+})
