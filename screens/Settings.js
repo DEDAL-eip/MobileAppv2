@@ -1,7 +1,6 @@
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Text, View } from "../constants/Themed";
 import { Switch } from "react-native";
-import { Picker } from '@react-native-picker/picker';
 import { useState } from "react";
 
 import { global, color, table, textInput } from "../style/styles";
@@ -10,6 +9,7 @@ import BasicModal from "../components/modal";
 import { TextButton } from "../components/buttons/TextButton";
 import { ModalLoginCode } from "../components/Modal/Login-Code";
 import { TextInputGlobal } from "../components/TextInput";
+import { MyPicker } from "../components/Picker";
 
 import '../constants/languages/i18n';
 import { useTranslation } from 'react-i18next';
@@ -28,16 +28,11 @@ export default function Setting() {
   const [Edit, setEdit] = useState(false)
   const [Username, setUsername] = useState(SafeAreaProvider.Log.Username)
   const [mode, setMode] = useState(SafeAreaProvider.mode=='dark' ? true : false)
+  const [selectedLanguage, setSelectedLanguage] = useState('en')
+
+  const languages = [['english', 'en'], ['french', 'fr']]
 
   const {t, i18n} = useTranslation();
-  const [currentLanguage, setLanguage] = useState('en');
-
-  const changeLanguage = value => {
-    i18n
-      .changeLanguage(value)
-      .then(() => setLanguage(value))
-      .catch(err => console.log(err));
-  };
 
   /**
    * Call API to send verification code 
@@ -76,13 +71,20 @@ export default function Setting() {
     setEdit(false)
     }
 
-    const updateSwitch = (e) => {
-      setMode(e)
-      if (e)
-        SafeAreaProvider.mode =('dark')
-      else 
-        SafeAreaProvider.mode = ('light')
-    }
+  const updateSwitch = (e) => {
+    setMode(e)
+    if (e)
+      SafeAreaProvider.mode =('dark')
+    else 
+      SafeAreaProvider.mode = ('light')
+  }
+
+  const changeLanguage = value => {
+    i18n
+      .changeLanguage(value)
+      .then(() => setSelectedLanguage(value), SafeAreaProvider.language = (value))
+      .catch(err => console.log(err));
+  };
 
   return (
     <View style={global.container}>
@@ -114,20 +116,12 @@ export default function Setting() {
           <View style={table.col}>
             <Text>{t('language')}</Text>
           </View>
-          <View style={[table.col, {paddingRight: 50}]}>
-            <Picker
-              selectedValue={currentLanguage}
-              style={{ height: 50, width: 150, backgroundColor: `white`}}
-              onValueChange={(itemValue, itemIndex) => {
-                console.log("SafeAreaProvider.language", SafeAreaProvider.language)
-                changeLanguage(itemValue)
-                SafeAreaProvider.language = (itemValue)
-                console.log("SafeAreaProvider.language", SafeAreaProvider.language)
-              }}
-            >
-              <Picker.Item label={t('french')} value="fr" />
-              <Picker.Item label={t('english')} value="en" />
-            </Picker>
+          <View style={table.col}>
+            <MyPicker
+              items={languages}
+              selectedValue={selectedLanguage}
+              onValueChange={changeLanguage}
+            />
           </View>
         </View>
         <View style={[table.row, {marginTop : 10}]}>
