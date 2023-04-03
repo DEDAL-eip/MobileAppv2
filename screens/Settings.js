@@ -1,6 +1,5 @@
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Text, View } from "../constants/Themed";
-import { Switch } from "react-native";
 import { useState } from "react";
 
 import { global, color, table, textInput } from "../style/styles";
@@ -8,12 +7,14 @@ import { MypatchParams, SendCode } from "../API/Settings";
 import BasicModal from "../components/modal";
 import { TextButton } from "../components/buttons/TextButton";
 import { ModalLoginCode } from "../components/Modal/Login-Code";
-import { TextInputGlobal } from "../components/TextInput";
-import { MyPicker } from "../components/Picker";
+import { TextInput } from "../components/TextInput";
+import { Picker } from "../components/Picker";
+import { Switch } from "../components/Switch";
+
+import Colors from "../constants/Colors";
 
 import '../constants/languages/i18n';
 import { useTranslation } from 'react-i18next';
-import Colors from "../constants/Colors";
 
 /**
  * @class display Settings screen
@@ -28,6 +29,7 @@ export default function Setting() {
   const [Error, setError] = useState(false)
   const [Edit, setEdit] = useState(false)
   const [Username, setUsername] = useState(SafeAreaProvider.Log.Username)
+  const [email, setEmail] = useState(SafeAreaProvider.Log.Email)
   const [mode, setMode] = useState(SafeAreaProvider.mode=='dark' ? true : false)
   const [selectedLanguage, setSelectedLanguage] = useState('en')
 
@@ -42,10 +44,10 @@ export default function Setting() {
   const SendVerifCode = ( async () => {
     const res = await SendCode(SafeAreaProvider.Log.Email)
     if (res.status == 204) {
-        setOpen(true)
-      }
-      else 
-        setError(true)
+      setOpen(true)
+    } else {
+      setError(true)
+    }
   })
 
 
@@ -89,64 +91,43 @@ export default function Setting() {
 
   return (
     <View style={global.container}>
+      <View style={{ flexDirection: 'row', paddingTop: 50 }}>
+        <View style={{ width: "50%" }}>
+          <Picker
+            title={t('language') + ':'}
+            items={languages}
+            selectedValue={selectedLanguage}
+            onValueChange={changeLanguage}
+          />
+        </View>
+        <View style={{ width: "50%", alignItems: 'center' }}>
+          <Switch
+            title={t('dark mode') + ':'}
+            value={mode}
+            onValueChange={updateSwitch}
+          />
+        </View>
+      </View>
       <View style={global.middleContainer}>
-        <View style={[table.row, {marginBottom : 10}]}>
-          <View style={table.col}>
-            <Text>{t('username')}</Text>
+        <TextInput autoCapitalize='none' style={[textInput.global, { borderColor: Colors('dedalBlue') }]} title={t('username') + ':'} onChangeText={setUsername} value={Username} editable={Edit ? true : false} />
+        <TextInput autoCapitalize='none' style={[textInput.global, { borderColor: Colors('dedalBlue') }]} title={t('email') + ':'} value={email} editable={Edit ? true : false} />
+        <View style={{ flexDirection: 'row'}}>
+          <View style={{ width: "50%", alignItems: 'center' }}>
+            <TextInput autoCapitalize='none' style={[textInput.global, { borderColor: Colors('dedalBlue') }]} title={t('last connection') + ':'} value={buildDate(SafeAreaProvider.Log["Last connection"])} editable={false} />
           </View>
-          <View style={table.col}>
-            {!Edit ?
-              <Text>{SafeAreaProvider.Log.Username}</Text> :
-              <TextInputGlobal style={[Username.length == 0 ? textInput.Error : textInput.global, {width: '100%'}]} placeholder="UserName" onChangeText={setUsername} value={Username}></TextInputGlobal>
-            }
-          </View>
-        </View>
-        <View style={table.row}>
-          <View style={table.col}>
-            <Text>{t('email')}</Text>
-            <Text>{t('last connection')}</Text>
-            <Text>{t('account creation')}</Text>
-          </View>
-          <View style={table.col}>
-            <Text>{SafeAreaProvider.Log.Email}</Text>
-            <Text>{buildDate(SafeAreaProvider.Log["Last connection"])}</Text>
-            <Text>{buildDate(SafeAreaProvider.Log["createdAt"])}</Text>
-          </View>
-        </View>
-        <View style={[table.row, {marginTop : 10}]}>
-          <View style={table.col}>
-            <Text>{t('language')}</Text>
-          </View>
-          <View style={table.col}>
-            <MyPicker
-              items={languages}
-              selectedValue={selectedLanguage}
-              onValueChange={changeLanguage}
-            />
-          </View>
-        </View>
-        <View style={[table.row, {marginTop : 10}]}>
-          <View style={table.col}>
-            <Text>{t('dark mode')}</Text>
-          </View>
-          <View style={[table.col, {paddingRight: 50}]}>
-            <Switch
-              trackColor={{ true: Colors('dedalBlue'), false:Colors('dedalBlueDisable') }}
-              thumbColor={Colors('dedalBlue')}
-              value={mode}
-              onValueChange={(e) => updateSwitch(e)}
-              />
+          <View style={{ width: "50%", alignItems: 'center' }}>
+            <TextInput autoCapitalize='none' style={[textInput.global, { borderColor: Colors('dedalBlue') }]} title={t('account creation') + ':'} value={buildDate(SafeAreaProvider.Log["createdAt"])} editable={false} />
           </View>
         </View>
       </View>
       <View style={[global.bottomContainer]}>
+        {Error == true ? <Text style={[global.textCenter, color.errorRed]}>An error occured</Text> : null}
+        <TextButton title={t('modify password')} onPress={() => SendVerifCode()}></TextButton>
         {
           !Edit ?
           <TextButton title={t('modify informations')} onPress={() => setEdit(true)}></TextButton> : 
           <TextButton title={Username.length == 0 ? t('cancel') : t('confirm')} onPress={() => validateChange()}></TextButton>
         }
-        {Error == true ? <Text style={[global.textCenter, color.errorRed]}>An error occured</Text> : null}
-        <TextButton title={t('modify password')} onPress={() => SendVerifCode()}></TextButton>
       </View>
       <BasicModal Open={Open} setOpen={setOpen} Content={ModalLoginCode}/>
     </View>
