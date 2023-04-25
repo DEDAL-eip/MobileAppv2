@@ -4,10 +4,11 @@ import { View } from "react-native";
 import { button, global, map } from "../style/styles";
 import * as Location from 'expo-location';
 import MapView, { Marker, Polyline, PROVIDER_GOOGLE } from 'react-native-maps'
-import { getPlace, getInfo, getMap } from "../API/Home";
+import { getPlace, getMap, getPath, getGeneratedPlace } from "../API/Home";
 import Colors from "../constants/Colors";
 import { Feather } from '@expo/vector-icons';
 import { getInfoUser } from "../API/Filters";
+import { TextButton } from "../components/buttons/TextButton";
 import { useIsFocused } from "@react-navigation/native";
 
 import '../constants/languages/i18n';
@@ -50,7 +51,7 @@ export default function Home() {
      * Extract the path and the building in Path and Place
      */
     const askMap = async () => {
-      let res = await getInfo('test', SafeAreaProvider.Log.token)
+      let res = await getMap('1', SafeAreaProvider.Log.token)
       let tmp = JSON.parse(res)
 
       // NEED TO BE FIX
@@ -71,7 +72,7 @@ export default function Home() {
 
     askPosition()
     askUserInfo()
-    //askMap()
+    askMap()
 
 
   }, [IsFocused]);
@@ -80,9 +81,12 @@ export default function Home() {
   /**
    *  Call the lambda to create the map 
    */
-  const parcours = async () => {
+  const createItinerary = async () => {
     SafeAreaProvider.filters = ['592ecbc0-e50f-4ea1-a142-d034c20e7470']
-    await getMap({ "y": 3.060966, "x": 50.631305 }, 'test', SafeAreaProvider.filters)
+
+    await getGeneratedPlace('9f15bfa8-b353-43d5-a8b4-49fe1f63d1b8', SafeAreaProvider.Log.token)
+    await getPath(JSON.parse(generatedPlaces), { "y": 3.060966, "x": 50.631305 }, '9f15bfa8-b353-43d5-a8b4-49fe1f63d1b8')
+    await getMap('-9f15bfa8-b353-43d5-a8b4-49fe1f63d1b8', SafeAreaProvider.Log.token)
   }
 
   return (
@@ -139,7 +143,8 @@ export default function Home() {
         }
       </MapView>
       <Feather style={button.logout} name={"log-out"} size={24} onPress={() => SafeAreaProvider.Loged(false)} color={Colors('dedalBlue')} />
-      <Feather style={[button.logout, { top: 10, left: 40 }]} name={"loader"} size={24} onPress={() => parcours()} color={Colors('dedalBlue')} />
+      <Feather style={[button.logout, { top: 10, left: 40 }]} name={"loader"} size={24} onPress={() => createItinerary()} color={Colors('dedalBlue')} />
+      <TextButton style={{ bottom: 60 }} title={'Generate itinerary!'} onPress={() => createItinerary()} />
     </View>
   );
 }

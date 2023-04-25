@@ -37,19 +37,19 @@ export async function getFilter (token) {
  * @export
  * 
  * @param {{x:  Int16Array, y : int}]} pos
- * @param {string} name
- * @param {string} filters
+ * @param {string} pos
+ * @param {string} json
+ * @param {string} id
  * @return {TODO} 
  */
-export async function getMap(pos, name, filters) {
-    return await fetch('http://52.166.128.133/path_finding',{
+export async function getPath(places, position, id) {
+    return await fetch(`http://52.166.128.133/path_finding/?id=${id}`,{
     method : 'POST',
     headers: { 'Content-type': 'application/json',
         'Accept': '*/*' },
     body : JSON.stringify({
-        id : filters,
-        position : pos,
-        name : name
+        places : places,
+        position : position
     })
     })
     .then(res => res.json())
@@ -64,9 +64,22 @@ export async function getMap(pos, name, filters) {
  * @param {string} id
  * @return {TODO} 
  */
-export async function getInfo (id, token) {
+export async function getMap (id, token) {
     return await fetch(`http://52.166.128.133/map/?id=${id}`, {
         method: 'GET',
+        'Content-type': 'application/json',
+        headers: {
+            'x-access-token' : token,
+            'Accept': '*/*' 
+        }
+    })
+    .then(res => res.text())
+    .catch(err => ({hasError : true, status : err}))
+}
+
+export async function getGeneratedPlace (id, token) {
+    return await fetch(`http://52.166.128.133/places_generate/?id=${id}`, {
+        method: 'POST',
         'Content-type': 'application/json',
         headers: {
             'x-access-token' : token,
