@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { View } from "react-native";
-import { button, global, map } from "../style/styles";
+import { global, map } from "../style/styles";
 import * as Location from 'expo-location';
 import MapView, { Marker, Polyline, PROVIDER_GOOGLE } from 'react-native-maps'
 import { getPlace, getMap, getPath, getGeneratedPlace } from "../API/Home";
 import Colors from "../constants/Colors";
-import { Feather } from '@expo/vector-icons';
 import { getInfoUser } from "../API/Filters";
 import { TextButton } from "../components/buttons/TextButton";
 import { useIsFocused } from "@react-navigation/native";
@@ -28,53 +27,47 @@ export default function Home() {
   const IsFocused = useIsFocused()
   const {t, i18n} = useTranslation();
 
+  /**
+   * Hook to ask localisation data to user
+   * set localisation in SafeAreaProvider.location
+   */
+  const askPosition = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== 'granted') {
+      console.log('Permission to access location was denied');
+      return;
+    }
+    let location = await Location.getCurrentPositionAsync({})
+    setLocation(location)
+    SafeAreaProvider.location = (location)
+  }
+
+  /**
+   * Get target map from the API
+   * Extract the path and the building in Path and Place
+   */
+  const askMap = async () => {
+    let res = await getMap('1', SafeAreaProvider.Log.token)
+    let tmp = JSON.parse(res)
+
+    if (JSON.parse(res).LongLat != undefined) {
+      setPath(JSON.parse(res).LongLat)
+      setPlace(tmp.Buildings ? await Promise.all(tmp.Buildings.map(async elem => {
+        return await getPlace(elem.id, SafeAreaProvider.Log.token)
+      })) : null)
+    }
+  }
+
+  const askUserInfo = async () => {
+    const res = await getInfoUser(SafeAreaProvider.Log.token, SafeAreaProvider.Log.id)
+    if (res.map)
+      askMap()
+  }
+
   useEffect(() => {
-
-    /**
-     * Hook to ask localisation data to user
-     * set localisation in SafeAreaProvider.location
-     */
-    const askPosition = async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        console.log('Permission to access location was denied');
-        return;
-      }
-      let location = await Location.getCurrentPositionAsync({})
-      setLocation(location)
-      SafeAreaProvider.location = (location)
-    }
-
-
-    /**
-     * Get target map from the API
-     * Extract the path and the building in Path and Place
-     */
-    const askMap = async () => {
-      let res = await getMap('1', SafeAreaProvider.Log.token)
-      let tmp = JSON.parse(res)
-
-      // NEED TO BE FIX
-      if (JSON.parse(res).LongLat != undefined) {
-        setPath(JSON.parse(res).LongLat)
-        setPlace(tmp.Buildings ? await Promise.all(tmp.Buildings.map(async elem => {
-          return await getPlace(elem.id, SafeAreaProvider.Log.token)
-        })) : null)
-      }
-      // NEED TO BE FIX
-    }
-
-    const askUserInfo = async () => {
-      const res = await getInfoUser(SafeAreaProvider.Log.token, SafeAreaProvider.Log.id)
-      if (res.map)
-        askMap()
-    }
-
     askPosition()
     askUserInfo()
     askMap()
-
-
   }, [IsFocused]);
 
 
@@ -142,9 +135,7 @@ export default function Home() {
           ) : null
         }
       </MapView>
-      <Feather style={button.logout} name={"log-out"} size={24} onPress={() => SafeAreaProvider.Loged(false)} color={Colors('dedalBlue')} />
-      <Feather style={[button.logout, { top: 10, left: 40 }]} name={"loader"} size={24} onPress={() => createItinerary()} color={Colors('dedalBlue')} />
-      <TextButton style={{ bottom: 60 }} title={'Generate itinerary!'} onPress={() => createItinerary()} />
+      <TextButton style={{ bottom: 60, left: 30 }} title={'Generate itinerary!'} onPress={() => createItinerary()} />
     </View>
   );
 }
