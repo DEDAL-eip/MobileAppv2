@@ -21,7 +21,6 @@ export async function changePassword(email, password, code) {
         }
     })
         .then(res => {
-            console.log('res in ', res, res.status)
             return res
         })
         .catch(err => err)

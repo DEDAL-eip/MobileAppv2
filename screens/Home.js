@@ -61,6 +61,9 @@ export default function Home() {
           return await getPlace(elem.id, SafeAreaProvider.Log.token)
         })) : null)
       }
+      SafeAreaProvider.Place = tmp.Buildings ? await Promise.all(tmp.Buildings.map(async elem => {
+        return await getPlace(elem.id, SafeAreaProvider.Log.token)
+      })) : null
       // NEED TO BE FIX
     }
 
