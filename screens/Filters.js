@@ -22,7 +22,7 @@ import { useTranslation } from 'react-i18next';
 export default function Filter({ navigation }) {
   const [APIfilterz, setFilters] = useState([])
   const [infoUser, setUser] = useState({ budget: null, time: null, filter: [] })
-  const [display, setDisplay] = useState(1)
+  const [display, setDisplay] = useState(0)
   const [displayFilter, setDisplayFilters] = useState()
   const IsFocused = useIsFocused()
 
@@ -71,8 +71,8 @@ export default function Filter({ navigation }) {
           if (!(index % 2)) {
             return (
               <View key={index} style={[global.row]}>
-                <FilterButton assertToContext={assertToContext} elem={array[index]} selected={infoUser.filter} />
-                <FilterButton assertToContext={assertToContext} elem={array[index + 1] ? array[index + 1] : null} selected={infoUser.filter} />
+                <FilterButton assertToContext={assertToContext} elem={array[index]} selected={infoUser.filter ? infoUser.filter : [] } />
+                <FilterButton assertToContext={assertToContext} elem={array[index + 1] ? array[index + 1] : null} selected={infoUser.filter ? infoUser.filter : []} />
               </View>
             )
           }

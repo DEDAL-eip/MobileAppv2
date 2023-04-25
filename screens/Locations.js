@@ -21,7 +21,6 @@ export default function Location() {
   const [Locations, setLocations] = useState([])
   const { t, i18n } = useTranslation();
   const [display, setDisplay] = useState(1)
-  console.log(SafeAreaProvider.Place.map(elem => elem.name))
 
   /**
    * Hook to push or pop filter from Selection to or from itinerary
@@ -56,8 +55,6 @@ export default function Location() {
     const tmp = async () => {
       let res1 = await getLocationOut(SafeAreaProvider.Log.id)
       let res2 = await getLocationIn(SafeAreaProvider.Log.id)
-      console.log('here', res1, res2)
-
     }
     tmp()
   },[])
