@@ -1,21 +1,20 @@
-/**
- * @returns A function that returns the locations fetched by the API.
- * @category API
- */
-export async function getLocations() {
-    let res
-    
-    res = await fetch("http://localhost:8080/places")
-    .then(
-        // res => res.json()
-        console.log('res.status: ', res.status, ', res.json: ', res.json(), ', res.txt: ', res.txt())
-    )
-    .catch(error => {
-        console.error(error)
-        return 400
+export async function getLocationOut (filter) {
+    return await fetch(`http://52.166.128.133/places_filter?id=${filter}`, {
+        method: 'GET',
+        headers: { 'Content-type': 'application/json',
+        'Accept': '*/*' }    
     })
-    
-    console.log('APIplaces: ', res.txt())
-
-    return res
+        .then(res => res.text())
+        .catch((error) => console.error(error))
 }
+
+export async function getLocationIn (filter) {
+    return await fetch(`http://localhost:8080/places_nofilter/?id=${filter}`, {
+        method: 'GET',
+        headers: { 'Content-type': 'application/json',
+        'Accept': '*/*' }    
+    })
+        .then(res => res.text())
+        .catch((error) => console.error(error))
+}
+//http://localhost:8080/places_nofilter/?id=9f15bfa8-b353-43d5-a8b4-49fe1f63d1b8

@@ -22,11 +22,11 @@ import { useTranslation } from 'react-i18next';
 export default function Filter({ navigation }) {
   const [APIfilterz, setFilters] = useState([])
   const [infoUser, setUser] = useState({ budget: null, time: null, filter: [] })
-  const [display, setDisplay] = useState(1)
+  const [display, setDisplay] = useState(0)
   const [displayFilter, setDisplayFilters] = useState()
   const IsFocused = useIsFocused()
 
-  const {t, i18n} = useTranslation();
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     /**
@@ -71,8 +71,8 @@ export default function Filter({ navigation }) {
           if (!(index % 2)) {
             return (
               <View key={index} style={[global.row]}>
-                <FilterButton assertToContext={assertToContext} elem={array[index]} selected={infoUser.filter} />
-                <FilterButton assertToContext={assertToContext} elem={array[index + 1] ? array[index + 1] : null} selected={infoUser.filter} />
+                <FilterButton assertToContext={assertToContext} elem={array[index]} selected={infoUser.filter ? infoUser.filter : [] } />
+                <FilterButton assertToContext={assertToContext} elem={array[index + 1] ? array[index + 1] : null} selected={infoUser.filter ? infoUser.filter : []} />
               </View>
             )
           }
@@ -83,7 +83,7 @@ export default function Filter({ navigation }) {
 
   const buildDisplayBuget = () => {
     return (
-      <View style={{ width: '90%', display: 'flex', alignItems: 'center', marginTop: 10 }} >
+      <View style={{ width: '100%', display: 'flex', alignItems: 'center', marginTop: 10 }} >
         <View style={{ paddingBottom: '30%', display: 'flex', alignItems: 'center' }}>
           <Text>Le budget de votre voyage est de : </Text>
           <Text>{infoUser.budget || 0} €</Text>
@@ -116,7 +116,7 @@ export default function Filter({ navigation }) {
 
   const buildDisplayLenght = () => {
     return (
-      <View style={{ width: '90%', display: 'flex', alignItems: 'center', marginTop: 10 }} >
+      <View style={{ width: '100%', display: 'flex', alignItems: 'center', marginTop: 10 }} >
         <View style={{ paddingBottom: '30%', display: 'flex', alignItems: 'center' }}>
           <Text>{'La durée de votre voyage est de:'}</Text>
           <Text>{infoUser.time || 0} heure{(infoUser.time || 0) > 1 ? 's' : ''}</Text>
@@ -157,7 +157,7 @@ export default function Filter({ navigation }) {
 
   return (
     <View style={global.container}>
-      <View style={global.middleContainer}>
+      <View style={global.titleContainer}>
         <View style={[global.header, shadow.Bottom]}>
           <View style={{ width: "33%", display: 'flex', alignItems: 'center' }}>
             <TextButton style={button.disable} title={t("Categories")} onPress={() => setDisplay(2)} />
@@ -169,11 +169,12 @@ export default function Filter({ navigation }) {
             <TextButton title={t('duration')} onPress={() => setDisplay(3)} />
           </View>
         </View>
-        <View style={{ height: '100%', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
-          {ManageDisplay()}
-        </View>
       </View>
-      <View style={[global.bottomContainer, shadow.Top]}>
+
+      <ScrollView style={{ height: '100%', width: '100%', display: 'flex' }}>
+        {ManageDisplay()}
+      </ScrollView>
+      <View style={[global.titleContainer, shadow.Top]}>
         <TextButton title={t('save')} onPress={() => patchUserInfo()} />
         <TextButton title={t('reset')} onPress={() => BackToBasic()} />
       </View>
