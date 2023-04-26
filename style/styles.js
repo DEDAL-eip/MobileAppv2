@@ -85,11 +85,6 @@ export const button = StyleSheet.create({
     marginTop : 5,
     borderRadius : 25,
     color : Colors('Text')
-  },
-  logout : {
-    position : 'absolute',
-    top : 10,
-    left : 10
   }
 })
 

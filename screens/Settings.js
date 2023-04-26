@@ -2,7 +2,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Text, View } from "../constants/Themed";
 import { useState } from "react";
 
-import { global, color, table, textInput } from "../style/styles";
+import { button, global, color, textInput } from "../style/styles";
 import { MypatchParams, SendCode } from "../API/Settings";
 import BasicModal from "../components/modal";
 import { TextButton } from "../components/buttons/TextButton";
@@ -10,6 +10,7 @@ import { ModalLoginCode } from "../components/Modal/Login-Code";
 import { TextInput } from "../components/TextInput";
 import { Picker } from "../components/Picker";
 import { Switch } from "../components/Switch";
+import { Feather } from '@expo/vector-icons';
 
 import Colors from "../constants/Colors";
 
@@ -91,6 +92,7 @@ export default function Setting() {
 
   return (
     <View style={global.container}>
+      <Feather style={{left: 15}} name={"log-out"} size={24} onPress={() => SafeAreaProvider.Loged(false)} color={Colors('dedalBlue')} />
       <View style={{ flexDirection: 'row', paddingTop: 50 }}>
         <View style={{ width: "50%" }}>
           <Picker
