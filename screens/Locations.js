@@ -16,7 +16,7 @@ import { useTranslation } from 'react-i18next';
  * @description A function that returns a View with locations.
  * @return {HTML} 
  */
-export default function Location() {
+export default function Location({ navigation }) {
   const [Selection, setSelection] = useState("")
   const [Locations, setLocations] = useState([])
   const { t, i18n } = useTranslation();
@@ -57,7 +57,7 @@ export default function Location() {
       let res2 = await getLocationIn(SafeAreaProvider.Log.id)
     }
     tmp()
-  },[])
+  }, [])
 
   return (
     <View style={global.container}>
@@ -76,9 +76,17 @@ export default function Location() {
       </View>
 
       <ScrollView>
-        {SafeAreaProvider.Place.map((item, index) => {
-          return <LocationCard key={index} assertToItinerary={assertToItinerary} item={item} />;
-        })}
+        {
+          SafeAreaProvider.Place ?
+            SafeAreaProvider.Place.map((item, index) => {
+              return <LocationCard key={index} assertToItinerary={assertToItinerary} item={item} />;
+            }) :
+            <View style={global.middleContainer}>
+              <Text>Vous n'avez pas de Map généré pour l'instant</Text>
+              <TextButton title={t('Filtres')} onPress={() => navigation.navigate('Filters')} />
+
+            </View>
+        }
       </ScrollView>
 
       <View style={global.titleContainer}>

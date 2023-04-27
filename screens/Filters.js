@@ -68,6 +68,7 @@ export default function Filter({ navigation }) {
     setDisplayFilters(
       <ScrollView style={{ marginBottom: 20 }}>
         {APIfilterz.map((filtre, index, array) => {
+          console.log(array)
           if (!(index % 2)) {
             return (
               <View key={index} style={[global.row]}>
