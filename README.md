@@ -1,4 +1,4 @@
-# Navigation Example
+# DEDAL
 
 <p>
   <!-- iOS -->
@@ -15,23 +15,42 @@
   </a>
 </p>
 
-## 🚀 How to use
+DEDAL is a mobile application that uses the user's location, filters and preferences to generate a itinerary with points of interest along the way, such as restaurants or landmarks, based on the user's interests that is tailored to their needs.  
+Overall, DEDAL provides a personalized and convenient way for users to navigate and explore their surroundings; users can also save their routes for future reference and share them with friends.  
 
-- Install packages with `yarn` or `npm install`.
-- Run `yarn start` or `npm run start` to start the bundler.
-- Open the project in a React runtime to try it:
-  - iOS: [Client iOS](https://itunes.apple.com/app/apple-store/id982107779)
-  - Android: [Client Android](https://play.google.com/store/apps/details?id=host.exp.exponent&referrer=blankexample)
-  - Web: Any web browser
-- When it's time to customize your runtime, refer to the ["Adding custom native code"](https://docs.expo.dev/workflow/customizing/) guide!
+## 🚀 How to launch
 
-## Publishing
+- Install packages with `npm install`.
+- Run `npm run start` to start the app in local with expo.
 
-- Deploy the native app to the App store and Play store using this guide: [Deployment](https://docs.expo.dev/distribution/app-stores/).
-- Deploy the website using this guide: [Web deployment](https://docs.expo.dev/distribution/publishing-websites/).
+## 📦️ Publishing
 
-## 📝 Notes
+- Run `npm run build` to start the build of the apk. (https://expo.dev to download it)
 
-- Learn more about [Universal React](https://docs.expo.dev/).
-- See what API and components are [available in the React runtimes](https://docs.expo.dev/versions/latest/).
-- Find out more about developing apps and websites: [Official guides](https://docs.expo.dev/guides/).
+## 📄 Documentations
+
+- [Mock-up](https://www.figma.com/file/B54QIYrXTzgh6vJV2hQSdc/DEDAL-MobileAppv2?node-id=0%3A1&t=YbCbvyIhG1DzaMgn-1)
+- [CodingStyle.md](doc/CodingStyle.md)
+- [DesignStyle.md](doc/DesignStyle.md)
+
+## 📝 Objectives
+
+### to do:
+- Make the dev branch link to a Github action to build the APK
+- Make sure that checkError functions are not called when entering the SignUp screen
+- Make the language must be set to the phone language
+- Make sure that the translation is also done for the punctuation (Spanish traduzion ma qué)
+- Make the "Remember me" button have the blue color DEDAL  
+
+### to redo:
+- Redo the instances of "Home" in "Map" because more explicit
+- Redo the navigation method because it is messy and not very explicit (https://youtu.be/I7POH4acHV8)
+- Redo the bottom bar to follow the Figma model
+- Redo the CStyle because each file has different standards
+- Redo the CSS because multiple style files  
+
+### to check:
+- See to correct warnings (npm warnings)
+- See to protect from SQL injections
+- See to protect from spams
+- See to implement BetterDocs (https://github.com/SoftwareBrothers/better-docs)
