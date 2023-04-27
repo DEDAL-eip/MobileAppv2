@@ -25,7 +25,7 @@ Overall, DEDAL provides a personalized and convenient way for users to navigate 
 
 ## 📦️ Publishing
 
-- Run `npm run build` to start the build of the apk. (https://expo.dev to download it)
+- Run `npm run build` to start the build of the apk in the [expo dashboard](https://expo.dev ).
 
 ## 📄 Documentations
 
@@ -44,7 +44,7 @@ Overall, DEDAL provides a personalized and convenient way for users to navigate 
 
 ### to redo:
 - Redo the instances of "Home" in "Map" because more explicit
-- Redo the navigation method because it is messy and not very explicit (https://youtu.be/I7POH4acHV8)
+- Redo the navigation method like [this](https://youtu.be/I7POH4acHV8) because it is messy and not very explicit 
 - Redo the bottom bar to follow the Figma model
 - Redo the CStyle because each file has different standards
 - Redo the CSS because multiple style files  
@@ -53,4 +53,4 @@ Overall, DEDAL provides a personalized and convenient way for users to navigate 
 - See to correct warnings (npm warnings)
 - See to protect from SQL injections
 - See to protect from spams
-- See to implement BetterDocs (https://github.com/SoftwareBrothers/better-docs)
+- See to implement [BetterDocs](https://github.com/SoftwareBrothers/better-docs)
