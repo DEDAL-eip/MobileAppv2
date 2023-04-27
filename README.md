@@ -1,4 +1,4 @@
-# DEDAL
+# dedal-mobile-app
 
 <p>
   <!-- iOS -->
