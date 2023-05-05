@@ -1,5 +1,5 @@
-export async function getLocationOut (filter) {
-    return await fetch(`http://52.166.128.133/places_filter?id=${filter}`, {
+export async function getLocationOut (id) {
+    return await fetch(`http://52.166.128.133/places_filter?id=${id}`, {
         method: 'GET',
         headers: { 'Content-type': 'application/json',
         'Accept': '*/*' }    
@@ -8,8 +8,8 @@ export async function getLocationOut (filter) {
         .catch((error) => console.error(error))
 }
 
-export async function getLocationIn (filter) {
-    return await fetch(`http://localhost:8080/places_nofilter/?id=${filter}`, {
+export async function getLocationIn (id) {
+    return await fetch(`http://localhost:8080/places_nofilter/?id=${id}`, {
         method: 'GET',
         headers: { 'Content-type': 'application/json',
         'Accept': '*/*' }    

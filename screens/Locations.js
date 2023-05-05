@@ -55,9 +55,22 @@ export default function Location({ navigation }) {
     const tmp = async () => {
       let res1 = await getLocationOut(SafeAreaProvider.Log.id)
       let res2 = await getLocationIn(SafeAreaProvider.Log.id)
+      console.log('res2 => ', res2 + '\n' + res1)
     }
     tmp()
   }, [])
+
+
+  useEffect(() => {
+    if (display === 2)
+      console.log('Votre Itineraire')
+    if (display === 1)
+      console.log('Interet')
+    if (display === 3)
+      console.log('Proche de vous')
+    console.log('display changed to ', display)
+    console.log(SafeAreaProvider.Place)
+  }, [display])
 
   return (
     <View style={global.container}>

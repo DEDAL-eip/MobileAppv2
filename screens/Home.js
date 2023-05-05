@@ -39,7 +39,7 @@ export default function Home() {
     }
     let location = await Location.getCurrentPositionAsync({})
     setLocation(location)
-    SafeAreaProvider.location = (location)
+    SafeAreaProvider.location = location
   }
 
   /**
@@ -47,9 +47,10 @@ export default function Home() {
    * Extract the path and the building in Path and Place
    */
   const askMap = async () => {
-    let res = await getMap('1', SafeAreaProvider.Log.token)
+    console.log('Place =>',Place)
+    let res = await getMap(SafeAreaProvider.Log.id, SafeAreaProvider.Log.token)
     let tmp = JSON.parse(res)
-
+    console.log(tmp)
     if (JSON.parse(res).LongLat != undefined) {
       setPath(JSON.parse(res).LongLat)
       setPlace(tmp.Buildings ? await Promise.all(tmp.Buildings.map(async elem => {
@@ -59,26 +60,33 @@ export default function Home() {
   }
 
   const askUserInfo = async () => {
-    const res = await getInfoUser(SafeAreaProvider.Log.token, SafeAreaProvider.Log.id)
-    if (res.map)
+    console.log('info => ',SafeAreaProvider.Log, SafeAreaProvider.path, SafeAreaProvider.place)
+    return
+
+    if (SafeAreaProvider.path == undefined)
+      //const path = await getPath(JSON.parse(generatedPlaces), { "y": 3.060966, "x": 50.631305 }, 'ea74d746-43d9-4309-a63a-925bafb93402')
+    if (SafeAreaProvider.Log.lastInfo.map)
       askMap()
+    else if (SafeAreaProvider.Log.lastInfo)
+      console.log(res.filters)
   }
 
   /**
    *  Call the lambda to create the map 
   */
   const createItinerary = async () => {
-    SafeAreaProvider.filters = ['592ecbc0-e50f-4ea1-a142-d034c20e7470']
+
    
-    const generatedPlaces = await getGeneratedPlace('9f15bfa8-b353-43d5-a8b4-49fe1f63d1b8', SafeAreaProvider.Log.token)
-    await getPath(JSON.parse(generatedPlaces), { "y": 3.060966, "x": 50.631305 }, '9f15bfa8-b353-43d5-a8b4-49fe1f63d1b8')
-    await getMap('-9f15bfa8-b353-43d5-a8b4-49fe1f63d1b8', SafeAreaProvider.Log.token)
+    const generatedPlaces = await getGeneratedPlace('ea74d746-43d9-4309-a63a-925bafb93402', SafeAreaProvider.Log.token)
+    console.log('generatedPlaces => ', generatedPlaces)
+    let path = await getPath(JSON.parse(generatedPlaces), { "y": 3.060966, "x": 50.631305 }, 'ea74d746-43d9-4309-a63a-925bafb93402')
+    let map = await getMap('-ea74d746-43d9-4309-a63a-925bafb93402', SafeAreaProvider.Log.token)
+    console.log('API =>', path, map)
   }
   
     useEffect(() => {
       askPosition()
       askUserInfo()
-      askMap()
     }, [IsFocused]);
 
   return (
@@ -134,7 +142,7 @@ export default function Home() {
           ) : null
         }
       </MapView>
-      <TextButton style={{ bottom: 60, left: 30 }} title={'Generate itinerary!'} onPress={() => createItinerary()} />
+      <TextButton style={{ bottom: 60, left: 30 }} title={'Generate itinerary!'} onPress={() => askMap()} />
     </View>
   );
 }
