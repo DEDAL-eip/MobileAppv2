@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, Animated, LogBox } from 'react-native'
-import MaterialCommunityIcons from 'react-native-vector-icons/Feather'
-
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { palette } from '../constants/Colors'
 /**
  * @class
  * It's a custom Text component that loads fonts from the assets folder
@@ -10,37 +9,16 @@ import MaterialCommunityIcons from 'react-native-vector-icons/Feather'
  * @category Component
  */
 const LocationButton = (props) => {
-    const [isSelected, setIsSelected] = useState(false)
-    const [animation, setAnimation] = useState(new Animated.Value(0))
-    const boxInterpolation = animation.interpolate({
-        inputRange: [0, 1],
-        outputRange:['#00B4D8' , '#FFF']
-    })
-    const animatedStyle = {
-        backgroundColor: boxInterpolation
-    }
+
+    const color = props.selected == props.item.id ? palette.global.dedalBlueDisable : palette.global.dedalBlue
 
     return (
-        <Animated.View
-            onStartShouldSetResponder={
-                () => (
-                    LogBox.ignoreLogs(['Animated: `useNativeDriver`']),
-                    Animated.timing(animation, {
-                        toValue: 1,
-                        duration: 200
-                    }).start(),
-                    props.assertToItinerary([props.name, props.description]),
-                    Animated.timing(animation, {
-                        toValue: 0,
-                        duration: 200
-                    }).start()
-                )
-            }
-            style={[styles.card, animatedStyle]}
-        >
-            <Text style={styles.title}>{props.item.name}</Text>
-            <Text style={styles.description}>{props.item.description}</Text>
-        </Animated.View>
+        <View>
+            <TouchableOpacity style={[styles.card, {backgroundColor : color}]} onPress={() => props.Selector(props.item.id)}>
+                <Text style={styles.title}>{props.item.name}</Text>
+                <Text style={styles.description}>{props.item.description}</Text>
+            </TouchableOpacity>
+        </View>
     )
 }
 
@@ -49,7 +27,7 @@ const styles = StyleSheet.create({
     card: {
         flex: 1,
         padding: 25,
-        marginHorizontal : 10,
+        marginHorizontal: 10,
         borderRadius: 10,
         marginTop: 10,
         marginBottom: 10,

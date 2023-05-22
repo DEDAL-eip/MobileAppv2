@@ -23,7 +23,7 @@ import { getGeneratedPlace, getPath } from "../API/Home";
 export default function Filter({ navigation }) {
   const [APIfilterz, setFilters] = useState([])
   const [infoUser, setUser] = useState({ budget: null, time: null, filter: [] })
-  const [display, setDisplay] = useState(0)
+  const [display, setDisplay] = useState(1)
   const [displayFilter, setDisplayFilters] = useState()
   const IsFocused = useIsFocused()
 
@@ -40,11 +40,19 @@ export default function Filter({ navigation }) {
     }
     const getInfo = async () => {
       const res = await getInfoUser(SafeAreaProvider.Log.token, SafeAreaProvider.Log.id)
-      setUser(res)
+      if (res.hasError)
+        setUser({ budget: null, time: null, filter: [] })
+      else
+        setUser(res)
     }
 
     getFilter()
-    getInfo()
+    if (SafeAreaProvider.Log.lastInfo == undefined)
+      getInfo()
+    else {
+      setUser(SafeAreaProvider.Log.lastInfo)
+
+    }
   }, [IsFocused])
 
   /**
@@ -152,7 +160,7 @@ export default function Filter({ navigation }) {
       await getGeneratedPlace(SafeAreaProvider.Log.id, SafeAreaProvider.Log.token).then(async (places) => {
         SafeAreaProvider.place = places
         await getPath(JSON.parse(places), { "y": 3.060966, "x": 50.631305 }, SafeAreaProvider.Log.id).then(async (path) => {
-          SafeAreaProvider.path = path
+          SafeAreaProvider.map = path
           //ERROR MANAGEMENT QUAND JULIEN AURA FIX
         })
       })
