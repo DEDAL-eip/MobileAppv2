@@ -11,12 +11,12 @@ import Colors from '../constants/Colors'
  * @category Component
  */
 const FilterButton = (props) => {
-    const [isSelected, setIsSelected] = useState(props.selected.includes(props.elem ? props.elem.name : 0))
+    const [isSelected, setIsSelected] = useState(props.selected.includes(props.elem ? props.elem.id : 0))
     const [outPutRange, setRange] = useState([Colors('dedalBlue') , Colors('dedalBlueDisable')]) 
     const animation = new Animated.Value(0)
     
     useEffect(() => {
-        setIsSelected(props.selected.includes(props.elem ? props.elem.name : 0))
+        setIsSelected(props.selected.includes(props.elem ? props.elem.id : 0))
     },[props])
 
     useEffect(() => {
@@ -63,7 +63,7 @@ const FilterButton = (props) => {
             onStartShouldSetResponder={
                 () => (
                     handleAnimation(),
-                    props.assertToContext(props.elem.name, !isSelected),
+                    props.assertToContext(props.elem.id, !isSelected),
                     setIsSelected(!isSelected)
                 )
             }

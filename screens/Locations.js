@@ -8,6 +8,7 @@ import { getLocationOut, getLocationIn } from "../API/Locations"
 import { global, shadow, button } from "../style/styles";
 import '../constants/languages/i18n';
 import { useTranslation } from 'react-i18next';
+import { getGeneratedPlace } from "../API/Home";
 
 /**
  * @class display Locations screen
@@ -17,47 +18,55 @@ import { useTranslation } from 'react-i18next';
  * @return {HTML} 
  */
 export default function Location({ navigation }) {
-  const [Selection, setSelection] = useState("")
-  const [Locations, setLocations] = useState([])
+  const [selected, setSelected] = useState('')
+  const [toDiplsay, setToDisplay] = useState([])
   const { t, i18n } = useTranslation();
-  const [display, setDisplay] = useState(1)
+  const [display, setDisplay] = useState(2)
 
   /**
    * Hook to push or pop filter from Selection to or from itinerary
    * set locationsInItinerary in SafeAreaProvider.itinerary
    */
-  const assertToItinerary = (location) => {
-    return
-    switch (Selection) {
-      case 'Out filters':
-        location[0] = "Out filters: " + location[0]
-        locationsOutFilters.splice(locationsOutFilters.indexOf(location))
-        locationsInItinerary.push(location)
-        break
-      case 'Out itinerary':
-        location[0] = "Out itinerary: " + location[0]
-        locationsOutItinerary.splice(locationsOutItinerary.indexOf(location))
-        locationsInItinerary.push(location)
-        break
-      case 'In itinerary':
-        locationsInItinerary.splice(locationsInItinerary.indexOf(location))
-        break
-    }
-    SafeAreaProvider.itinerary = locationsInItinerary
+  const Selector = (id) => {
+    setSelected(id)
   }
 
-  const ManageDisplay = () => {
-    const result = 1
-    return (result)
+  const removeToItenerary = async () => {
+    let elem = SafeAreaProvider.Place.filter(elem => elem.id != selected)
+
+    SafeAreaProvider.Place = elem
+    setToDisplay(elem)
   }
+
 
   useEffect(() => {
-    const tmp = async () => {
-      let res1 = await getLocationOut(SafeAreaProvider.Log.id)
-      let res2 = await getLocationIn(SafeAreaProvider.Log.id)
+    const getIn = async () => {
+      await getLocationIn(SafeAreaProvider.Log.id).then(res => {
+        console.log(res)
+        if (res == undefined)
+          setToDisplay([])
+        else
+          setToDisplay(res)
+      })
     }
-    tmp()
-  }, [])
+    const getOut = async () => {
+      await getLocationOut(SafeAreaProvider.Log.id).then(res => {
+        console.log(res)
+
+        if (res == undefined)
+          setToDisplay([])
+        else
+          setToDisplay(res)
+      })
+    }
+    console.log(display)
+    if (display === 2)
+      setToDisplay(SafeAreaProvider.Place)
+    if (display === 1)
+      getIn()
+    if (display === 3)
+      getOut()
+  }, [display])
 
   return (
     <View style={global.container}>
@@ -77,50 +86,27 @@ export default function Location({ navigation }) {
 
       <ScrollView>
         {
-          SafeAreaProvider.Place ?
-            SafeAreaProvider.Place.map((item, index) => {
-              return <LocationCard key={index} assertToItinerary={assertToItinerary} item={item} />;
-            }) :
-            <View style={global.middleContainer}>
-              <Text>Vous n'avez pas de Map généré pour l'instant</Text>
-              <TextButton title={t('Filtres')} onPress={() => navigation.navigate('Filters')} />
+          toDiplsay ?
+            toDiplsay.length ?
+              SafeAreaProvider.Place.map((item, index) => {
+                return <LocationCard key={index} Selector={Selector} item={item} selected={selected} />;
+              }) :
+              <View style={global.middleContainer}>
+                <Text>Vous n'avez pas de Map généré pour l'instant</Text>
+                <TextButton title={t('Filtres')} onPress={() => navigation.navigate('Filters')} />
 
-            </View>
+              </View>
+            : null
         }
       </ScrollView>
 
       <View style={global.titleContainer}>
         <View style={[global.header, shadow.Bottom]}>
           <View style={{ width: "33%", display: 'flex', alignItems: 'center' }}>
-            <TextButton style={button.disable} title={t("Ajouter")} onPress={() => console.log('add')} />
+            <TextButton style={button.disable} title={t("Remove")} onPress={() => removeToItenerary()} />
           </View>
         </View>
-        {/* <View style={{ height: '100%', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
-            {ManageDisplay()}
-          </View> */}
       </View>
     </View>
-    // <View style={global.container}>
-    //   <View style={global.middleContainer}>
-    //     <TextButton title={t('in itinerary')} disable={Selection === 'In itinerary'} onPress={() => {
-    //       setSelection('In itinerary')
-    //       setLocations(SafeAreaProvider.itinerary)
-    //       console.log('Debug => ', SafeAreaProvider.itinerary)
-    //     }} />
-    //     <TextButton title={t('out itinerary')} disable={Selection === 'Out itinerary'} onPress={() => {
-    //       setSelection('Out itinerary')
-    //       setLocations(locationsOutItinerary)
-    //     }} />
-    //     <TextButton title={t('out filters')} disable={Selection === 'Out filters'} onPress={() => {
-    //       setSelection('Out filters')
-    //       setLocations(locationsOutFilters)
-    //     }} />
-    //     <ScrollView>
-    //       {Locations.map((item, index) => {
-    //         return <LocationCard key={index} assertToItinerary={assertToItinerary} name={item[0]} description={item[1]} />;
-    //       })}
-    //     </ScrollView>
-    //   </View>
-    // </View>
   );
 }

@@ -11,6 +11,7 @@ import { useIsFocused } from "@react-navigation/native";
 
 import '../constants/languages/i18n';
 import { useTranslation } from 'react-i18next';
+import { getGeneratedPlace, getPath } from "../API/Home";
 
 /**
  * @class display Filters screen
@@ -22,7 +23,7 @@ import { useTranslation } from 'react-i18next';
 export default function Filter({ navigation }) {
   const [APIfilterz, setFilters] = useState([])
   const [infoUser, setUser] = useState({ budget: null, time: null, filter: [] })
-  const [display, setDisplay] = useState(0)
+  const [display, setDisplay] = useState(1)
   const [displayFilter, setDisplayFilters] = useState()
   const IsFocused = useIsFocused()
 
@@ -39,11 +40,19 @@ export default function Filter({ navigation }) {
     }
     const getInfo = async () => {
       const res = await getInfoUser(SafeAreaProvider.Log.token, SafeAreaProvider.Log.id)
-      setUser(res)
+      if (res.hasError)
+        setUser({ budget: null, time: null, filter: [] })
+      else
+        setUser(res)
     }
 
     getFilter()
-    getInfo()
+    if (SafeAreaProvider.Log.lastInfo == undefined)
+      getInfo()
+    else {
+      setUser(SafeAreaProvider.Log.lastInfo)
+
+    }
   }, [IsFocused])
 
   /**
@@ -57,6 +66,7 @@ export default function Filter({ navigation }) {
         res.filter.push(filter)
       else
         res.filter.splice(res.filter.indexOf(filter), 1)
+      SafeAreaProvider.Log.lastInfo = res
       return res
     })
   }
@@ -68,11 +78,10 @@ export default function Filter({ navigation }) {
     setDisplayFilters(
       <ScrollView style={{ marginBottom: 20 }}>
         {APIfilterz.map((filtre, index, array) => {
-          console.log(array)
           if (!(index % 2)) {
             return (
               <View key={index} style={[global.row]}>
-                <FilterButton assertToContext={assertToContext} elem={array[index]} selected={infoUser.filter ? infoUser.filter : [] } />
+                <FilterButton assertToContext={assertToContext} elem={array[index]} selected={infoUser.filter ? infoUser.filter : []} />
                 <FilterButton assertToContext={assertToContext} elem={array[index + 1] ? array[index + 1] : null} selected={infoUser.filter ? infoUser.filter : []} />
               </View>
             )
@@ -146,14 +155,24 @@ export default function Filter({ navigation }) {
   }
 
   const patchUserInfo = async () => {
-    const res = await setInfoUser(SafeAreaProvider.Log.token, SafeAreaProvider.Log.id, infoUser)
+    console.log(SafeAreaProvider.Log)
+    await setInfoUser(SafeAreaProvider.Log.token, SafeAreaProvider.Log.id, infoUser).then(async () => {
+      await getGeneratedPlace(SafeAreaProvider.Log.id, SafeAreaProvider.Log.token).then(async (places) => {
+        SafeAreaProvider.place = places
+        await getPath(JSON.parse(places), { "y": 3.060966, "x": 50.631305 }, SafeAreaProvider.Log.id).then(async (path) => {
+          SafeAreaProvider.map = path
+          //ERROR MANAGEMENT QUAND JULIEN AURA FIX
+        })
+      })
+    })
     navigation.navigate('Home')
   }
 
 
   const BackToBasic = async () => {
-    const res = await setInfoUser(SafeAreaProvider.Log.token, SafeAreaProvider.Log.id, { budget: null, time: null, filter: [] })
-    setUser({ budget: null, time: null, filter: [] })
+    const res = await setInfoUser(SafeAreaProvider.Log.token, SafeAreaProvider.Log.id, { budget: 0, time: 0, filter: [] })
+    SafeAreaProvider.Log.lastInfo = { budget: 0, time: 0, filter: [] }
+    setUser({ budget: 0, time: 0, filter: [] })
   }
 
   return (
