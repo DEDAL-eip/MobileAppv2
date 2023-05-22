@@ -73,7 +73,7 @@ export const button = StyleSheet.create({
     width : 25,
     height : 25,
     borderRadius : 100,
-    borderWidth: 2,
+    borderWidth: 1,
     borderColor : Colors('Text')
   },
   disable : {

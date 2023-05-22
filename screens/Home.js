@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { View } from "react-native";
-import { global, map } from "../style/styles";
+import { global, map, button } from "../style/styles";
 import * as Location from 'expo-location';
 import MapView, { Marker, Polyline, PROVIDER_GOOGLE } from 'react-native-maps'
 import { getPlace, getMap, getPath, getGeneratedPlace } from "../API/Home";
@@ -12,6 +12,7 @@ import { useIsFocused } from "@react-navigation/native";
 
 import '../constants/languages/i18n';
 import { useTranslation } from 'react-i18next';
+import { Feather } from "@expo/vector-icons";
 
 /**
  * @class display Home screen
@@ -62,7 +63,6 @@ export default function Home() {
   }
 
   const askUserInfo = async () => {
-    console.log('info', SafeAreaProvider.Log)
     if (SafeAreaProvider.map)
       askMap()
     if (SafeAreaProvider.Place) {
@@ -145,7 +145,8 @@ export default function Home() {
           )
         }
       </MapView>
-      <TextButton style={{ bottom: 60, left: 30 }} title={'Generate itinerary!'} onPress={() => askMap()} />
+      <TextButton style={{ bottom: 60, left: 30 }} title={'Déconnection'} onPress={() => Navigate()} />
+      <Feather style={[button.close, {left: 10}]} name={"log-out"} size={20} onPress={() => SafeAreaProvider.Loged(false)} color={Colors('dedalBlue')} />
     </View>
   );
 }
