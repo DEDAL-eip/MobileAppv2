@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import LottieView from 'lottie-react-native';
 import * as SecureStore from 'expo-secure-store';
 import Checkbox from 'expo-checkbox';
 
@@ -77,7 +78,17 @@ export function LogInScreen({ navigation }) {
   return (
     <View style={global.container}>
       { isLoading ?
-        <ActivityIndicator size="large" style={{flex: 1}} />
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <LottieView
+            source={require('../../assets/98432-loading.json')}
+            style={{
+              width: '25%'
+            }}
+            speed={1}
+            autoPlay
+            loop
+          />
+        </View>
       :
       <>
         <Feather style={{margin: 10}} name={'arrow-left'} size={24} onPress={navigation.goBack}/>
