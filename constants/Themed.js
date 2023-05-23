@@ -3,7 +3,8 @@ import {
     useColorScheme,
     View as DefaultView,
     TextInput as DefaultTextInput,
-    Modal as DefaultModal
+    Modal as DefaultModal,
+    ActivityIndicator as DefaultActivityIndicator
 } from "react-native";
 import { StatusBar as DefaultStatusBar } from 'react-native';
 import { Feather as DefaultFeather } from '@expo/vector-icons';
@@ -64,4 +65,10 @@ export const Modal = (props) => {
     const { style, ...otherProps } = props;
 
     return <DefaultModal style={[{ backgroundColor: Colors('Background', theme) }, style]} {...otherProps}/>
+}
+
+export const ActivityIndicator = (props) => {
+    const { style, ...otherProps } = props;
+
+    return <DefaultActivityIndicator size="large" style={style} {...otherProps} color={Colors('dedalBlue')} {...otherProps}/>
 }
