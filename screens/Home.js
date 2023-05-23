@@ -145,8 +145,6 @@ export default function Home() {
           )
         }
       </MapView>
-      <TextButton style={{ bottom: 60, left: 30 }} title={'Déconnection'} onPress={() => Navigate()} />
-      <Feather style={[button.close, {left: 10}]} name={"log-out"} size={20} onPress={() => SafeAreaProvider.Loged(false)} color={Colors('dedalBlue')} />
     </View>
   );
 }
