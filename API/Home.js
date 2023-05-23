@@ -65,7 +65,7 @@ export async function getPath(places, position, id) {
  * @return {TODO} 
  */
 export async function getMap (id, token) {
-    return await fetch(`http://52.166.128.133/map/?id=-${id}`, {
+    return await fetch(`http://52.166.128.133/map/?id=${id}`, {
         method: 'GET',
         'Content-type': 'application/json',
         headers: {
