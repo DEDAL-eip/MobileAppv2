@@ -4,6 +4,7 @@ on:
       - main
 jobs:
   build:
+    name: Install and build
     runs-on: ubuntu-latest
     steps:
       - name: 🏗 Setup repo
