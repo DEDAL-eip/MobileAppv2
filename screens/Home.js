@@ -47,29 +47,30 @@ export default function Home() {
    * Get target map from the API
    * Extract the path and the building in Path and Place
    */
-  const askMap = async () => {
-    let res = await getMap(SafeAreaProvider.Log.id, SafeAreaProvider.Log.token)
-    let tmp = JSON.parse(res)
-    if (JSON.parse(res).LongLat != undefined) {
-      setPath(JSON.parse(res).LongLat)
-      if (Place.length == 0) {
-        let res = tmp.Buildings ? await Promise.all(tmp.Buildings.map(async elem => {
-          return await getPlace(elem.id, SafeAreaProvider.Log.token)
-        })) : null
-        setPlace(res)
-        SafeAreaProvider.Place = res 
-      }
+  const askMap = async (res) => {
+    console.log('1', res)
+    setPath(res.LongLat)
+    if (Place.length == 0) {
+      let res = tmp.Buildings ? await Promise.all(tmp.Buildings.map(async elem => {
+        return await getPlace(elem.id, SafeAreaProvider.Log.token)
+      })) : null
+      setPlace(res)
+      SafeAreaProvider.Place = res
     }
   }
 
   const askUserInfo = async () => {
-    if (SafeAreaProvider.map)
-      askMap()
+    if (!SafeAreaProvider.map) {
+      let res = await getMap(SafeAreaProvider.Log.id, SafeAreaProvider.Log.token)
+      if (res.LongLat != undefined)
+        askMap(res)
+    }
     if (SafeAreaProvider.Place) {
       setPlace(SafeAreaProvider.Place)
     }
     else
       createItinerary()
+    console.log('debug => ', SafeAreaProvider.map, SafeAreaProvider.Place)
   }
 
   /**
@@ -77,13 +78,14 @@ export default function Home() {
   */
   const createItinerary = async () => {
     await getGeneratedPlace(SafeAreaProvider.Log.id, SafeAreaProvider.Log.token).then(async (places) => {
+      console.log('places => ', places)
       if (places.hasError)
         return
       setPlace(JSON.parse(places))
       console.log(places)
       SafeAreaProvider.Place = JSON.parse(places)
-      await getPath(JSON.parse(places), { "y": 3.060966, "x": 50.631305 }, SafeAreaProvider.Log.id)
-      askMap()
+      //await getPath(JSON.parse(places), { "y": 3.060966, "x": 50.631305 }, SafeAreaProvider.Log.id)
+      //askMap()
     })
   }
 

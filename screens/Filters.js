@@ -41,18 +41,17 @@ export default function Filter({ navigation }) {
     const getInfo = async () => {
       const res = await getInfoUser(SafeAreaProvider.Log.token, SafeAreaProvider.Log.id)
       if (res.hasError)
-        setUser({ budget: null, time: null, filter: [] })
+         setUser({ budget: null, time: null, filter: [] })
       else
         setUser(res)
     }
-
+    console.log('infoUser => ', infoUser)
     getFilter()
     if (SafeAreaProvider.Log.lastInfo == undefined)
       getInfo()
     else {
       setUser(SafeAreaProvider.Log.lastInfo)
-
-    }
+    } 
   }, [IsFocused])
 
   /**
@@ -155,7 +154,6 @@ export default function Filter({ navigation }) {
   }
 
   const patchUserInfo = async () => {
-    console.log(SafeAreaProvider.Log)
     await setInfoUser(SafeAreaProvider.Log.token, SafeAreaProvider.Log.id, infoUser).then(async () => {
       await getGeneratedPlace(SafeAreaProvider.Log.id, SafeAreaProvider.Log.token).then(async (places) => {
         SafeAreaProvider.place = places
