@@ -35,4 +35,4 @@ jobs:
           to: ${{ secrets.GMAIL_ADDRESS }}
           subject: DEDAL as been updated! ✨
           body: Please make sure to update to this latest version.
-          cc: ${{ secrets.DEDAL_MEMBER_GMAIL_ADDRESS }}
+          
