@@ -9,6 +9,7 @@ import Profile from "../screens/Profile";
 import Filter from "../screens/Filters";
 import Location from "../screens/Locations";
 import Colors from "../constants/Colors";
+import Settings from "../screens/Settings";
 
 const BottomTab = createMaterialBottomTabNavigator();
 
@@ -85,6 +86,10 @@ function ProfileNavigator() {
         name="ProfileNAV"
         component={Profile}
         options={{ headerShown: false }}
+      />
+      <ProfileStack.Screen
+        name="Settings"
+        component={Settings}
       />
     </ProfileStack.Navigator>
   );

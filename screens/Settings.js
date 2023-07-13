@@ -18,13 +18,13 @@ import '../constants/languages/i18n';
 import { useTranslation } from 'react-i18next';
 
 /**
- * @class display Profile screen
+ * @class display Settings screen
  * @export
  * 
- * @description Display user profile
+ * @description Display user settings
  * @return {HTML} 
  */
-export default function Profile({ navigation }) {
+export default function Settings() {
 
   const [Open, setOpen] = useState(false)
   const [Error, setError] = useState(false)
@@ -92,32 +92,19 @@ export default function Profile({ navigation }) {
 
   return (
     <View style={global.container}>
-      <View style={{ flexDirection: 'row', padding: 25, justifyContent: "space-between" }}>
-        <Feather name={"log-out"} size={24} onPress={() => SafeAreaProvider.Loged(false)} color={Colors('dedalBlue')} />
-        <Feather name={"settings"} size={24} onPress={() => navigation.navigate('Settings')} color={Colors('dedalBlue')} />
-      </View>
       <View style={global.middleContainer}>
-        <TextInput autoCapitalize='none' style={[textInput.global, { borderColor: Colors('dedalBlue') }]} title={t('username') + ':'} onChangeText={setUsername} value={Username} editable={Edit ? true : false} />
-        <TextInput autoCapitalize='none' style={[textInput.global, { borderColor: Colors('dedalBlue') }]} title={t('email') + ':'} value={email} editable={Edit ? true : false} />
-        <View style={{ flexDirection: 'row'}}>
-          <View style={{ width: "50%", alignItems: 'center' }}>
-            <TextInput autoCapitalize='none' style={[textInput.global, { borderColor: Colors('dedalBlue') }]} title={t('last connection') + ':'} value={buildDate(SafeAreaProvider.Log["Last connection"])} editable={false} />
-          </View>
-          <View style={{ width: "50%", alignItems: 'center' }}>
-            <TextInput autoCapitalize='none' style={[textInput.global, { borderColor: Colors('dedalBlue') }]} title={t('account creation') + ':'} value={buildDate(SafeAreaProvider.Log["createdAt"])} editable={false} />
-          </View>
-        </View>
+        <Picker
+            title={t('language') + ':'}
+            items={languages}
+            selectedValue={selectedLanguage}
+            onValueChange={changeLanguage}
+          />
+          <Switch
+            title={t('dark mode') + ':'}
+            value={mode}
+            onValueChange={updateSwitch}
+          />
       </View>
-      <View style={[global.bottomContainer]}>
-        {Error == true ? <Text style={[global.textCenter, color.errorRed]}>An error occured</Text> : null}
-        <TextButton title={t('modify password')} onPress={() => SendVerifCode()}></TextButton>
-        {
-          !Edit ?
-          <TextButton title={t('modify informations')} onPress={() => setEdit(true)}></TextButton> : 
-          <TextButton title={Username.length == 0 ? t('cancel') : t('confirm')} onPress={() => validateChange()}></TextButton>
-        }
-      </View>
-      <BasicModal Open={Open} setOpen={setOpen} Content={ModalLoginCode}/>
     </View>
   );
 }
