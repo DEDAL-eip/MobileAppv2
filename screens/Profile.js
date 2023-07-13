@@ -93,7 +93,10 @@ export default function Profile({ navigation }) {
         </View>
         <View style={{flexDirection: 'row', paddingLeft: 15}}>
           <Image style={{width: 150, height: 150, borderColor: '#294F87', borderWidth: 5, borderRadius: 100}} source={require('../assets/images/icon.png')} />
-          <Text style={[titles.subtitle, {alignSelf: 'center', paddingLeft: 15}]} autoCapitalize='none'>{SafeAreaProvider.Log.Username}</Text>
+          <View style={{alignSelf: 'center', paddingLeft: 10}}>
+            <Text style={[titles.username]} autoCapitalize='none'>{SafeAreaProvider.Log.Username}</Text>
+            <Text>{SafeAreaProvider.Log.Email}</Text>
+          </View>
         </View>
       </View>
     </PaperProvider>
