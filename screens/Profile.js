@@ -3,18 +3,15 @@ import { Text, View } from "../constants/Themed";
 import { useState } from "react";
 import { Menu, Divider, PaperProvider } from 'react-native-paper';
 
-import { global, color, textInput } from "../style/styles";
+import { global, titles, textInput } from "../style/styles";
 import { MypatchParams, SendCode } from "../API/Settings";
-import BasicModal from "../components/modal";
-import { TextButton } from "../components/buttons/TextButton";
-import { ModalLoginCode } from "../components/Modal/Login-Code";
-import { TextInput } from "../components/TextInput";
 import { Feather } from '@expo/vector-icons';
 
 import Colors from "../constants/Colors";
 
 import '../constants/languages/i18n';
 import { useTranslation } from 'react-i18next';
+import { Image } from "react-native";
 
 /**
  * @class display Profile screen
@@ -94,7 +91,10 @@ export default function Profile({ navigation }) {
             <Menu.Item leadingIcon="log-out" onPress={() => SafeAreaProvider.Loged(false)} title="Log out" />
           </Menu>
         </View>
-          <Text autoCapitalize='none'>{SafeAreaProvider.Log.Username}</Text>
+        <View style={{flexDirection: 'row', paddingLeft: 15}}>
+          <Image style={{width: 150, height: 150, borderColor: '#294F87', borderWidth: 5, borderRadius: 100}} source={require('../assets/images/icon.png')} />
+          <Text style={[titles.subtitle, {alignSelf: 'center', paddingLeft: 15}]} autoCapitalize='none'>{SafeAreaProvider.Log.Username}</Text>
+        </View>
       </View>
     </PaperProvider>
   );
