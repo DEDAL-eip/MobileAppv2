@@ -10,6 +10,7 @@ import Filter from "../screens/Filters";
 import Location from "../screens/Locations";
 import Colors from "../constants/Colors";
 import Settings from "../screens/Settings";
+import Account from "../screens/Account";
 
 const BottomTab = createMaterialBottomTabNavigator();
 
@@ -90,6 +91,10 @@ function ProfileNavigator() {
       <ProfileStack.Screen
         name="Settings"
         component={Settings}
+      />
+      <ProfileStack.Screen
+        name="Account"
+        component={Account}
       />
     </ProfileStack.Navigator>
   );
