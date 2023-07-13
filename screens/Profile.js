@@ -92,8 +92,11 @@ export default function Profile() {
 
   return (
     <View style={global.container}>
-      <Feather style={{left: 15}} name={"log-out"} size={24} onPress={() => SafeAreaProvider.Loged(false)} color={Colors('dedalBlue')} />
-      <View style={{ flexDirection: 'row', paddingTop: 50 }}>
+      <View style={{ flexDirection: 'row', padding: 25, justifyContent: "space-between" }}>
+        <Feather name={"log-out"} size={24} onPress={() => SafeAreaProvider.Loged(false)} color={Colors('dedalBlue')} />
+        <Feather name={"settings"} size={24} color={Colors('dedalBlue')} />
+      </View>
+      <View style={{ flexDirection: 'row' }}>
         <View style={{ width: "50%" }}>
           <Picker
             title={t('language') + ':'}
