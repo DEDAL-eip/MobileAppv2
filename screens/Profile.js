@@ -1,15 +1,14 @@
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Text, View } from "../constants/Themed";
 import { useState } from "react";
+import { Menu, Divider, PaperProvider } from 'react-native-paper';
 
-import { button, global, color, textInput } from "../style/styles";
+import { global, color, textInput } from "../style/styles";
 import { MypatchParams, SendCode } from "../API/Settings";
 import BasicModal from "../components/modal";
 import { TextButton } from "../components/buttons/TextButton";
 import { ModalLoginCode } from "../components/Modal/Login-Code";
 import { TextInput } from "../components/TextInput";
-import { Picker } from "../components/Picker";
-import { Switch } from "../components/Switch";
 import { Feather } from '@expo/vector-icons';
 
 import Colors from "../constants/Colors";
@@ -25,16 +24,11 @@ import { useTranslation } from 'react-i18next';
  * @return {HTML} 
  */
 export default function Profile({ navigation }) {
-
   const [Open, setOpen] = useState(false)
   const [Error, setError] = useState(false)
   const [Edit, setEdit] = useState(false)
-  const [Username, setUsername] = useState(SafeAreaProvider.Log.Username)
   const [email, setEmail] = useState(SafeAreaProvider.Log.Email)
-  const [mode, setMode] = useState(SafeAreaProvider.mode=='dark' ? true : false)
-  const [selectedLanguage, setSelectedLanguage] = useState('en')
-
-  const languages = [['english', 'en'], ['french', 'fr']]
+  const [visible, setVisible] = useState(false);
 
   const {t, i18n} = useTranslation();
 
@@ -51,7 +45,6 @@ export default function Profile({ navigation }) {
     }
   })
 
-
   /**
    * @param {date} date  
    * @returns {string} date in format "DD/MM/YYYY" 
@@ -64,7 +57,6 @@ export default function Profile({ navigation }) {
     return (final)
   }
 
-
   /**
    * Call API to change the usersettings
    * Set Edit to false
@@ -75,49 +67,35 @@ export default function Profile({ navigation }) {
     setEdit(false)
     }
 
-  const updateSwitch = (e) => {
-    setMode(e)
-    if (e)
-      SafeAreaProvider.mode =('dark')
-    else 
-      SafeAreaProvider.mode = ('light')
-  }
+    const openMenu = () => setVisible(true);
 
-  const changeLanguage = value => {
-    i18n
-      .changeLanguage(value)
-      .then(() => setSelectedLanguage(value), SafeAreaProvider.language = (value))
-      .catch(err => console.log(err));
-  };
+    const closeMenu = () => setVisible(false);
 
   return (
-    <View style={global.container}>
-      <View style={{ flexDirection: 'row', padding: 25, justifyContent: "space-between" }}>
-        <Feather name={"log-out"} size={24} onPress={() => SafeAreaProvider.Loged(false)} color={Colors('dedalBlue')} />
-        <Feather name={"settings"} size={24} onPress={() => navigation.navigate('Settings')} color={Colors('dedalBlue')} />
-      </View>
-      <View style={global.middleContainer}>
-        <TextInput autoCapitalize='none' style={[textInput.global, { borderColor: Colors('dedalBlue') }]} title={t('username') + ':'} onChangeText={setUsername} value={Username} editable={Edit ? true : false} />
-        <TextInput autoCapitalize='none' style={[textInput.global, { borderColor: Colors('dedalBlue') }]} title={t('email') + ':'} value={email} editable={Edit ? true : false} />
-        <View style={{ flexDirection: 'row'}}>
-          <View style={{ width: "50%", alignItems: 'center' }}>
-            <TextInput autoCapitalize='none' style={[textInput.global, { borderColor: Colors('dedalBlue') }]} title={t('last connection') + ':'} value={buildDate(SafeAreaProvider.Log["Last connection"])} editable={false} />
-          </View>
-          <View style={{ width: "50%", alignItems: 'center' }}>
-            <TextInput autoCapitalize='none' style={[textInput.global, { borderColor: Colors('dedalBlue') }]} title={t('account creation') + ':'} value={buildDate(SafeAreaProvider.Log["createdAt"])} editable={false} />
-          </View>
+    <PaperProvider
+      settings={{
+        icon: props => <Feather {...props} />,
+      }}
+    >
+      <View style={global.container}>
+        <View
+          style={{
+            padding: 25,
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
+          }}>
+          <Menu
+            visible={visible}
+            onDismiss={closeMenu}
+            anchor={<Feather color={Colors('dedalBlue')} name={"menu"} size={24} onPress={openMenu} />}>
+            <Menu.Item leadingIcon="key" onPress={() => navigation.navigate('Account')} title="Account" />
+            <Menu.Item leadingIcon="settings" onPress={() => navigation.navigate('Settings')} title="Settings" />
+            <Divider />
+            <Menu.Item leadingIcon="log-out" onPress={() => SafeAreaProvider.Loged(false)} title="Log out" />
+          </Menu>
         </View>
+          <Text autoCapitalize='none'>{SafeAreaProvider.Log.Username}</Text>
       </View>
-      <View style={[global.bottomContainer]}>
-        {Error == true ? <Text style={[global.textCenter, color.errorRed]}>An error occured</Text> : null}
-        <TextButton title={t('modify password')} onPress={() => SendVerifCode()}></TextButton>
-        {
-          !Edit ?
-          <TextButton title={t('modify informations')} onPress={() => setEdit(true)}></TextButton> : 
-          <TextButton title={Username.length == 0 ? t('cancel') : t('confirm')} onPress={() => validateChange()}></TextButton>
-        }
-      </View>
-      <BasicModal Open={Open} setOpen={setOpen} Content={ModalLoginCode}/>
-    </View>
+    </PaperProvider>
   );
 }
