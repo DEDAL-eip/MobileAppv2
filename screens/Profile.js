@@ -18,13 +18,13 @@ import '../constants/languages/i18n';
 import { useTranslation } from 'react-i18next';
 
 /**
- * @class display Settings screen
+ * @class display Profile screen
  * @export
  * 
- * @description Display user settings & edit button
+ * @description Display user profile
  * @return {HTML} 
  */
-export default function Setting() {
+export default function Profile() {
 
   const [Open, setOpen] = useState(false)
   const [Error, setError] = useState(false)
