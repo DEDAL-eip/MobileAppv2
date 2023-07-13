@@ -5,7 +5,7 @@ import { useColorScheme } from "react-native";
 import { Feather } from '@expo/vector-icons';
 
 import Home from "../screens/Home";
-import Setting from "../screens/Settings";
+import Profile from "../screens/Profile";
 import Filter from "../screens/Filters";
 import Location from "../screens/Locations";
 import Colors from "../constants/Colors";
@@ -52,11 +52,11 @@ export default function BottomTabNavigator() {
         }}
       />
       <BottomTab.Screen
-        name="Settings"
-        component={SettingNavigator}
+        name="Profile"
+        component={ProfileNavigator}
         options={{
           tabBarIcon: ({ color }) => (
-            <Feather name='settings' color={color} size={26} />
+            <Feather name='user' color={color} size={26} />
           )
         }}
       />
@@ -77,16 +77,16 @@ function HomeNavigator() {
   );
 }
 
-const SettingsStack = createStackNavigator();
-function SettingNavigator() {
+const ProfileStack = createStackNavigator();
+function ProfileNavigator() {
   return (
-    <SettingsStack.Navigator>
-      <SettingsStack.Screen
-        name="SettingsNAV"
-        component={Setting}
+    <ProfileStack.Navigator>
+      <ProfileStack.Screen
+        name="ProfileNAV"
+        component={Profile}
         options={{ headerShown: false }}
       />
-    </SettingsStack.Navigator>
+    </ProfileStack.Navigator>
   );
 }
 
