@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { View } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity  } from "react-native";
 import { global, map, button } from "../style/styles";
 import * as Location from 'expo-location';
 import MapView, { Marker, Polyline, PROVIDER_GOOGLE } from 'react-native-maps'
@@ -9,6 +10,7 @@ import Colors from "../constants/Colors";
 import { getInfoUser } from "../API/Filters";
 import { TextButton } from "../components/buttons/TextButton";
 import { useIsFocused } from "@react-navigation/native";
+import { palette } from '../constants/Colors'
 
 import '../constants/languages/i18n';
 import { useTranslation } from 'react-i18next';
@@ -26,6 +28,7 @@ export default function Home() {
   const [Path, setPath] = useState([])
   const [Place, setPlace] = useState([])
   const IsFocused = useIsFocused()
+  const [selected, setSelected] = useState()
   const { t, i18n } = useTranslation();
 
   /**
@@ -51,11 +54,11 @@ export default function Home() {
     console.log('1', res)
     setPath(res.LongLat)
     if (Place.length == 0) {
-      let res = tmp.Buildings ? await Promise.all(tmp.Buildings.map(async elem => {
+      let result = res.Buildings ? await Promise.all(res.Buildings.map(async elem => {
         return await getPlace(elem.id, SafeAreaProvider.Log.token)
       })) : null
-      setPlace(res)
-      SafeAreaProvider.Place = res
+      setPlace(result)
+      SafeAreaProvider.Place = result
     }
   }
 
@@ -100,6 +103,7 @@ export default function Home() {
 
   return (
     <View style={global.container}>
+
       <MapView style={map}
         provider={PROVIDER_GOOGLE}
         region={{
@@ -137,13 +141,12 @@ export default function Home() {
             return (
               elem.coordinates ?
                 <Marker
-                  key={index}
+                  onPress={e => getPlace(e._dispatchInstances.return.key, SafeAreaProvider.Log.token).then(res => setSelected(res))}
+                  key={elem.id}
                   coordinate={{
                     latitude: parseFloat(elem.coordinates.x),
                     longitude: parseFloat(elem.coordinates.y)
                   }}
-                  title={elem.name}
-                  description={elem.description}
                   image={require('../assets/pin.png')}
                 />
                 : null)
@@ -151,6 +154,37 @@ export default function Home() {
           )
         }
       </MapView>
+      {selected ? 
+      <View style={{position: 'absolute', left: 0, bottom: 0, width : '100%',display: 'flex',  alignItems: "center", }}>
+      <View style={{width : '90%'}}>
+            <TouchableOpacity style={[styles.card, {backgroundColor : palette.global.dedalBlue}]}>
+                <Text style={styles.title}>{selected.name}</Text>
+                <Text style={styles.description}>{selected.description}</Text>
+            </TouchableOpacity>
+        </View>
+        </View> : null }
     </View>
   );
 }
+
+const cardColor = '#00B4D8'
+const styles = StyleSheet.create({
+  card: {
+      flex: 1,
+      padding: 25,
+      marginHorizontal: 10,
+      borderRadius: 10,
+      marginTop: 10,
+      marginBottom: 10,
+      backgroundColor: cardColor,
+  },
+  title: {
+      color: '#FFF',
+      fontWeight: 'bold',
+      fontSize: 18
+  },
+  description: {
+      color: '#FFF',
+      fontSize: 12
+  }
+})
