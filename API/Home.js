@@ -65,6 +65,7 @@ export async function getPath(places, position, id) {
  * @return {TODO} 
  */
 export async function getMap (id, token) {
+    console.log(id, token)
     return await fetch(`http://52.166.128.133/map/?id=${id}`, {
         method: 'GET',
         'Content-type': 'application/json',
@@ -73,7 +74,7 @@ export async function getMap (id, token) {
             'Accept': '*/*' 
         }
     })
-    .then(res => res.text())
+    .then(res => res.json())
     .catch(err => ({hasError : true, status : err}))
 }
 
@@ -86,6 +87,7 @@ export async function getGeneratedPlace (id, token) {
             'Accept': '*/*' 
         }
     })
-    .then(res => res.text())
-    .catch(err => ({hasError : true, status : err}))
+    .then(res =>{
+        return res.text().then(res => res)})
 }
+

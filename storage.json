@@ -1,0 +1,25 @@
+{
+    "language" : "STRING",
+    "Log" : {
+        "Username" : "STRING",
+        "Email" : "STRING",
+        "token" : "STRING",
+        "id"    : "STRING",
+        "lastInfo" :  {
+            "budget": 0,
+            "time": 0,
+            "filter": [] 
+        },
+        "Last_connection" : "STRING",
+        "CreatedAt" : "STRING",
+    },
+    "place" : ??,
+    "map" : ??,
+    "location" : ??,
+    "Place" : ??,
+    "Loged" : "BOOL",
+    "mode" : "COLORSCHEME",
+
+
+
+}

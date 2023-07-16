@@ -60,10 +60,14 @@ export default function Home() {
   }
 
   const askUserInfo = async () => {
+    console.log(SafeAreaProvider.Place)
     if (!SafeAreaProvider.map) {
       let res = await getMap(SafeAreaProvider.Log.id, SafeAreaProvider.Log.token)
-      if (res.LongLat != undefined)
+      console.log('dsjfsdlfjslfjs => ', res.LongLat)
+      if (res.LongLat != undefined) {
+        console.log('here')
         askMap(res)
+      }
     }
     if (SafeAreaProvider.Place) {
       setPlace(SafeAreaProvider.Place)

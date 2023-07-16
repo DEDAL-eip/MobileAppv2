@@ -55,8 +55,11 @@ export function LogInScreen({ navigation }) {
     else 
       remove()
     const res = await signIn(email, password)
-    if (res.hasError == true)
+    if (res.hasError == true) {
       setError(true)
+      setLoading(false)
+  }
+
     else {
       SafeAreaProvider.Loged(true)
       SafeAreaProvider.Log = res

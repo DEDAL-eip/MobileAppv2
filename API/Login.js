@@ -34,6 +34,7 @@ export async function signUpCode (email, code) {
 }
 
 export async function signIn (email, password) {
+    console.log('here', email, password)
     return await fetch(`http://52.166.128.133/signin`, {
         method: 'POST',
         body: JSON.stringify({'email': email, 'password': password}),
@@ -41,6 +42,7 @@ export async function signIn (email, password) {
         'Accept': '*/*' }
     })
     .then(res => {
+        console.log('res => ', res.status)
         if (res.status == 202)
             return res.json()
         else 
