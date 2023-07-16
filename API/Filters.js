@@ -15,7 +15,9 @@ export default async function getFilters(token) {
             'Accept': '*/*'
         }
     })
-        .then(res => res.json())
+        .then(res => {
+            return res.json()
+        })
         .catch(err => ({ hasError: true, status: err }))
 }
 

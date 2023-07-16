@@ -3,7 +3,7 @@ import FilterButton from '../components/FilterButton';
 import getFilters, { getInfoUser, setInfoUser } from "../API/Filters";
 import { global, shadow, button } from "../style/styles";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { useEffect, useState } from "react";
+import { useDeferredValue, useEffect, useState } from "react";
 import { TextButton } from "../components/buttons/TextButton";
 import { ScrollView } from "react-native";
 import Slider from '@react-native-community/slider';
@@ -29,6 +29,8 @@ export default function Filter({ navigation }) {
 
   const { t, i18n } = useTranslation();
 
+
+
   useEffect(() => {
     /**
      * Hook to get filter data to user
@@ -40,13 +42,14 @@ export default function Filter({ navigation }) {
     }
     const getInfo = async () => {
       const res = await getInfoUser(SafeAreaProvider.Log.token, SafeAreaProvider.Log.id)
+      console.log(typeof(res))
       if (res.hasError)
          setUser({ budget: null, time: null, filter: [] })
       else
         setUser(res)
     }
-    console.log('infoUser => ', infoUser)
     getFilter()
+    console.log(SafeAreaProvider.Log.lastInfo)
     if (SafeAreaProvider.Log.lastInfo == undefined)
       getInfo()
     else {
@@ -59,8 +62,13 @@ export default function Filter({ navigation }) {
  * set data in SafeAreaProvider.filters
  */
   const assertToContext = (filter, push) => {
+    console.log(filter)
     setUser(old => {
+      console.log('here 2', old)
+
       let res = { ...old }
+      console.log('here 2', old)
+
       if (push == true)
         res.filter.push(filter)
       else
@@ -88,7 +96,12 @@ export default function Filter({ navigation }) {
         })}
       </ScrollView>
     )
-  }, [infoUser])
+  }, [infoUser, APIfilterz])
+
+  useEffect(() => {
+    console.log('infoUser => ', infoUser)
+  },[infoUser])
+
 
   const buildDisplayBuget = () => {
     return (
@@ -114,7 +127,10 @@ export default function Filter({ navigation }) {
 
   const handleChange = (type, e) => {
     setUser(old => {
-      let res = { ...old }
+      console.log('here 1', old, e)
+      let res = old
+      console.log('here 1', old)
+      
       if (type == 1)
         res.budget = e
       else
@@ -154,14 +170,24 @@ export default function Filter({ navigation }) {
   }
 
   const patchUserInfo = async () => {
-    await setInfoUser(SafeAreaProvider.Log.token, SafeAreaProvider.Log.id, infoUser).then(async () => {
-      await getGeneratedPlace(SafeAreaProvider.Log.id, SafeAreaProvider.Log.token).then(async (places) => {
-        SafeAreaProvider.place = places
-        await getPath(JSON.parse(places), { "y": 3.060966, "x": 50.631305 }, SafeAreaProvider.Log.id).then(async (path) => {
-          SafeAreaProvider.map = path
-          //ERROR MANAGEMENT QUAND JULIEN AURA FIX
+    await setInfoUser(SafeAreaProvider.Log.token, SafeAreaProvider.Log.id,infoUser
+    ).then(async () => {
+      console.log('ui', infoUser.filter.length)
+        console.log('in')
+      if (infoUser.filter.lenght != 0 || infoUser.filter ) {
+        console.log(SafeAreaProvider.Log.id, SafeAreaProvider.Log.token)
+        await getGeneratedPlace(SafeAreaProvider.Log.id, SafeAreaProvider.Log.token).then(async (places) => {
+        console.log('in 2', places)
+          SafeAreaProvider.place = places
+          console.log(places)
+          await getPath(JSON.parse(places), { "y": 3.060966, "x": 50.631305 }, SafeAreaProvider.Log.id).then(async (path) => {
+        console.log('in 3', path)
+
+            SafeAreaProvider.map = path
+          //ERROR MANAGEMENT QUAND JULIEN AURA FIX 592ecbc0-e50f-4ea1-a142-d034c20e7470
         })
-      })
+      })}
+      console.log('la')
     })
     navigation.navigate('Home')
   }
