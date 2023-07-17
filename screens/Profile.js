@@ -92,7 +92,13 @@ export default function Profile({ navigation }) {
           </Menu>
         </View>
         <View style={{flexDirection: 'row', paddingLeft: 15}}>
-          <Image style={{width: 150, height: 150, borderColor: '#294F87', borderWidth: 5, borderRadius: 100}} source={require('../assets/images/icon.png')} />
+          {SafeAreaProvider.Log.ProfilePicture ?
+            <Image style={{width: 130, height: 130, borderColor: '#294F87', borderWidth: 5, borderRadius: 100}} source={require('../assets/images/icon.png')} />
+            :
+            <View style={{alignItems: "center", justifyContent : "center", width: 135, height: 135, backgroundColor: Colors('dedalBlueDisable'), borderColor: '#294F87', borderWidth: 5, borderRadius: 100}}>
+              <Feather color={Colors('dedalBlue')} name={"user"} size={75} />
+            </View>
+          }
           <View style={{alignSelf: 'center', paddingLeft: 10}}>
             <Text style={[titles.username]} autoCapitalize='none'>{SafeAreaProvider.Log.Username}</Text>
             <Text>{SafeAreaProvider.Log.Email}</Text>
