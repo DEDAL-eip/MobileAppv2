@@ -1,15 +1,15 @@
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { Text, View } from "../constants/Themed";
+import { Text, View } from "../../constants/Themed";
 import { useState } from "react";
 import { Menu, Divider, PaperProvider } from 'react-native-paper';
 
-import { global, titles, textInput } from "../style/styles";
-import { MypatchParams, SendCode } from "../API/Settings";
+import { global, text, textInput } from "../../style/styles";
+import { MypatchParams, SendCode } from "../../API/Settings";
 import { Feather } from '@expo/vector-icons';
 
-import Colors from "../constants/Colors";
+import Colors from "../../constants/Colors";
 
-import '../constants/languages/i18n';
+import '../../constants/languages/i18n';
 import { useTranslation } from 'react-i18next';
 import { Image } from "react-native";
 
@@ -93,14 +93,14 @@ export default function Profile({ navigation }) {
         </View>
         <View style={{flexDirection: 'row', paddingLeft: 15}}>
           {SafeAreaProvider.Log.ProfilePicture ?
-            <Image style={{width: 130, height: 130, borderColor: '#294F87', borderWidth: 5, borderRadius: 100}} source={require('../assets/images/icon.png')} />
+            <Image style={{width: 130, height: 130, borderColor: '#294F87', borderWidth: 5, borderRadius: 100}} source={require('../../assets/images/icon.png')} />
             :
             <View style={{alignItems: "center", justifyContent : "center", width: 135, height: 135, backgroundColor: Colors('dedalBlueDisable'), borderColor: '#294F87', borderWidth: 5, borderRadius: 100}}>
               <Feather color={Colors('dedalBlue')} name={"user"} size={75} />
             </View>
           }
           <View style={{alignSelf: 'center', paddingLeft: 10}}>
-            <Text style={[titles.username]} autoCapitalize='none'>{SafeAreaProvider.Log.Username}</Text>
+            <Text style={[text.medium]} autoCapitalize='none'>{SafeAreaProvider.Log.Username}</Text>
             <Text>{SafeAreaProvider.Log.Email}</Text>
           </View>
         </View>

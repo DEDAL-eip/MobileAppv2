@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { useColorScheme, Text, TextInput as DefaultTextInput, View } from "react-native";
+import { useColorScheme, TextInput as DefaultTextInput, View } from "react-native";
 
-import { Feather } from '../constants/Themed'
+import { Text, Feather } from '../constants/Themed'
 import Colors from "../constants/Colors";
+import { text } from "../style/styles";
 
 export const TextInput = (({
     title,
@@ -18,7 +19,7 @@ export const TextInput = (({
 
     return (
         <View style={{width : '100%', marginLeft: '10%', margin: 10}}>
-            <Text style={[{ color: Colors('Text', theme), fontWeight: 'bold'}]}>{title}</Text>             
+            <Text style={[text.small]}>{title}</Text>             
             <DefaultTextInput
                 autoComplete={autoComplete}
                 style={[{ color: Colors('Text', theme), backgroundColor: editable ? 'transparent' : Colors('dedalBlueDisable') }, style]}

@@ -121,25 +121,23 @@ export const map =  StyleSheet.create({
   height: '100%',
 })
 
-export const titles = StyleSheet.create({
-  main: {
+export const text = StyleSheet.create({
+  large: {
     fontSize: 48,
     fontWeight: 'bold',
     fontFamily : "Main",
     textAlign: 'center',
     lineBreak: 'normal',
-
-
   },
-  subtitle : {
+
+  medium:{
     fontSize: 24,
     fontWeight: 'bold',
     fontFamily : "Main",
-    textAlign: 'center',
   },
 
-  username:{
-    fontSize: 24,
+  small : {
+    fontSize: 14,
     fontWeight: 'bold',
     fontFamily : "Main",
   },

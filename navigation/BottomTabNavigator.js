@@ -5,12 +5,15 @@ import { useColorScheme } from "react-native";
 import { Feather } from '@expo/vector-icons';
 
 import Home from "../screens/Home";
-import Profile from "../screens/Profile";
+
+import Profile from "../screens/profile/Profile";
+import Settings from "../screens/profile/Settings";
+import Account from "../screens/profile/Account";
+
 import Filter from "../screens/Filters";
 import Location from "../screens/Locations";
+
 import Colors from "../constants/Colors";
-import Settings from "../screens/Settings";
-import Account from "../screens/Account";
 
 const BottomTab = createMaterialBottomTabNavigator();
 

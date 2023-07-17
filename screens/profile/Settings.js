@@ -1,12 +1,12 @@
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { View } from "../constants/Themed";
+import { View } from "../../constants/Themed";
 import { useState } from "react";
 
-import { global, color, textInput } from "../style/styles";
-import { Picker } from "../components/Picker";
-import { Switch } from "../components/Switch";
+import { global, color, textInput } from "../../style/styles";
+import { Picker } from "../../components/Picker";
+import { Switch } from "../../components/Switch";
 
-import '../constants/languages/i18n';
+import '../../constants/languages/i18n';
 import { useTranslation } from 'react-i18next';
 
 /**

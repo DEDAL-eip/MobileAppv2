@@ -15,7 +15,7 @@ const LocationButton = (props) => {
     return (
         <View>
             <TouchableOpacity style={[styles.card, {backgroundColor : color}]} onPress={() => props.Selector(props.item.id)}>
-                <Text style={styles.title}>{props.item.name}</Text>
+                <Text style={styles.medium}>{props.item.name}</Text>
                 <Text style={styles.description}>{props.item.description}</Text>
             </TouchableOpacity>
         </View>
