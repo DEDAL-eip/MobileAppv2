@@ -16,9 +16,9 @@ export default {
               Home: "Home",
             },
           },
-          Settings: {
+          Profile: {
             screens: {
-              SettingsScreen: "Settings",
+              SettingsScreen: "Profile",
             },
           },
           Filter: {

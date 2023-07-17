@@ -138,6 +138,12 @@ export const titles = StyleSheet.create({
     textAlign: 'center',
   },
 
+  username:{
+    fontSize: 24,
+    fontWeight: 'bold',
+    fontFamily : "Main",
+  },
+
   image: {
       alignSelf: 'center',
       width: 287,
