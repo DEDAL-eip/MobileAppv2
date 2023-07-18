@@ -5,6 +5,7 @@ import { Menu, Divider, PaperProvider } from 'react-native-paper';
 
 import { global, text, textInput } from "../../style/styles";
 import { MypatchParams, SendCode } from "../../API/Settings";
+import { TextButton } from "../../components/buttons/TextButton";
 import { Feather } from '@expo/vector-icons';
 
 import Colors from "../../constants/Colors";
@@ -74,10 +75,10 @@ export default function Profile({ navigation }) {
         icon: props => <Feather {...props} />,
       }}
     >
-      <View style={global.container}>
+    <View style={[global.container, {padding: 15}]}>
         <View
           style={{
-            padding: 25,
+            padding: 10,
             flexDirection: 'row',
             justifyContent: 'flex-end',
           }}>
@@ -91,7 +92,7 @@ export default function Profile({ navigation }) {
             <Menu.Item leadingIcon="log-out" onPress={() => SafeAreaProvider.Loged(false)} title="Log out" />
           </Menu>
         </View>
-        <View style={{flexDirection: 'row', paddingLeft: 15}}>
+        <View style={{flexDirection: 'row', paddingBottom: 15}}>
           {SafeAreaProvider.Log.ProfilePicture ?
             <Image style={{width: 130, height: 130, borderColor: '#294F87', borderWidth: 5, borderRadius: 100}} source={require('../../assets/images/icon.png')} />
             :
@@ -104,6 +105,11 @@ export default function Profile({ navigation }) {
             <Text>{SafeAreaProvider.Log.Email}</Text>
           </View>
         </View>
+        {SafeAreaProvider.pro ?
+          <Text style={[text.medium]}>{t('profesionnal dashboard')}</Text>
+          :
+          <></>
+        }
       </View>
     </PaperProvider>
   );

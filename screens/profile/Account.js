@@ -7,6 +7,7 @@ import { global, text, color, textInput } from "../../style/styles";
 import BasicModal from "../../components/modal";
 import { ModalLoginCode } from "../../components/Modal/Login-Code";
 import { TextButton } from "../../components/buttons/TextButton";
+import { Switch } from "../../components/Switch";
 
 import Colors from "../../constants/Colors";
 
@@ -26,8 +27,17 @@ export default function Account() {
   const [Edit, setEdit] = useState(false)
   const [Username, setUsername] = useState(SafeAreaProvider.Log.Username)
   const [email, setEmail] = useState(SafeAreaProvider.Log.Email)
+  const [pro, setPro] = useState(SafeAreaProvider.pro)
 
   const {t, i18n} = useTranslation();
+
+  const updateSwitch = (e) => {
+    setPro(e)
+    if (e)
+      SafeAreaProvider.pro = true
+    else 
+      SafeAreaProvider.pro = false
+  }
 
   /**
    * Call API to send verification code 
@@ -65,29 +75,35 @@ export default function Account() {
     }
 
   return (
-      <View style={global.container}>
-        <Text style={[text.medium]} autoCapitalize='none'>{'Profile'}</Text>
-        <View style={{alignItems: "center", justifyContent : "center"}}>
-          <TextInput autoCapitalize='none' style={[textInput.global, { borderColor: Colors('dedalBlue') }]} title={t('username')} onChangeText={setUsername} value={Username} editable={Edit ? true : false} />
-          <TextInput autoCapitalize='none' style={[textInput.global, { borderColor: Colors('dedalBlue') }]} title={t('email')} value={email} editable={Edit ? true : false} />
-          <View style={{ flexDirection: 'row'}}>
-            <View style={{ alignItems: 'center' }}>
-              <TextInput autoCapitalize='none' style={[textInput.global, { borderColor: Colors('dedalBlue') }]} title={t('last connection')} value={buildDate(SafeAreaProvider.Log["Last connection"])} editable={false} />
-            </View>
-            <View style={{ alignItems: 'center' }}>
-              <TextInput autoCapitalize='none' style={[textInput.global, { borderColor: Colors('dedalBlue') }]} title={t('account creation')} value={buildDate(SafeAreaProvider.Log["createdAt"])} editable={false} />
-            </View>
+      <View style={[global.container, {padding: 15}]}>
+        <Text style={[text.medium]}>{'Profile'}</Text>
+        <View style={{ paddingBottom: 15 }}>
+          <TextInput style={[textInput.global, { borderColor: Colors('dedalBlue') }]} title={t('username')} onChangeText={setUsername} value={Username} editable={Edit ? true : false} />
+          <TextInput style={[textInput.global, { borderColor: Colors('dedalBlue') }]} title={t('email')} value={email} editable={Edit ? true : false} />
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <TextInput style={[textInput.global, { width: '60%', borderColor: Colors('dedalBlue') }]} title={t('last connection')} value={buildDate(SafeAreaProvider.Log["Last connection"])} editable={false} />
+            <TextInput style={[textInput.global, { width: '60%', borderColor: Colors('dedalBlue') }]} title={t('account creation')} value={buildDate(SafeAreaProvider.Log["createdAt"])} editable={false} />
           </View>
-            {Error == true ? <Text style={[global.textCenter, color.errorRed]}>An error occured</Text> : null}
-            {
-              !Edit ?
-              <TextButton title={t('modify informations')} onPress={() => setEdit(true)}></TextButton> : 
-              <TextButton title={Username.length == 0 ? t('cancel') : t('confirm')} onPress={() => validateChange()}></TextButton>
-            }
-            <TextButton title={t('modify password')} onPress={() => SendVerifCode()}></TextButton>
+          {Error == true ? <Text style={[global.textCenter, color.errorRed]}>An error occured</Text> : null}
+          {!Edit ?
+            <TextButton style={{alignSelf: "center"}} title={t('modify informations')} onPress={() => setEdit(true)} /> : 
+            <TextButton style={{alignSelf: "center"}} title={Username.length == 0 ? t('cancel') : t('confirm')} onPress={() => validateChange()} />
+          }
         </View>
         <BasicModal Open={Open} setOpen={setOpen} Content={ModalLoginCode}/>
-        <Text style={[text.medium]} autoCapitalize='none'>{'Plan'}</Text>
+        <Text style={[text.medium]}>{'Plan'}</Text>
+        <View style={{ paddingBottom: 15 }}>
+          <Switch
+            title={t('professional mode')}
+            value={pro}
+            onValueChange={updateSwitch}
+          />
+        </View>
+        <Text style={[text.medium]}>{t('security')}</Text>
+        <View style={{ paddingBottom: 15 }}>
+          <TextButton style={{alignSelf: "center"}} title={t('modify password')} onPress={() => SendVerifCode()} />
+          {/*<TextButton style={{alignSelf: "center"}} title={t('logout of every device')} onPress={() => SendVerifCode()} />*/}
+        </View>
       </View>
   );
 }

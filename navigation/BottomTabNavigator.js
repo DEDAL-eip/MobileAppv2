@@ -94,10 +94,28 @@ function ProfileNavigator() {
       <ProfileStack.Screen
         name="Settings"
         component={Settings}
+        options={{
+          headerStyle: {
+            backgroundColor: '#294F87',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
       />
       <ProfileStack.Screen
         name="Account"
         component={Account}
+        options={{
+          headerStyle: {
+            backgroundColor: '#294F87',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
       />
     </ProfileStack.Navigator>
   );

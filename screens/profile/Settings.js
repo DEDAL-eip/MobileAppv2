@@ -1,8 +1,8 @@
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { View } from "../../constants/Themed";
+import { Text, View } from "../../constants/Themed";
 import { useState } from "react";
 
-import { global, color, textInput } from "../../style/styles";
+import { global, text, color, textInput } from "../../style/styles";
 import { Picker } from "../../components/Picker";
 import { Switch } from "../../components/Switch";
 
@@ -39,20 +39,19 @@ export default function Settings() {
   };
 
   return (
-    <View style={global.container}>
-      <View style={global.middleContainer}>
-        <Picker
-            title={t('language') + ':'}
-            items={languages}
-            selectedValue={selectedLanguage}
-            onValueChange={changeLanguage}
-          />
-          <Switch
-            title={t('dark mode') + ':'}
-            value={mode}
-            onValueChange={updateSwitch}
-          />
-      </View>
+    <View style={[global.container, {padding: 15}]}>
+      <Text style={[text.medium]}>{'Affichage'}</Text>
+      <Picker
+        title={t('language')}
+        items={languages}
+        selectedValue={selectedLanguage}
+        onValueChange={changeLanguage}
+      />
+      <Switch
+        title={t('dark mode')}
+        value={mode}
+        onValueChange={updateSwitch}
+      />
     </View>
   );
 }

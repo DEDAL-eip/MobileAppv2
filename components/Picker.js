@@ -14,7 +14,7 @@ export const Picker = (({
     const theme = useColorScheme();
 
     return (
-        <View style={{width : '90%', margin: 10}}>
+        <View style={{}}>
             <Text style={[{ color: Colors('Text', theme), fontWeight: 'bold'}]}>{title}</Text>
             <View style={{
                 borderRadius : 25,
