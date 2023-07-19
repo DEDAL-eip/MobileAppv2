@@ -42,7 +42,7 @@ export default function Filter({ navigation }) {
     }
     const getInfo = async () => {
       const res = await getInfoUser(SafeAreaProvider.Log.token, SafeAreaProvider.Log.id)
-      console.log(typeof(res))
+      console.log("AAAAAAAAAAAAAAAAAH", typeof(res))
       if (res.hasError)
          setUser({ budget: null, time: null, filter: [] })
       else
