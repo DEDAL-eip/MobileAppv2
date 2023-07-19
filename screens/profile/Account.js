@@ -27,16 +27,16 @@ export default function Account() {
   const [Edit, setEdit] = useState(false)
   const [Username, setUsername] = useState(SafeAreaProvider.Log.Username)
   const [email, setEmail] = useState(SafeAreaProvider.Log.Email)
-  const [pro, setPro] = useState(SafeAreaProvider.pro)
+  const [isProfessional, setIsProfessional] = useState(SafeAreaProvider.Log.isProfessional)
 
   const {t, i18n} = useTranslation();
 
   const updateSwitch = (e) => {
-    setPro(e)
+    setIsProfessional(e)
     if (e)
-      SafeAreaProvider.pro = true
+      SafeAreaProvider.Log.isProfessional = true
     else 
-      SafeAreaProvider.pro = false
+      SafeAreaProvider.Log.isProfessional = false
   }
 
   /**
@@ -72,11 +72,15 @@ export default function Account() {
     if (Username.length != 0)
       await MypatchParams(SafeAreaProvider.Log["id"], {'username' : Username}, SafeAreaProvider.Log.token).then(res => console.log('res => ', res))
     setEdit(false)
-    }
+  }
+
+  const getInfo = async () => {
+    console.log("USER:", SafeAreaProvider.Log)
+  }
 
   return (
       <View style={[global.container, {padding: 15}]}>
-        <Text style={[text.medium]}>{'Profile'}</Text>
+        <Text style={[text.medium]}>{t('profile')}</Text>
         <View style={{ paddingBottom: 15 }}>
           <TextInput style={[textInput.global, { borderColor: Colors('dedalBlue') }]} title={t('username')} onChangeText={setUsername} value={Username} editable={Edit ? true : false} />
           <TextInput style={[textInput.global, { borderColor: Colors('dedalBlue') }]} title={t('email')} value={email} editable={Edit ? true : false} />
@@ -84,25 +88,27 @@ export default function Account() {
             <TextInput style={[textInput.global, { width: '60%', borderColor: Colors('dedalBlue') }]} title={t('last connection')} value={buildDate(SafeAreaProvider.Log["Last connection"])} editable={false} />
             <TextInput style={[textInput.global, { width: '60%', borderColor: Colors('dedalBlue') }]} title={t('account creation')} value={buildDate(SafeAreaProvider.Log["createdAt"])} editable={false} />
           </View>
-          {Error == true ? <Text style={[global.textCenter, color.errorRed]}>An error occured</Text> : null}
+          {Error == true ? <Text style={[global.textCenter, color.errorRed]}>{t('an error occured')}</Text> : null}
           {!Edit ?
             <TextButton style={{alignSelf: "center"}} title={t('modify informations')} onPress={() => setEdit(true)} /> : 
             <TextButton style={{alignSelf: "center"}} title={Username.length == 0 ? t('cancel') : t('confirm')} onPress={() => validateChange()} />
           }
         </View>
         <BasicModal Open={Open} setOpen={setOpen} Content={ModalLoginCode}/>
-        <Text style={[text.medium]}>{'Plan'}</Text>
+        <Text style={[text.medium]}>{t('plan')}</Text>
         <View style={{ paddingBottom: 15 }}>
           <Switch
             title={t('professional mode')}
-            value={pro}
+            value={isProfessional}
             onValueChange={updateSwitch}
           />
         </View>
         <Text style={[text.medium]}>{t('security')}</Text>
         <View style={{ paddingBottom: 15 }}>
           <TextButton style={{alignSelf: "center"}} title={t('modify password')} onPress={() => SendVerifCode()} />
-          {/*<TextButton style={{alignSelf: "center"}} title={t('logout of every device')} onPress={() => SendVerifCode()} />*/}
+          {/* Function to logout on every device to develop
+            <TextButton style={{alignSelf: "center"}} title={t('logout of every device')} onPress={() => SendVerifCode()} />
+          */}
         </View>
       </View>
   );

@@ -9,6 +9,7 @@ import { Switch } from "../../components/Switch";
 import '../../constants/languages/i18n';
 import { useTranslation } from 'react-i18next';
 
+
 /**
  * @class display Settings screen
  * @export
@@ -19,9 +20,9 @@ import { useTranslation } from 'react-i18next';
 export default function Settings() {
   const [mode, setMode] = useState(SafeAreaProvider.mode=='dark' ? true : false)
   const [selectedLanguage, setSelectedLanguage] = useState('en')
-  const languages = [['english', 'en'], ['french', 'fr']]
-
   const {t, i18n} = useTranslation();
+  const languages = [[t('english'), 'en'], [t('french'), 'fr']]
+
 
   const updateSwitch = (e) => {
     setMode(e)
@@ -40,7 +41,7 @@ export default function Settings() {
 
   return (
     <View style={[global.container, {padding: 15}]}>
-      <Text style={[text.medium]}>{'Affichage'}</Text>
+      <Text style={[text.medium]}>{t('display')}</Text>
       <Picker
         title={t('language')}
         items={languages}
