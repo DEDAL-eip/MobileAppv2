@@ -23,13 +23,14 @@ import { ScrollView, Image } from "react-native";
  * @return {HTML} 
  */
 export default function Profile({ navigation }) {
+  SafeAreaProvider.Log.Location = []
   const [Open, setOpen] = useState(false)
   const [Error, setError] = useState(false)
   const [Edit, setEdit] = useState(false)
   const [email, setEmail] = useState(SafeAreaProvider.Log.Email)
   const [visible, setVisible] = useState(false);
-  const [locations, setLocations] = useState([]);
-
+  const [locations, setLocations] = useState(SafeAreaProvider.Log.Location);
+  
   const {t, i18n} = useTranslation();
 
   /**
