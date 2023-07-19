@@ -14,7 +14,6 @@ export const TextInput = (({
     placeholder,
     style,
     autoComplete,
-    secureTextEntry
 }) => {
     const theme = useColorScheme();
     const [hide, setHide] = useState(true)
@@ -32,10 +31,10 @@ export const TextInput = (({
                     onChangeText={onChangeText}
                     value={value}
                     placeholder={placeholder}
-                    secureTextEntry={secureTextEntry}
+                    secureTextEntry={secret}
                 />
                 {secret ?
-                    <Feather style={{marginLeft : -40, marginTop: 20}} name={hide ? "eye" : "eye-off"} size={24} onPress={() => setHide(!hide)}/>
+                    <Feather style={{marginLeft : -40, marginTop: 17.5}} name={hide ? "eye" : "eye-off"} size={24} onPress={() => setHide(!hide)}/>
                     :
                     <></>
                 }
