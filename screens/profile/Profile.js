@@ -3,16 +3,17 @@ import { Text, View } from "../../constants/Themed";
 import { useState } from "react";
 import { Menu, Divider, PaperProvider } from 'react-native-paper';
 
-import { global, text, textInput } from "../../style/styles";
+import { global, text } from "../../style/styles";
 import { MypatchParams, SendCode } from "../../API/Settings";
 import { TextButton } from "../../components/buttons/TextButton";
 import { Feather } from '@expo/vector-icons';
+import LocationCard from '../../components/LocationCard';
 
 import Colors from "../../constants/Colors";
 
 import '../../constants/languages/i18n';
 import { useTranslation } from 'react-i18next';
-import { Image } from "react-native";
+import { ScrollView, Image } from "react-native";
 
 /**
  * @class display Profile screen
@@ -27,6 +28,7 @@ export default function Profile({ navigation }) {
   const [Edit, setEdit] = useState(false)
   const [email, setEmail] = useState(SafeAreaProvider.Log.Email)
   const [visible, setVisible] = useState(false);
+  const [locations, setLocations] = useState([]);
 
   const {t, i18n} = useTranslation();
 
@@ -78,7 +80,7 @@ export default function Profile({ navigation }) {
     <View style={[global.container, {padding: 15}]}>
         <View
           style={{
-            padding: 10,
+            padding: 5,
             flexDirection: 'row',
             justifyContent: 'flex-end',
           }}>
@@ -86,15 +88,15 @@ export default function Profile({ navigation }) {
             visible={visible}
             onDismiss={closeMenu}
             anchor={<Feather color={Colors('dedalBlue')} name={"menu"} size={24} onPress={openMenu} />}>
-            <Menu.Item leadingIcon="key" onPress={() => navigation.navigate('Account')} title="Account" />
-            <Menu.Item leadingIcon="settings" onPress={() => navigation.navigate('Settings')} title="Settings" />
+            <Menu.Item leadingIcon="key" onPress={() => navigation.navigate('Account')} title={t('account')} />
+            <Menu.Item leadingIcon="settings" onPress={() => navigation.navigate('Settings')} title={t('settings')} />
             <Divider />
-            <Menu.Item leadingIcon="log-out" onPress={() => SafeAreaProvider.Loged(false)} title="Log out" />
+            <Menu.Item leadingIcon="log-out" onPress={() => SafeAreaProvider.Loged(false)} title={t('log out')} />
           </Menu>
         </View>
         <View style={{flexDirection: 'row', paddingBottom: 15}}>
-          {SafeAreaProvider.Log.ProfilePicture ?
-            <Image style={{width: 130, height: 130, borderColor: '#294F87', borderWidth: 5, borderRadius: 100}} source={require('../../assets/images/icon.png')} />
+          {true /*SafeAreaProvider.Log.ProfilePicture*/ ?
+            <Image style={{width: 130, height: 130, borderColor: '#294F87', borderWidth: 5, borderRadius: 100}} source={require('../../assets/images/profile_picture.jpg')} />
             :
             <View style={{alignItems: "center", justifyContent : "center", width: 135, height: 135, backgroundColor: Colors('dedalBlueDisable'), borderColor: '#294F87', borderWidth: 5, borderRadius: 100}}>
               <Feather color={Colors('dedalBlue')} name={"user"} size={75} />
@@ -105,10 +107,25 @@ export default function Profile({ navigation }) {
             <Text>{SafeAreaProvider.Log.Email}</Text>
           </View>
         </View>
-        {SafeAreaProvider.pro ?
-          <Text style={[text.medium]}>{t('profesionnal dashboard')}</Text>
+        {SafeAreaProvider.Log.isProfessional ?
+          <View>
+            <Text style={[text.medium]}>{t('professional dashboard')}</Text>
+            {
+              locations.length ?
+                <ScrollView>
+                  {locations.map((item, index) => {
+                    return <LocationCard key={index} item={item} />
+                  })}
+                </ScrollView>
+              :
+                <View style={{alignItems: 'center', padding: 15}}>
+                  <Text>{t('you didn\'t claim any locations yet')}</Text>
+                </View>
+            }
+            <TextButton style={{alignSelf: "center"}} title={t('add location')} onPress={() => navigation.navigate('Locations Search')} />
+          </View>
           :
-          <></>
+          null
         }
       </View>
     </PaperProvider>
