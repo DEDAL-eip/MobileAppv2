@@ -7,6 +7,7 @@
         "email": "Adresse email",
         "password": "Mot de passe",
         "log in": "Se connecter",
+        "log out": "Se déconnecter",
         "sign up": "S'inscrire",
         "wrong mail or password": "Email ou mot de passe incorrecte",
         "in itinerary": "Dans l'itinéraire",
@@ -18,6 +19,7 @@
         "settings": "Options",
         "username": "Nom utilisateur",
         "last connection": "Dernière connexion",
+        "account": "Compte",
         "account creation": "Création du compte",
         "language": "Langage",
         "french": "Français",
@@ -40,6 +42,13 @@
         "save": "Sauvegarder",
         "reset": "Réinitialiser",
         "duration": "Durée",
-        "budget": "Budget"
+        "budget": "Budget",
+        "professional dashboard": "Tableau de bord professionnel",
+        "professional mode": "Mode professionnel",
+        "you didn't claim any locations yet": "Vous n'avez pas revendiqué de lieux",
+        "plan": "Plan",
+        "display": "Affichage",
+        "security": "Sécurité",
+        "add location": "Ajouter lieux"
     }
 }

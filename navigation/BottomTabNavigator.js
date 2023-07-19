@@ -1,21 +1,28 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createStackNavigator } from "@react-navigation/stack";
 import { useColorScheme } from "react-native";
 import { Feather } from '@expo/vector-icons';
 
 import Home from "../screens/Home";
-import Profile from "../screens/Profile";
+
+import Profile from "../screens/profile/Profile";
+import Settings from "../screens/profile/Settings";
+import Account from "../screens/profile/Account";
+
 import Filter from "../screens/Filters";
 import Location from "../screens/Locations";
+
 import Colors from "../constants/Colors";
-import Settings from "../screens/Settings";
-import Account from "../screens/Account";
+import '../constants/languages/i18n';
+import { useTranslation } from 'react-i18next';
+import LocationsSearch from "../screens/profile/LocationsSearch";
 
 const BottomTab = createMaterialBottomTabNavigator();
 
 export default function BottomTabNavigator() {
   const colorScheme = useColorScheme();
+  const {t, i18n} = useTranslation();
+
   return (
     <BottomTab.Navigator
       initialRouteName="Home"
@@ -27,7 +34,7 @@ export default function BottomTabNavigator() {
       }}
     >
       <BottomTab.Screen
-        name="Filters"
+        name={t('filters')}
         component={FiltersNavigator}
         options={{
           tabBarIcon: ({ color }) => (
@@ -36,7 +43,7 @@ export default function BottomTabNavigator() {
         }}
       />
       <BottomTab.Screen
-        name="Home"
+        name={t('home')}
         component={HomeNavigator}
         options={{
           tabBarIcon: ({ color }) => (
@@ -45,7 +52,7 @@ export default function BottomTabNavigator() {
         }}
       />
       <BottomTab.Screen
-        name="Location"
+        name={t('locations')}
         component={LocationNavigator}
         options={{
           tabBarIcon: ({ color }) => (
@@ -54,7 +61,7 @@ export default function BottomTabNavigator() {
         }}
       />
       <BottomTab.Screen
-        name="Profile"
+        name={t('profile')}
         component={ProfileNavigator}
         options={{
           tabBarIcon: ({ color }) => (
@@ -91,10 +98,41 @@ function ProfileNavigator() {
       <ProfileStack.Screen
         name="Settings"
         component={Settings}
+        options={{
+          headerStyle: {
+            backgroundColor: '#294F87',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
       />
       <ProfileStack.Screen
         name="Account"
         component={Account}
+        options={{
+          headerStyle: {
+            backgroundColor: '#294F87',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      />
+      <ProfileStack.Screen
+        name="Locations Search"
+        component={LocationsSearch}
+        options={{
+          headerStyle: {
+            backgroundColor: '#294F87',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
       />
     </ProfileStack.Navigator>
   );

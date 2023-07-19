@@ -1,13 +1,14 @@
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { View } from "../constants/Themed";
+import { Text, View } from "../../constants/Themed";
 import { useState } from "react";
 
-import { global, color, textInput } from "../style/styles";
-import { Picker } from "../components/Picker";
-import { Switch } from "../components/Switch";
+import { global, text, color, textInput } from "../../style/styles";
+import { Picker } from "../../components/Picker";
+import { Switch } from "../../components/Switch";
 
-import '../constants/languages/i18n';
+import '../../constants/languages/i18n';
 import { useTranslation } from 'react-i18next';
+
 
 /**
  * @class display Settings screen
@@ -19,9 +20,9 @@ import { useTranslation } from 'react-i18next';
 export default function Settings() {
   const [mode, setMode] = useState(SafeAreaProvider.mode=='dark' ? true : false)
   const [selectedLanguage, setSelectedLanguage] = useState('en')
-  const languages = [['english', 'en'], ['french', 'fr']]
-
   const {t, i18n} = useTranslation();
+  const languages = [[t('english'), 'en'], [t('french'), 'fr']]
+
 
   const updateSwitch = (e) => {
     setMode(e)
@@ -39,20 +40,19 @@ export default function Settings() {
   };
 
   return (
-    <View style={global.container}>
-      <View style={global.middleContainer}>
-        <Picker
-            title={t('language') + ':'}
-            items={languages}
-            selectedValue={selectedLanguage}
-            onValueChange={changeLanguage}
-          />
-          <Switch
-            title={t('dark mode') + ':'}
-            value={mode}
-            onValueChange={updateSwitch}
-          />
-      </View>
+    <View style={[global.container, {padding: 15}]}>
+      <Text style={[text.medium]}>{t('display')}</Text>
+      <Picker
+        title={t('language')}
+        items={languages}
+        selectedValue={selectedLanguage}
+        onValueChange={changeLanguage}
+      />
+      <Switch
+        title={t('dark mode')}
+        value={mode}
+        onValueChange={updateSwitch}
+      />
     </View>
   );
 }

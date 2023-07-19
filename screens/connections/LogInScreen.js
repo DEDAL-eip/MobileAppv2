@@ -11,7 +11,7 @@ import { global, textInput, color } from "../../style/styles";
 import Colors from "../../constants/Colors";
 
 import { TextButton } from "../../components/buttons/TextButton";
-import { HideTextInput, TextInput } from "../../components/TextInput";
+import { TextInput } from "../../components/TextInput";
 import { AskEmailModal } from "../../components/Modal/AskEmail";
 import BasicModal from "../../components/modal";
 
@@ -79,8 +79,8 @@ export function LogInScreen({ navigation }) {
   }, [])
 
   return (
-    <View style={global.container}>
-      { isLoading ?
+    <View style={[global.container, {padding: 15}]}>
+        { isLoading ?
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <LottieView
             source={require('../../assets/98432-loading.json')}
@@ -94,15 +94,14 @@ export function LogInScreen({ navigation }) {
         </View>
       :
       <>
-        <Feather style={{margin: 10}} name={'arrow-left'} size={24} onPress={navigation.goBack}/>
+        <Feather style={{margin: 5}} name={'arrow-left'} size={24} onPress={navigation.goBack}/>
 
-        <View style={global.basicContainer}>
-          <Text style={Error ? color.errorRed : null}>{Error ? t('wrong mail or password') : ""}</Text>
-          <TextInput autoCapitalize='none' autoComplete='email' style={[textInput.global, { borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue') }]} title={t('what\'s your email') + '?'} onChangeText={setEmail} value={Email} />
-          <HideTextInput autoCapitalize='none' autoComplete='password' style={[textInput.global, { borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue') }]} title={t('what\'s your password') + '?'} onChangeText={setPassword} value={Password} />
-        </View>
+        <TextInput autoComplete='email' style={[textInput.global, { borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue') }]} title={t('what\'s your email') + '?'} onChangeText={setEmail} value={Email} />
+        <TextInput autoComplete='password' secret={true} style={[textInput.global, { borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue') }]} title={t('what\'s your password') + '?'} onChangeText={setPassword} value={Password} />
+        <Text style={Error ? color.errorRed : null}>{Error ? t('wrong mail or password') : ""}</Text>
+        
       
-        <View style={{ display: 'flex', flexDirection: 'row', marginLeft: 25, marginTop: 10 }}>
+        <View style={{ display: 'flex', flexDirection: 'row', marginLeft: 5 }}>
           <Checkbox value={isChecked} onValueChange={() => setChecked(!isChecked)} />
           <Text>{'  ' + t('remember me')}</Text>
         </View>

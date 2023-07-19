@@ -33,6 +33,7 @@ export const getInfoUser = async (token, userId) => {
         .then(res => res.json())
         .catch(err => ({ hasError: true, status: err }))
 }
+
 export const setInfoUser = async (token, userId, info) => {
     return await fetch(`http://52.166.128.133/user/?id=${userId}`, {
         method: 'PATCH',
