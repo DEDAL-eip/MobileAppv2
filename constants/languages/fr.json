@@ -49,6 +49,14 @@
         "plan": "Plan",
         "display": "Affichage",
         "security": "Sécurité",
-        "add location": "Ajouter lieux"
+        "add location": "Ajouter lieux",
+        "itinerary" : "Itinéraire",
+        "interests" : "Intérêts",
+        "near you" : "Proche de vous",
+        "remove" : "Supprimer",
+        "the duration of your trip is:" : "La durée de votre voyage est de:",
+        "the budget for your trip is:" : "Le budget de votre voyage est de :",
+        "address" : "adresse"
+
     }
 }

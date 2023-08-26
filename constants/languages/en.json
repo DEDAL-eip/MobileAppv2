@@ -49,6 +49,13 @@
         "plan": "Plan",
         "display": "Display",
         "security": "Security",
-        "add location": "Add locations"
+        "add location": "Add locations",
+        "itinerary" : "Itinerary",
+        "interest" : "Interests",
+        "near you" : "Near you",
+        "remove" : "Remove",
+        "the duration of your trip is:" : "The duration of your trip is:",
+        "the budget for your trip is:" : "The budget for your trip is:",
+        "address": "address"
     }
 }

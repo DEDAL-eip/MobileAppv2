@@ -107,7 +107,7 @@ export default function Filter({ navigation }) {
     return (
       <View style={{ width: '100%', display: 'flex', alignItems: 'center', marginTop: 10 }} >
         <View style={{ paddingBottom: '30%', display: 'flex', alignItems: 'center' }}>
-          <Text>Le budget de votre voyage est de : </Text>
+          <Text>{t('the budget for your trip is:')}</Text>
           <Text>{infoUser.budget || 0} €</Text>
           <Separator />
         </View>
@@ -143,7 +143,7 @@ export default function Filter({ navigation }) {
     return (
       <View style={{ width: '100%', display: 'flex', alignItems: 'center', marginTop: 10 }} >
         <View style={{ paddingBottom: '30%', display: 'flex', alignItems: 'center' }}>
-          <Text>{'La durée de votre voyage est de:'}</Text>
+          <Text>{t('the duration of your trip is:')}</Text>
           <Text>{infoUser.time || 0} heure{(infoUser.time || 0) > 1 ? 's' : ''}</Text>
           <Separator />
         </View>
@@ -204,7 +204,7 @@ export default function Filter({ navigation }) {
       <View style={global.titleContainer}>
         <View style={[global.header, shadow.Bottom]}>
           <View style={{ width: "33%", display: 'flex', alignItems: 'center' }}>
-            <TextButton style={button.disable} title={t("Categories")} onPress={() => setDisplay(2)} />
+            <TextButton style={button.disable} title={t("categories")} onPress={() => setDisplay(2)} />
           </View>
           <View style={{ width: "33%", display: 'flex', alignItems: 'center' }}>
             <TextButton title={t('budget')} onPress={() => setDisplay(1)} />
