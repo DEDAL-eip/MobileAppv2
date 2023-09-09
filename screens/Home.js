@@ -51,7 +51,6 @@ export default function Home() {
    * Extract the path and the building in Path and Place
    */
   const askMap = async (res) => {
-    console.log('1', res)
     setPath(res.LongLat)
     if (Place.length == 0) {
       let result = res.Buildings ? await Promise.all(res.Buildings.map(async elem => {
@@ -63,12 +62,9 @@ export default function Home() {
   }
 
   const askUserInfo = async () => {
-    console.log(SafeAreaProvider.Place)
     if (!SafeAreaProvider.map) {
       let res = await getMap(SafeAreaProvider.Log.id, SafeAreaProvider.Log.token)
-      console.log('dsjfsdlfjslfjs => ', res.LongLat)
       if (res.LongLat != undefined) {
-        console.log('here')
         askMap(res)
       }
     }
@@ -77,7 +73,6 @@ export default function Home() {
     }
     else
       createItinerary()
-    console.log('debug => ', SafeAreaProvider.map, SafeAreaProvider.Place)
   }
 
   /**
@@ -85,11 +80,9 @@ export default function Home() {
   */
   const createItinerary = async () => {
     await getGeneratedPlace(SafeAreaProvider.Log.id, SafeAreaProvider.Log.token).then(async (places) => {
-      console.log('places => ', places)
       if (places.hasError)
         return
       setPlace(JSON.parse(places))
-      console.log(places)
       SafeAreaProvider.Place = JSON.parse(places)
       //await getPath(JSON.parse(places), { "y": 3.060966, "x": 50.631305 }, SafeAreaProvider.Log.id)
       //askMap()
