@@ -11,8 +11,7 @@ export async function getLocationOut(id) {
 }
 
 export async function getLocationIn(id) {
-    console.log('here')
-    return await fetch(`http://52.166.128.133/places_nofilter/?id=${id}`, {
+    return await fetch(`http://localhost:8080/places_nofilter/?id=${id}`, {
         method: 'GET',
         headers: {
             'Content-type': 'application/json',

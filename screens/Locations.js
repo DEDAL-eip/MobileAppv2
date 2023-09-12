@@ -42,7 +42,6 @@ export default function Location({ navigation }) {
   useEffect(() => {
     const getIn = async () => {
       await getLocationIn(SafeAreaProvider.Log.id).then(res => {
-        console.log(res)
         if (res == undefined)
           setToDisplay([])
         else
@@ -51,7 +50,6 @@ export default function Location({ navigation }) {
     }
     const getOut = async () => {
       await getLocationOut(SafeAreaProvider.Log.id).then(res => {
-        console.log(res)
 
         if (res == undefined)
           setToDisplay([])
@@ -59,7 +57,6 @@ export default function Location({ navigation }) {
           setToDisplay(res)
       })
     }
-    console.log(display)
     if (display === 2)
       setToDisplay(SafeAreaProvider.Place)
     if (display === 1)

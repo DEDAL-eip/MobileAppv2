@@ -1,0 +1,24 @@
+{
+    "step": [
+        {
+            "title": "Bienvenue dans notre application !",
+            "description": "Nous sommes ravis de vous accueillir dans notre application qui vous offrira une expérience de découverte unique. Préparez-vous à explorer votre ville d'une manière entièrement nouvelle. "
+        },
+        {
+            "title": "Filtres personnalisés - Filters",
+            "description": "Créez un parcours sur mesure en configurant des filtres, budget et horaires."
+        },
+        {
+            "title": "Home",
+            "description": "Lorsque vous ouvrez l'application, vous êtes accueilli par notre écran d'accueil convivial. Ici, vous pouvez visualiser votre parcours personnalisé sur une carte interactive, prêt à partir à l'aventure. Explorez facilement les lieux recommandés et suivez votre itinéraire avec simplicité. Profitez d'une expérience utilisateur fluide dès le premier instant !"
+        },
+        {
+            "title": "Gestion des lieux - Location",
+            "description": "Modifiez facilement votre itinéraire en ajoutant ou supprimant des lieux à explorer. Disponible après la génération du parcours, cette fonctionnalité vous offre une flexibilité totale pour une expérience sur mesure."
+        },
+        {
+            "title": "Paramètres",
+            "description": "Personnalisez votre expérience en configurant les paramètres de l'application selon vos préférences. Adaptez l'app à votre façon de vivre et explorez la ville à votre rythme."
+        }
+    ]
+}

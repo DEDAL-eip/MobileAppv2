@@ -32,12 +32,10 @@ export default function LocationsSearch() {
   useEffect(() => {
       const getIn = async () => {
       await getLocationIn(SafeAreaProvider.Log.id).then(res => {
-        // console.log(res)
         if (res == undefined)
           SafeAreaProvider.Place = []
         else
           SafeAreaProvider.Place = res
-          console.log(res)
         })
     }
     getIn()

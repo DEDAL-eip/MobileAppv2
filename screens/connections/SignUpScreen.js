@@ -38,7 +38,6 @@ export function SignUpScreen({ navigation }) {
 
     const SendCode = async () => {
         let res = await signUpCode(email, code)
-        console.log(email, password, res)
         if (res == 201)
             signIn(email, password).then(res => {
                 if (res.hasError == true)
