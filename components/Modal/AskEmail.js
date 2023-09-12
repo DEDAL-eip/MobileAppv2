@@ -32,8 +32,8 @@ export const AskEmailModal = (Close) => {
         }
         if (step == 1) {
             let res = await changePassword(email, Password, Code)
-            // if (res.status != 202)
-            //     setErrorMsg(true)
+            if (res.status != 202)
+                setErrorMsg(true)
             Close()
         }
     }

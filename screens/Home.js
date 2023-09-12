@@ -1,20 +1,31 @@
 import { useState, useEffect } from "react";
 
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { View, Text, StyleSheet, TouchableOpacity  } from "react-native";
-import { global, map, button } from "../style/styles";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { global, map } from "../style/styles";
 import * as Location from 'expo-location';
 import MapView, { Marker, Polyline, PROVIDER_GOOGLE } from 'react-native-maps'
 import { getPlace, getMap, getPath, getGeneratedPlace } from "../API/Home";
 import Colors from "../constants/Colors";
-import { getInfoUser } from "../API/Filters";
-import { TextButton } from "../components/buttons/TextButton";
 import { useIsFocused } from "@react-navigation/native";
 import { palette } from '../constants/Colors'
-
+import { Entypo } from '@expo/vector-icons';
 import '../constants/languages/i18n';
 import { useTranslation } from 'react-i18next';
-import { Feather } from "@expo/vector-icons";
+import * as SecureStore from 'expo-secure-store';
+import data from '../constants/onboarding.json';
+
+
+
+
+async function save(email, password, check) {
+  await SecureStore.setItemAsync('onboarding', JSON.stringify({ 'checked': true }));
+}
+
+async function getValueFor() {
+  let result = await SecureStore.getItemAsync('onboarding');
+  return JSON.parse(result)
+}
 
 /**
  * @class display Home screen
@@ -25,6 +36,8 @@ import { Feather } from "@expo/vector-icons";
  */
 export default function Home() {
   const [location, setLocation] = useState()
+  const [firstStep, setFIrstStep] = useState(0)
+  const [firstStepShow, setFIrstStepShow] = useState(false)
   const [Path, setPath] = useState([])
   const [Place, setPlace] = useState([])
   const IsFocused = useIsFocused()
@@ -89,7 +102,31 @@ export default function Home() {
     })
   }
 
+  const getNext = () => {
+    let index = Place.map(e => e.id).indexOf(selected.id) + 1
+    if (index >= Place.length)
+      return
+    setSelected(Place[index])
+  }
+  const getPrev = () => {
+    let index = Place.map(e => e.id).indexOf(selected.id) - 1
+    if (index < 0)
+      return
+    setSelected(Place[index])
+  }
+
+  const endFirstStep = () => {
+    setFIrstStepShow(false)
+    save()
+  }
+
   useEffect(() => {
+    const getFirstStep = async () => {
+      let first_step = await getValueFor()
+      if (!first_step.checked)
+        setFIrstStepShow(true)
+    }
+    getFirstStep()
     askPosition()
     askUserInfo()
   }, [IsFocused]);
@@ -147,15 +184,32 @@ export default function Home() {
           )
         }
       </MapView>
-      {selected ? 
-      <View style={{position: 'absolute', left: 0, bottom: 0, width : '100%',display: 'flex',  alignItems: "center", }}>
-      <View style={{width : '90%'}}>
-            <TouchableOpacity style={[styles.card, {backgroundColor : palette.global.dedalBlue}]}>
+      {firstStepShow ?
+        <View style={{ position: 'absolute', left: 0, bottom: 0, width: '100%', height: '100%', display: 'flex', alignItems: "center", backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+          <View style={{ width: '90%', height: '25%' }}>
+            <TouchableOpacity style={[styles.card, global.row, { backgroundColor: palette.global.dedalBlue }]}>
+              <Entypo name="chevron-left" size={24} color="white" onPress={() => setFIrstStep(firstStep == 0 ? firstStep : firstStep - 1)} />
+              <View style={{ width: '80%' }}>
+                <Text style={styles.title}>{data.step[firstStep].title}</Text>
+                <Text style={styles.description}>{data.step[firstStep].description}</Text>
+              </View>
+              <Entypo name="chevron-right" size={24} color="white" onPress={() => firstStep == data.step.length - 1 ? endFirstStep(false) : setFIrstStep(firstStep + 1)} />
+            </TouchableOpacity>
+          </View>
+        </View> : null}
+      {selected ?
+        <View style={{ position: 'absolute', left: 0, bottom: 0, width: '100%', display: 'flex', alignItems: "center", }}>
+          <View style={{ width: '90%', height: '10%' }}>
+            <TouchableOpacity style={[styles.card, global.row, { backgroundColor: palette.global.dedalBlue }]}>
+              <Entypo name="chevron-left" size={24} color="white" onPress={() => getPrev()} />
+              <View style={{ width: '80%' }}>
                 <Text style={styles.title}>{selected.name}</Text>
                 <Text style={styles.description}>{selected.description}</Text>
+              </View>
+              <Entypo name="chevron-right" size={24} color="white" onPress={() => getNext()} />
             </TouchableOpacity>
-        </View>
-        </View> : null }
+          </View>
+        </View> : null}
     </View>
   );
 }
@@ -163,21 +217,22 @@ export default function Home() {
 const cardColor = '#00B4D8'
 const styles = StyleSheet.create({
   card: {
-      flex: 1,
-      padding: 25,
-      marginHorizontal: 10,
-      borderRadius: 10,
-      marginTop: 10,
-      marginBottom: 10,
-      backgroundColor: cardColor,
+    flex: 1,
+    padding: 25,
+    marginHorizontal: 10,
+    borderRadius: 10,
+    marginTop: 10,
+    marginBottom: 10,
+    backgroundColor: cardColor,
+    height: '10%',
   },
   title: {
-      color: '#FFF',
-      fontWeight: 'bold',
-      fontSize: 18
+    color: '#FFF',
+    fontWeight: 'bold',
+    fontSize: 18
   },
   description: {
-      color: '#FFF',
-      fontSize: 12
+    color: '#FFF',
+    fontSize: 12
   }
 })
