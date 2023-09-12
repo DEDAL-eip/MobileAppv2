@@ -8,7 +8,7 @@ import { global, textInput } from "../../style/styles";
 import Colors from "../../constants/Colors";
 
 import { TextButton } from "../../components/buttons/TextButton";
-import { HideTextInput, TextInput } from "../../components/TextInput";
+import { TextInput } from "../../components/TextInput";
 
 import '../../constants/languages/i18n';
 import { useTranslation } from 'react-i18next';
@@ -56,7 +56,7 @@ export function SignUpScreen({ navigation }) {
             <Feather style={{margin: 10}} name={'arrow-left'} size={24} onPress={navigation.goBack}/>
             <View style={[global.basicContainer, { marginBottom: 20 }]}>
                 <TextInput autoCapitalize='none' style={[textInput.global, { borderColor: Colors(checkMailError() ? 'ErrorRed' : 'dedalBlue') }]} title={t('what\'s your email') + '?'} onChangeText={setEmail} value={email} />
-                <HideTextInput autoCapitalize='none' style={[textInput.global, { borderColor: Colors(checkPasswordError() ? 'ErrorRed' : 'dedalBlue') }]} title={t('what\'s your password') + '?'} onChangeText={setPassword} value={password} />
+                <TextInput secret={'true'} autoCapitalize='none' style={[textInput.global, { borderColor: Colors(checkPasswordError() ? 'ErrorRed' : 'dedalBlue') }]} title={t('what\'s your password') + '?'} onChangeText={setPassword} value={password} />
                 {!state ?
                     <View style={{ paddingTop: 20 }}>
                         <Text>{t('your password must contain at least') + ':'}</Text>

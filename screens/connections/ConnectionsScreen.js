@@ -6,7 +6,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import { google, nextG } from "../../API/Login";
 
-import { global, titles } from "../../style/styles";
+import { global, text } from "../../style/styles";
 import { Separator, Text, View } from "../../constants/Themed";
 
 import { TextButton } from "../../components/buttons/TextButton";
@@ -60,9 +60,9 @@ export function ConnectionsScreen({ navigation }) {
   return (
     <View style={global.container}>
       <View style={global.titleContainer}>
-        <Image style={titles.image} source={require('../../assets/logo.png')} />
-        <Text style={titles.main}>{'DEDAL'}</Text>
-        <Text style={titles.subtitle}>{t('the path to your culture') + '.'}</Text>
+        <Image style={text.image} source={require('../../assets/logo.png')} />
+        <Text style={text.large}>{'DEDAL'}</Text>
+        <Text style={text.small}>{t('the path to your culture') + '.'}</Text>
       </View>
       <View style={global.middleContainer}>
         <TextButton title={t('sign up')} onPress={() => navigation.navigate('SignUp')} />

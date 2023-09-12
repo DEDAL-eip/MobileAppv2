@@ -11,7 +11,7 @@ export const Switch = (({
   const theme = useColorScheme();
 
   return(
-    <View>
+    <View style={{ alignItems: 'flex-start' }}>
       <Text style={[{ color: Colors('Text', theme), fontWeight: 'bold'}]}>{title}</Text>
       <DefaultSwitch
         style={style}

@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import { palette } from '../constants/Colors'
+import Colors, { palette } from '../constants/Colors'
+import { text } from "../style/styles";
+
 /**
  * @class
  * It's a custom Text component that loads fonts from the assets folder
@@ -15,8 +17,8 @@ const LocationButton = (props) => {
     return (
         <View>
             <TouchableOpacity style={[styles.card, {backgroundColor : color}]} onPress={() => props.Selector(props.item.id)}>
-                <Text style={styles.title}>{props.item.name}</Text>
-                <Text style={styles.description}>{props.item.description}</Text>
+                <Text style={[text.small, {color: '#FFF'}]}>{props.item.name}</Text>
+                <Text style={{color: Colors('dedalBlue') }}>{props.item.description}</Text>
             </TouchableOpacity>
         </View>
     )
@@ -32,15 +34,6 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginBottom: 10,
         backgroundColor: cardColor,
-    },
-    title: {
-        color: '#FFF',
-        fontWeight: 'bold',
-        fontSize: 18
-    },
-    description: {
-        color: '#FFF',
-        fontSize: 12
     }
 })
 

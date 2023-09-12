@@ -1,7 +1,7 @@
 import { View } from "react-native"
 import { GlobalButton } from "../Button"
 import { Title } from "../Title"
-import { HideTextInput, TextInput, TextInputPassword } from "../../components/TextInput"
+import { TextInput, TextInputPassword } from "../../components/TextInput"
 import { useEffect, useState } from "react"
 import { Text } from "../../constants/Themed";
 import { global, textInput } from "../../style/styles"
@@ -93,13 +93,15 @@ export const AskEmailModal = (Close) => {
                                 placeholder="Code"
                                 keyboardType="numeric"
                             />
-                            <HideTextInput
+                            <TextInput
+                                secret={true}
                                 style={Error ? textInput.Error : textInput.global}
                                 onChangeText={setPassword}
                                 value={Password}
                                 placeholder="Password"
                             />
-                            <HideTextInput
+                            <TextInput
+                                secret={true}
                                 style={ErrorPas ? textInput.Error : textInput.global}
                                 onChangeText={setValidatePassword}
                                 value={ValidatePassword}

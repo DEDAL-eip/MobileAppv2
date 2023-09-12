@@ -6,7 +6,8 @@
         "locations": "Locations",
         "email": "Email",
         "password": "Password",
-        "log in": "Log In",
+        "log in": "Log in",
+        "log out": "Log out",
         "sign up": "Sign Up",
         "wrong mail or password": "Wrong mail or password",
         "in itinerary": "In itinerary",
@@ -14,9 +15,11 @@
         "out filters": "Out filters",
         "this screen doesn't exist.": "This screen doesn't exist.",
         "go to home screen!": "Go to home screen!",
+        "profile": "Profile",
         "settings": "Settings",
         "username": "Username",
         "last connection": "Last connection",
+        "account": "Account",
         "account creation": "Account creation",
         "language": "Language",
         "french": "French",
@@ -39,6 +42,13 @@
         "save": "Save",
         "reset": "Reset",
         "duration": "Duration",
-        "budget": "Budget"
+        "budget": "Budget",
+        "professional dashboard": "Professional dashboard",
+        "professional mode": "Professional mode",
+        "you didn't claim any locations yet": "You didn't claim any locations yet",
+        "plan": "Plan",
+        "display": "Display",
+        "security": "Security",
+        "add location": "Add locations"
     }
 }

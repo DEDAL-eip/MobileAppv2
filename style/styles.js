@@ -4,7 +4,6 @@ import Colors from "../constants/Colors"
 
 export const global = StyleSheet.create({
   container: {
-    height : '100%',
     flex : 1,
   },
   titleContainer : {
@@ -36,9 +35,7 @@ export const global = StyleSheet.create({
     justifyContent: 'space-between'
   },
   basicContainer : {
-    width : '100%',
     alignItems : "center",
-    justifyItems: "center"
   },
   header: {
     display : 'flex',
@@ -53,15 +50,15 @@ export const global = StyleSheet.create({
 })
 
 export const button = StyleSheet.create({
-  container : {
+  global : {
     backgroundColor : Colors('dedalBlue'),
-    width : '85%',
+    width : '75%',
     height : 45,
     alignItems: "center",
     justifyContent: "center",
-    marginTop : 5,
     borderRadius : 25,
-    fontWeight : "bold"
+    fontWeight : "bold",
+    marginTop: 10
   },
   close : {
     alignSelf: 'flex-end',
@@ -78,11 +75,10 @@ export const button = StyleSheet.create({
   },
   disable : {
     backgroundColor : Colors('dedalBlueDisable'),
-    width : '85%',
+    width : '75%',
     height : 45,
     alignItems: "center",
     justifyContent: "center",
-    marginTop : 5,
     borderRadius : 25,
     color : Colors('Text')
   }
@@ -90,19 +86,16 @@ export const button = StyleSheet.create({
 
 export const textInput = StyleSheet.create({
   global : {
-    width : '90%',
+    width: '100%',
     height : 50,
-    marginTop : 5,
     borderRadius : 25,
     borderWidth: 2,
     marginTop : 5,
-    paddingLeft : 10,
+    paddingLeft : 15,
     borderColor : Colors('dedalBlue'),
   },
   Error : {
-    width : '90%',
     height : 50,
-    marginTop : 5,
     borderRadius : 25,
     borderWidth: 2,
     marginTop : 5,
@@ -121,21 +114,25 @@ export const map =  StyleSheet.create({
   height: '100%',
 })
 
-export const titles = StyleSheet.create({
-  main: {
+export const text = StyleSheet.create({
+  large: {
     fontSize: 48,
     fontWeight: 'bold',
     fontFamily : "Main",
     textAlign: 'center',
     lineBreak: 'normal',
-
-
   },
-  subtitle : {
+
+  medium:{
     fontSize: 24,
     fontWeight: 'bold',
     fontFamily : "Main",
-    textAlign: 'center',
+  },
+
+  small : {
+    fontSize: 14,
+    fontWeight: 'bold',
+    fontFamily : "Main",
   },
 
   image: {
