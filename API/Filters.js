@@ -35,14 +35,18 @@ export const getInfoUser = async (token, userId) => {
 }
 
 export const setInfoUser = async (token, userId, info) => {
+    console.log('in')
     return await fetch(`http://52.166.128.133/user/?id=${userId}`, {
         method: 'PATCH',
-        body: JSON.stringify({ lastInfo : info }),
+        body: JSON.stringify({ lastInfo: info }),
         headers: {
             'x-access-token': token,
             'Accept': '*/*',
             'Content-type': 'application/json',
         },
     })
-    .then(res => res)
+        .then(res => {
+            console.log('res =>' + res)
+            return res
+        })
 }
