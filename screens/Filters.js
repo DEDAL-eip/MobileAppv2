@@ -42,10 +42,12 @@ export default function Filter({ navigation }) {
     }
     const getInfo = async () => {
       const res = await getInfoUser(SafeAreaProvider.Log.token, SafeAreaProvider.Log.id)
-      if (res.hasError)
+      if (res.hasError) {
         setUser({ budget: null, time: null, filter: [] })
-      else
+      }
+      else {
         setUser(res)
+      }
     }
     getFilter()
     if (SafeAreaProvider.Log.lastInfo == undefined)
@@ -53,7 +55,6 @@ export default function Filter({ navigation }) {
     else {
       setUser(SafeAreaProvider.Log.lastInfo)
     }
-    console.log(SafeAreaProvider.Log.lastInfo)
   }, [IsFocused])
 
   /**
@@ -62,9 +63,11 @@ export default function Filter({ navigation }) {
  */
   const assertToContext = (filter, push) => {
     setUser(old => {
-
-      let res = { ...old }
-
+      let res
+      if (typeof old == 'string')
+        res = { budget: 0, time: 0, filter: [] }
+      else
+        res = { ...old }
       if (push == true)
         res.filter.push(filter)
       else
@@ -73,6 +76,7 @@ export default function Filter({ navigation }) {
       return res
     })
   }
+
 
   /**
    * Hook to return repeatedly Views with FilterButton from filters fetch from API
@@ -99,7 +103,6 @@ export default function Filter({ navigation }) {
 
 
   const buildDisplayBuget = () => {
-    console.log('load')
     return (
       <View style={{ width: '100%', display: 'flex', alignItems: 'center', marginTop: 10 }} >
         <View style={{ paddingBottom: '30%', display: 'flex', alignItems: 'center' }}>
@@ -123,11 +126,15 @@ export default function Filter({ navigation }) {
 
   const handleChange = (type, e) => {
     setUser(old => {
-      let res = old
-      if (type == 1)
-        res.budget = e * 10000
+      let res
+      if (typeof old == 'string')
+        res = { budget: 0, time: 0, filter: [] }
       else
-        res.time = e * 10000
+        res = { ...old }
+      if (type == 1)
+        res.budget = e
+      else
+        res.time = e
       return res
     })
   }
@@ -163,19 +170,13 @@ export default function Filter({ navigation }) {
   }
 
   const patchUserInfo = async () => {
-    console.log(infoUser)
     await setInfoUser(SafeAreaProvider.Log.token, SafeAreaProvider.Log.id, infoUser
     ).then(async () => {
-      console.log('start')
       if (infoUser.filter.lenght != 0 || infoUser.filter) {
-        console.log(infoUser.filter)
         await getGeneratedPlace(SafeAreaProvider.Log.id, SafeAreaProvider.Log.token).then(async (places) => {
-          console.log('in')
 
           SafeAreaProvider.place = places
           await getPath(JSON.parse(places), { "y": 3.060966, "x": 50.631305 }, SafeAreaProvider.Log.id).then(async (path) => {
-            console.log('end')
-
             SafeAreaProvider.map = path
             //ERROR MANAGEMENT QUAND JULIEN AURA FIX 592ecbc0-e50f-4ea1-a142-d034c20e7470
           })

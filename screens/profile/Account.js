@@ -74,10 +74,6 @@ export default function Account() {
     setEdit(false)
   }
 
-  const getInfo = async () => {
-    console.log("USER:", SafeAreaProvider.Log)
-  }
-
   return (
       <View style={[global.container, {padding: 15}]}>
         <Text style={[text.medium]}>{t('profile')}</Text>

@@ -46,19 +46,19 @@ export function LogInScreen({ navigation }) {
   const [isChecked, setChecked] = useState(false)
   const [isLoading, setLoading] = useState(false)
   const [isOpen, setOpen] = useState(false)
-  const {t, i18n} = useTranslation();
+  const { t, i18n } = useTranslation();
 
   async function EasySignIn(email, password) {
     setLoading(true)
     if (isChecked)
       save(Email, Password, isChecked)
-    else 
+    else
       remove()
     const res = await signIn(email, password)
     if (res.hasError == true) {
       setError(true)
       setLoading(false)
-  }
+    }
 
     else {
       SafeAreaProvider.Loged(true)
@@ -79,8 +79,8 @@ export function LogInScreen({ navigation }) {
   }, [])
 
   return (
-    <View style={[global.container, {padding: 15}]}>
-        { isLoading ?
+    <View style={[global.container, { padding: 15 }]}>
+      {isLoading ?
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <LottieView
             source={require('../../assets/98432-loading.json')}
@@ -92,27 +92,27 @@ export function LogInScreen({ navigation }) {
             loop
           />
         </View>
-      :
-      <>
-        <Feather style={{margin: 5}} name={'arrow-left'} size={24} onPress={navigation.goBack}/>
+        :
+        <>
+          <Feather style={{ margin: 5 }} name={'arrow-left'} size={24} onPress={navigation.goBack} />
 
-        <TextInput autoComplete='email' style={[textInput.global, { borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue') }]} title={t('what\'s your email') + '?'} onChangeText={setEmail} value={Email} />
-        <TextInput autoComplete='password' secret={true} style={[textInput.global, { borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue') }]} title={t('what\'s your password') + '?'} onChangeText={setPassword} value={Password} />
-        <Text style={Error ? color.errorRed : null}>{Error ? t('wrong mail or password') : ""}</Text>
-        
-      
-        <View style={{ display: 'flex', flexDirection: 'row', marginLeft: 5 }}>
-          <Checkbox value={isChecked} onValueChange={() => setChecked(!isChecked)} />
-          <Text>{'  ' + t('remember me')}</Text>
-        </View>
+          <TextInput autoComplete='email' style={[textInput.global, { borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue') }]} title={t('what\'s your email') + '?'} onChangeText={setEmail} value={Email} />
+          <TextInput autoComplete='password' secret={true} style={[textInput.global, { borderColor: Colors(Error ? 'ErrorRed' : 'dedalBlue') }]} title={t('what\'s your password') + '?'} onChangeText={setPassword} value={Password} />
+          <Text style={Error ? color.errorRed : null}>{Error ? t('wrong mail or password') : ""}</Text>
 
-        <View style={global.bottomContainer}>
+
+          <View style={{ display: 'flex', flexDirection: 'row', marginLeft: 5 }}>
+            <Checkbox value={isChecked} onValueChange={() => setChecked(!isChecked)} />
+            <Text>{'  ' + t('remember me')}</Text>
+          </View>
+
+          <View style={global.bottomContainer}>
             <TextButton title={t('log in')} onPress={() => EasySignIn(Email, Password)} />
-          <Text style={{ marginTop: 15, fontSize: 14 }} onPress={() => setOpen(true)} >{t('forgot your password') + "?"}</Text>
-        </View>
+            <Text style={{ marginTop: 15, fontSize: 14 }} onPress={() => setOpen(true)} >{t('forgot your password') + "?"}</Text>
+          </View>
 
-        <BasicModal Open={isOpen} setOpen={setOpen} Content={AskEmailModal} />
-      </>
+          <BasicModal Open={isOpen} setOpen={setOpen} Content={AskEmailModal} />
+        </>
       }
     </View>
   )

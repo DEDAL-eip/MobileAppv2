@@ -6,16 +6,17 @@
  * @param {string} id
  * @return {TODO} 
  */
-export async function getPlace (id, token) {
+export async function getPlace(id, token) {
     return await fetch(`http://52.166.128.133/places/?id=` + id, {
-    method : 'GET',
-    headers: {
-        'Content-type': 'application/json',
-        'x-access-token' : token,
-        'Accept': '*/*' }
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/json',
+            'x-access-token': token,
+            'Accept': '*/*'
+        }
     })
-    .then(res => res.json())
-    .catch(err => ({hasError : true, status : err}))
+        .then(res => res.json())
+        .catch(err => ({ hasError: true, status: err }))
 }
 
 /**
@@ -25,10 +26,10 @@ export async function getPlace (id, token) {
  * @param {string} token
  * @return {TODO} 
  */
-export async function getFilter (token) {
+export async function getFilter(token) {
     return await fetch('http://52.166.128.133/filter/?token=' + token)
-    .then(res => res.json())
-    .catch(err => ({hasError : true, status : err}))
+        .then(res => res.json())
+        .catch(err => ({ hasError: true, status: err }))
 }
 
 
@@ -43,17 +44,19 @@ export async function getFilter (token) {
  * @return {TODO} 
  */
 export async function getPath(places, position, id) {
-    return await fetch(`http://52.166.128.133/path_finding/?id=${id}`,{
-    method : 'POST',
-    headers: { 'Content-type': 'application/json',
-        'Accept': '*/*' },
-    body : JSON.stringify({
-        places : places,
-        position : position
+    return await fetch(`http://52.166.128.133/path_finding/?id=${id}`, {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json',
+            'Accept': '*/*'
+        },
+        body: JSON.stringify({
+            places: places,
+            position: position
+        })
     })
-    })
-    .then(res => res.json())
-    .catch(err => ({hasError : true, status : err}))
+        .then(res => res.json())
+        .catch(err => ({ hasError: true, status: err }))
 }
 
 
@@ -64,29 +67,30 @@ export async function getPath(places, position, id) {
  * @param {string} id
  * @return {TODO} 
  */
-export async function getMap (id, token) {
+export async function getMap(id, token) {
     return await fetch(`http://52.166.128.133/map/?id=${id}`, {
         method: 'GET',
         'Content-type': 'application/json',
         headers: {
-            'x-access-token' : token,
-            'Accept': '*/*' 
+            'x-access-token': token,
+            'Accept': '*/*'
         }
     })
-    .then(res => res.json())
-    .catch(err => ({hasError : true, status : err}))
+        .then(res => res.json())
+        .catch(err => ({ hasError: true, status: err }))
 }
 
-export async function getGeneratedPlace (id, token) {
+export async function getGeneratedPlace(id, token) {
     return await fetch(`http://52.166.128.133/places_generate/?id=${id}`, {
         method: 'POST',
         'Content-type': 'application/json',
         headers: {
-            'x-access-token' : token,
-            'Accept': '*/*' 
+            'x-access-token': token,
+            'Accept': '*/*'
         }
     })
-    .then(res =>{
-        return res.text().then(res => res)})
+        .then(res => {
+            return res.text().then(res => res)
+        })
 }
 
