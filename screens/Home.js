@@ -25,7 +25,6 @@ async function save(email, password, check) {
 
 async function getValueFor() {
   let result = await SecureStore.getItemAsync('onboarding');
-  console.log(result)
   return JSON.parse(result)
 }
 
@@ -77,26 +76,33 @@ export default function Home() {
   }
 
   const askUserInfo = async () => {
-    if (!SafeAreaProvider.map) {
-      let res = await getMap(SafeAreaProvider.Log.id, SafeAreaProvider.Log.token)
-      if (res.LongLat != undefined) {
-        askMap(res)
-      }
-    }
-    if (SafeAreaProvider.Place) {
-      setPlace(SafeAreaProvider.Place)
-    }
-    else
-      createItinerary()
+    createItinerary()
+    // if (!SafeAreaProvider.map) {
+    //   console.log('map')
+    //   let res = await getMap(SafeAreaProvider.Log.id, SafeAreaProvider.Log.token)
+    //   console.log(res)
+    //   if (res.LongLat != undefined) {
+    //     askMap(res)
+    //   }
+    // }
+    // if (SafeAreaProvider.Place) {
+    //   console.log('place =< ' + SafeAreaProvider.Place.Buildings)
+    //   setPlace(SafeAreaProvider.Place)
+    // }
+
   }
 
   /**
    *  Call the lambda to create the map 
   */
   const createItinerary = async () => {
+    console.log('here')
     await getGeneratedPlace(SafeAreaProvider.Log.id, SafeAreaProvider.Log.token).then(async (places) => {
-      if (places.hasError)
+      if (places.hasError) {
+        console.log('error')
         return
+      }
+      console.log(places)
       setPlace(JSON.parse(places))
       SafeAreaProvider.Place = JSON.parse(places)
       //await getPath(JSON.parse(places), { "y": 3.060966, "x": 50.631305 }, SafeAreaProvider.Log.id)
@@ -125,11 +131,9 @@ export default function Home() {
   useEffect(() => {
     const getFirstStep = async () => {
       let first_step = await getValueFor()
-      console.log('first step =>' + firstStep)
       if (firstStep == 0 || firstStep.check == false)
         setFIrstStepShow(true)
     }
-    endFirstStep()
     getFirstStep()
     askPosition()
     askUserInfo()

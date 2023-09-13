@@ -3,7 +3,7 @@ import FilterButton from '../components/FilterButton';
 import getFilters, { getInfoUser, setInfoUser } from "../API/Filters";
 import { global, shadow, button } from "../style/styles";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { useDeferredValue, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { TextButton } from "../components/buttons/TextButton";
 import { ScrollView } from "react-native";
 import Slider from '@react-native-community/slider';
@@ -43,7 +43,7 @@ export default function Filter({ navigation }) {
     const getInfo = async () => {
       const res = await getInfoUser(SafeAreaProvider.Log.token, SafeAreaProvider.Log.id)
       if (res.hasError)
-         setUser({ budget: null, time: null, filter: [] })
+        setUser({ budget: null, time: null, filter: [] })
       else
         setUser(res)
     }
@@ -52,7 +52,8 @@ export default function Filter({ navigation }) {
       getInfo()
     else {
       setUser(SafeAreaProvider.Log.lastInfo)
-    } 
+    }
+    console.log(SafeAreaProvider.Log.lastInfo)
   }, [IsFocused])
 
   /**
@@ -94,10 +95,11 @@ export default function Filter({ navigation }) {
   }, [infoUser, APIfilterz])
 
   useEffect(() => {
-  },[infoUser])
+  }, [infoUser])
 
 
   const buildDisplayBuget = () => {
+    console.log('load')
     return (
       <View style={{ width: '100%', display: 'flex', alignItems: 'center', marginTop: 10 }} >
         <View style={{ paddingBottom: '30%', display: 'flex', alignItems: 'center' }}>
@@ -122,11 +124,10 @@ export default function Filter({ navigation }) {
   const handleChange = (type, e) => {
     setUser(old => {
       let res = old
-      
       if (type == 1)
-        res.budget = e
+        res.budget = e * 10000
       else
-        res.time = e
+        res.time = e * 10000
       return res
     })
   }
@@ -162,17 +163,24 @@ export default function Filter({ navigation }) {
   }
 
   const patchUserInfo = async () => {
-    await setInfoUser(SafeAreaProvider.Log.token, SafeAreaProvider.Log.id,infoUser
+    console.log(infoUser)
+    await setInfoUser(SafeAreaProvider.Log.token, SafeAreaProvider.Log.id, infoUser
     ).then(async () => {
-      if (infoUser.filter.lenght != 0 || infoUser.filter ) {
+      console.log('start')
+      if (infoUser.filter.lenght != 0 || infoUser.filter) {
+        console.log(infoUser.filter)
         await getGeneratedPlace(SafeAreaProvider.Log.id, SafeAreaProvider.Log.token).then(async (places) => {
+          console.log('in')
+
           SafeAreaProvider.place = places
           await getPath(JSON.parse(places), { "y": 3.060966, "x": 50.631305 }, SafeAreaProvider.Log.id).then(async (path) => {
+            console.log('end')
 
             SafeAreaProvider.map = path
-          //ERROR MANAGEMENT QUAND JULIEN AURA FIX 592ecbc0-e50f-4ea1-a142-d034c20e7470
+            //ERROR MANAGEMENT QUAND JULIEN AURA FIX 592ecbc0-e50f-4ea1-a142-d034c20e7470
+          })
         })
-      })}
+      }
     })
     navigation.navigate('Home')
   }
