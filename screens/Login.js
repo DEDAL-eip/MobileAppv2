@@ -14,9 +14,7 @@ import { useEffect } from "react";
 import SignUp from "../components/SignUp";
 import * as SecureStore from 'expo-secure-store';
 import Checkbox from 'expo-checkbox';
-import { TouchableOpacity } from "react-native-gesture-handler";
 import BasicModal from "../components/modal";
-import { ModalLoginCode } from "../components/Modal/Login-Code";
 import { AskEmailModal } from "../components/Modal/AskEmail";
 
 

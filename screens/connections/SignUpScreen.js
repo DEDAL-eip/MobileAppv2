@@ -26,7 +26,7 @@ export function SignUpScreen({ navigation }) {
     const [code, setCode] = useState("")
     const [state, setState] = useState(0)
     const [error, setError] = useState(false)
-    const {t, i18n} = useTranslation();
+    const { t, i18n } = useTranslation();
 
     const checkMailError = () => !email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)
     const checkPasswordError = () => !password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/)
@@ -53,10 +53,10 @@ export function SignUpScreen({ navigation }) {
 
     return (
         <View style={global.container}>
-            <Feather style={{margin: 10}} name={'arrow-left'} size={24} onPress={navigation.goBack}/>
+            <Feather style={{ margin: 10 }} name={'arrow-left'} size={24} onPress={navigation.goBack} />
             <View style={[global.basicContainer, { marginBottom: 20 }]}>
-                <TextInput autoCapitalize='none' style={[textInput.global, { borderColor: Colors(checkMailError() ? 'ErrorRed' : 'dedalBlue') }]} title={t('what\'s your email') + '?'} onChangeText={setEmail} value={email} />
-                <TextInput secret={'true'} autoCapitalize='none' style={[textInput.global, { borderColor: Colors(checkPasswordError() ? 'ErrorRed' : 'dedalBlue') }]} title={t('what\'s your password') + '?'} onChangeText={setPassword} value={password} />
+                <TextInput autoCapitalize='none' style={[textInput.global, { borderColor: Colors(checkMailError() ? 'ErrorRed' : 'dedalBlue') }]} title={"what's your email ?"} onChangeText={setEmail} value={email} />
+                <TextInput autoCapitalize='none' style={[textInput.global, { borderColor: Colors(checkPasswordError() ? 'ErrorRed' : 'dedalBlue') }]} title={"what's your password?"} onChangeText={setPassword} value={password} />
                 {!state ?
                     <View style={{ paddingTop: 20 }}>
                         <Text>{t('your password must contain at least') + ':'}</Text>
