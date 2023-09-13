@@ -14,6 +14,7 @@ import '../constants/languages/i18n';
 import { useTranslation } from 'react-i18next';
 import * as SecureStore from 'expo-secure-store';
 import data from '../constants/onboarding.json';
+import { Button } from "react-native-paper";
 
 
 
@@ -24,6 +25,7 @@ async function save(email, password, check) {
 
 async function getValueFor() {
   let result = await SecureStore.getItemAsync('onboarding');
+  console.log(result)
   return JSON.parse(result)
 }
 
@@ -123,9 +125,11 @@ export default function Home() {
   useEffect(() => {
     const getFirstStep = async () => {
       let first_step = await getValueFor()
-      if (!first_step.checked)
+      console.log('first step =>' + firstStep)
+      if (firstStep == 0 || firstStep.check == false)
         setFIrstStepShow(true)
     }
+    endFirstStep()
     getFirstStep()
     askPosition()
     askUserInfo()
@@ -135,6 +139,7 @@ export default function Home() {
     <View style={global.container}>
 
       <MapView style={map}
+        loadingIndicatorColor="black"
         provider={PROVIDER_GOOGLE}
         region={{
           latitude: location ? location.coords.latitude : 0,
@@ -183,15 +188,17 @@ export default function Home() {
           }
           )
         }
+
       </MapView>
+
       {firstStepShow ?
         <View style={{ position: 'absolute', left: 0, bottom: 0, width: '100%', height: '100%', display: 'flex', alignItems: "center", backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
-          <View style={{ width: '90%', height: '25%' }}>
+          <View style={{ width: '90%', height: '25%', display: 'flex' }}>
             <TouchableOpacity style={[styles.card, global.row, { backgroundColor: palette.global.dedalBlue }]}>
               <Entypo name="chevron-left" size={24} color="white" onPress={() => setFIrstStep(firstStep == 0 ? firstStep : firstStep - 1)} />
               <View style={{ width: '80%' }}>
-                <Text style={styles.title}>{data.step[firstStep].title}</Text>
-                <Text style={styles.description}>{data.step[firstStep].description}</Text>
+                <Text style={[styles.title, { textAlign: 'center' }]}>{data.step[firstStep].title}</Text>
+                <Text style={[styles.description, { textAlign: 'center' }]}>{data.step[firstStep].description}</Text>
               </View>
               <Entypo name="chevron-right" size={24} color="white" onPress={() => firstStep == data.step.length - 1 ? endFirstStep(false) : setFIrstStep(firstStep + 1)} />
             </TouchableOpacity>
