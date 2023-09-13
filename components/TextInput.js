@@ -16,12 +16,12 @@ export const TextInput = (({
     autoComplete,
 }) => {
     const theme = useColorScheme();
-    const [hide, setHide] = useState(true)
+    const [hide, setHide] = useState(secret)
 
     return (
         <View style={{ marginTop: 10 }}>
             <Text style={[text.small]}>{title}</Text>
-            <View style={{ flexDirection: 'row'}}>
+            <View style={{ flexDirection: 'row' }}>
                 <DefaultTextInput
                     autoComplete={autoComplete}
                     style={[{ color: Colors('Text', theme), backgroundColor: editable ? 'transparent' : Colors('dedalBlueDisable') }, style]}
@@ -31,14 +31,14 @@ export const TextInput = (({
                     onChangeText={onChangeText}
                     value={value}
                     placeholder={placeholder}
-                    secureTextEntry={secret}
+                    secureTextEntry={hide ? secret : false}
                 />
                 {secret ?
-                    <Feather style={{marginLeft : -40, marginTop: 17.5}} name={hide ? "eye" : "eye-off"} size={24} onPress={() => setHide(!hide)}/>
+                    <Feather style={{ marginLeft: -40, marginTop: 17.5 }} name={hide ? "eye" : "eye-off"} size={24} onPress={() => setHide(!hide)} />
                     :
                     <></>
                 }
-            </View>         
+            </View>
         </View>
     )
 })
