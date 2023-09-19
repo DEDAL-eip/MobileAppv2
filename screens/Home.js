@@ -62,20 +62,20 @@ export default function Home() {
     SafeAreaProvider.location = location
   }
 
-  // /**
-  //  * Get target map from the API
-  //  * Extract the path and the building in Path and Place
-  //  */
-  // const askMap = async (res) => {
-  //   setPath(res.LongLat)
-  //   if (Place.length == 0) {
-  //     let result = res.Buildings ? await Promise.all(res.Buildings.map(async elem => {
-  //       return await getPlace(elem.id, SafeAreaProvider.Log.token)
-  //     })) : null
-  //     setPlace(result)
-  //     SafeAreaProvider.Place = result
-  //   }
-  // }
+  /**
+   * Get target map from the API
+   * Extract the path and the building in Path and Place
+   */
+  const askMap = async (res) => {
+    setPath(res.LongLat)
+    if (Place.length == 0) {
+      let result = res.Buildings ? await Promise.all(res.Buildings.map(async elem => {
+        return await getPlace(elem.id, SafeAreaProvider.Log.token)
+      })) : null
+      setPlace(result)
+      SafeAreaProvider.Place = result
+    }
+  }
 
   const askUserInfo = async () => {
     createItinerary()
@@ -104,34 +104,33 @@ export default function Home() {
       }
       setPlace(JSON.parse(places))
       SafeAreaProvider.Place = JSON.parse(places)
-      await getPath(JSON.parse(places), { "y": 3.060966, "x": 50.631305 }, SafeAreaProvider.Log.id)
-      askMap()
+      await getPath(JSON.parse(places), { "y": 3.060966, "x": 50.631305 }, SafeAreaProvider.Log.id).then(res => askMap(res))
     })
   }
 
-  // const getNext = () => {
-  //   let index = Place.map(e => e.id).indexOf(selected.id) + 1
-  //   if (index >= Place.length)
-  //     return
-  //   setSelected(Place[index])
-  // }
-  // const getPrev = () => {
-  //   let index = Place.map(e => e.id).indexOf(selected.id) - 1
-  //   if (index < 0)
-  //     return
-  //   setSelected(Place[index])
-  // }
+  const getNext = () => {
+    let index = Place.map(e => e.id).indexOf(selected.id) + 1
+    if (index >= Place.length)
+      return
+    setSelected(Place[index])
+  }
+  const getPrev = () => {
+    let index = Place.map(e => e.id).indexOf(selected.id) - 1
+    if (index < 0)
+      return
+    setSelected(Place[index])
+  }
 
-  // const endFirstStep = () => {
-  //   setFIrstStepShow(false)
-  //   save()
-  // }
+  const endFirstStep = () => {
+    setFIrstStepShow(false)
+    save()
+  }
 
-  // useEffect(() => {
+  useEffect(() => {
 
-  // askPosition()
-  //   askUserInfo()
-  // }, [IsFocused]);
+    askPosition()
+    askUserInfo()
+  }, [IsFocused]);
 
   useEffect(() => {
     const getFirstStep = async () => {

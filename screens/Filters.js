@@ -134,7 +134,7 @@ export default function Filter({ navigation }) {
       if (type == 1)
         res.budget = e
       else
-        res.time = e
+        res.time = e * 1000
       return res
     })
   }
@@ -155,7 +155,7 @@ export default function Filter({ navigation }) {
           maximumTrackTintColor="#ffffff"
           step={1}
           value={infoUser.time || 0}
-          onValueChange={(e) => handleChange(0, e)}
+          onValueChange={(e) => handleChange(0, e * 60)}
         />
       </View>
     )
